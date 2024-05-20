@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bi55tqinwgdp8"]
+
+[ext_resource type="Script" path="res://Scripts/gravityPlayer.gd" id="1_45wk2"]
+[ext_resource type="Texture2D" uid="uid://c0r1gis0y3wse" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap-characters_packed.png" id="3_p1xi0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vruan"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wevy"]
+atlas = ExtResource("3_p1xi0")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epke3"]
+atlas = ExtResource("3_p1xi0")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4yqe8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wevy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epke3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="GravityPlayer" type="CharacterBody2D"]
+script = ExtResource("1_45wk2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vruan")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 5
+sprite_frames = SubResource("SpriteFrames_4yqe8")
+animation = &"idle"
+autoplay = "idle"

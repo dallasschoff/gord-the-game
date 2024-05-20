@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvurrxw4t1w7x"]
+
+[ext_resource type="PackedScene" uid="uid://csb7wbxmb2esy" path="res://Scenes/Terrain.tscn" id="1_lokti"]
+[ext_resource type="PackedScene" uid="uid://bi55tqinwgdp8" path="res://Scenes/GravityPlayer.tscn" id="2_qnh1h"]
+[ext_resource type="PackedScene" uid="uid://cons8miakf58n" path="res://Scenes/RigidBodyX.tscn" id="3_xs6x7"]
+
+[node name="Game" type="Node2D"]
+
+[node name="TerrainGroup" type="Node2D" parent="."]
+
+[node name="Terrain" parent="TerrainGroup" instance=ExtResource("1_lokti")]
+position = Vector2(128, 640)
+
+[node name="Terrain2" parent="TerrainGroup" instance=ExtResource("1_lokti")]
+position = Vector2(384, 640)
+
+[node name="Terrain3" parent="TerrainGroup" instance=ExtResource("1_lokti")]
+position = Vector2(640, 640)
+
+[node name="Terrain4" parent="TerrainGroup" instance=ExtResource("1_lokti")]
+position = Vector2(896, 640)
+
+[node name="GravityPlayer" parent="." instance=ExtResource("2_qnh1h")]
+position = Vector2(567, 132)
+
+[node name="RigidGroup" type="Node2D" parent="."]
+
+[node name="RigidBodyX" parent="RigidGroup" instance=ExtResource("3_xs6x7")]
+position = Vector2(180, 288)
