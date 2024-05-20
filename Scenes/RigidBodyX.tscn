@@ -15,6 +15,6 @@ z_index = 1
 scale = Vector2(0.95, 0.95)
 shape = SubResource("RectangleShape2D_sxxvv")
 
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_3vnb8")
 region_rect = Rect2(0, 0, 128, 128)

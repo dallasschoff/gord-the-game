@@ -30,6 +30,7 @@ texture_region_size = Vector2i(18, 18)
 3:0/0 = 0
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9)
 3:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_1/angular_velocity = 0.0
 4:0/0 = 0
@@ -1036,22 +1037,22 @@ z_index = 1
 position = Vector2(-31, -180)
 
 [node name="RigidBodyX3" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
-position = Vector2(524, 169)
+position = Vector2(524, 384)
 
 [node name="RigidBodyX4" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
-position = Vector2(542, 151)
+position = Vector2(542, 366)
 
 [node name="RigidBodyX5" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
-position = Vector2(560, 133)
+position = Vector2(560, 348)
 
 [node name="RigidBodyX" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
 position = Vector2(207, 332)
 
 [node name="RigidBodyX8" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
-position = Vector2(542, 115)
+position = Vector2(542, 330)
 
 [node name="RigidBodyX9" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
-position = Vector2(560, 169)
+position = Vector2(560, 384)
 
 [node name="RigidBodyX10" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
-position = Vector2(560, 97)
+position = Vector2(560, 312)

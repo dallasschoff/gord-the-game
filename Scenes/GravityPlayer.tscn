@@ -38,3 +38,4 @@ z_index = 5
 sprite_frames = SubResource("SpriteFrames_4yqe8")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.142071
