@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dp0t8u75oe6" path="res://Assets/kenney_pixel-platformer/Tiles/tile_0026.png" id="1_3vnb8"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8b46n"]
-absorbent = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxxvv"]
 size = Vector2(18, 18)
@@ -13,6 +12,7 @@ physics_material_override = SubResource("PhysicsMaterial_8b46n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
+scale = Vector2(0.95, 0.95)
 shape = SubResource("RectangleShape2D_sxxvv")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
