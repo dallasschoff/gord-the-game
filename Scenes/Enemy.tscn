@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1beqtkqyu8x1"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
+[ext_resource type="Texture2D" uid="uid://51hnnfpcevs6" path="res://Assets/icon.svg" id="2_bw85g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83saj"]
+size = Vector2(32, 32)
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(172, 112)
+script = ExtResource("1_qdflj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_bw85g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_83saj")

@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
+class_name GravityPlayer
+
 const WALK_FORCE = 600
 const WALK_MAX_SPEED = 200
 const STOP_FORCE = 1000
 const JUMP_SPEED = 300
-
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
