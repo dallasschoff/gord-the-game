@@ -5,6 +5,8 @@ Developer Notes
 	After some rounds, the player goes to the store and gets a random weapon pool based on their level
 	Some sort of currency system
 	Maybe "energy" resource for special ability
+	Progression with bosses
+	New movement abilities as you progress, allowing you to explore new areas in the same world.
 
 Development Plan
   Player

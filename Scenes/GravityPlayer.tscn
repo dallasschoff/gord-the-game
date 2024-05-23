@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi55tqinwgdp8"]
+[gd_scene load_steps=8 format=3 uid="uid://bi55tqinwgdp8"]
 
 [ext_resource type="Script" path="res://Scripts/gravityPlayer.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c0r1gis0y3wse" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap-characters_packed.png" id="3_p1xi0"]
@@ -27,6 +27,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0oo7"]
+size = Vector2(34, 8)
+
 [node name="GravityPlayer" type="CharacterBody2D"]
 script = ExtResource("1_45wk2")
 
@@ -35,7 +38,14 @@ shape = SubResource("RectangleShape2D_vruan")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 5
+scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.142071
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(27, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_m0oo7")
