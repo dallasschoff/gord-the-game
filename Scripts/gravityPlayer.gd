@@ -53,6 +53,5 @@ func _physics_process(delta):
 		velocity.y = -JUMP_SPEED
 
 func _on_animated_sprite_2d_animation_finished():
-		animated_sprite.frame = 4
 		if is_on_floor():
 			animated_sprite.stop()
