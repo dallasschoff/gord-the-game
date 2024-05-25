@@ -1,6 +1,6 @@
 [gd_scene load_steps=47 format=3 uid="uid://bi55tqinwgdp8"]
 
-[ext_resource type="Script" path="res://Scripts/gravityPlayer.gd" id="1_45wk2"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://n0nuaep8vq4h" path="res://Assets/generic_char_v0.2/png/purple/char_purple_1.png" id="2_jce60"]
 [ext_resource type="Texture2D" uid="uid://4p4iwbqehc6o" path="res://Assets/generic_char_v0.2/png/purple/char_purple_2.png" id="3_2akdk"]
 
@@ -322,8 +322,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0oo7"]
 size = Vector2(47, 22)
 
-[node name="GravityPlayer" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_45wk2")
+MAX_HEALTH = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vruan")
