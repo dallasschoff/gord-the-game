@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ducaw1t6w2tjf" path="res://Assets/Health Bar/healthbarUnder.png" id="5_r2dha"]
 [ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgress.png" id="6_gdj80"]
 [ext_resource type="Script" path="res://Scripts/healthBar.gd" id="7_mqyf0"]
+[ext_resource type="PackedScene" uid="uid://c1beqtkqyu8x1" path="res://Scenes/Enemy.tscn" id="5_rruqm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xxq0m"]
 resource_name = "world-tiles"
@@ -1077,3 +1078,6 @@ texture_under = ExtResource("5_r2dha")
 texture_progress = ExtResource("6_gdj80")
 script = ExtResource("7_mqyf0")
 player = NodePath("../../GravityPlayer")
+
+[node name="Enemy" parent="." instance=ExtResource("5_rruqm")]
+position = Vector2(668, 212)

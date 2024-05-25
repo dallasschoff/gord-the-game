@@ -320,7 +320,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0oo7"]
-size = Vector2(31, 8)
+size = Vector2(47, 22)
 
 [node name="GravityPlayer" type="CharacterBody2D"]
 script = ExtResource("1_45wk2")
@@ -350,10 +350,10 @@ target_position = Vector2(0, 12)
 collide_with_areas = true
 
 [node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(27, -9)
+position = Vector2(34, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-1.5, 0)
+position = Vector2(-24.5, 7)
 shape = SubResource("RectangleShape2D_m0oo7")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
