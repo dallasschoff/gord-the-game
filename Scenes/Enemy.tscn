@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=7 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://51hnnfpcevs6" path="res://Assets/icon.svg" id="2_bw85g"]
+[ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgress.png" id="4_h2tn8"]
+[ext_resource type="Script" path="res://Scripts/enemyHealthBar.gd" id="5_oqxo7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83saj"]
 size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1nk1"]
+size = Vector2(50, 22)
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_qdflj")
@@ -16,7 +21,23 @@ shape = SubResource("RectangleShape2D_83saj")
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_bw85g")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(34, -8)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_83saj")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(-34, 7)
+shape = SubResource("RectangleShape2D_a1nk1")
+
+[node name="EnemyHealthBar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("enemy")]
+offset_left = -16.0
+offset_top = -30.0
+offset_right = 16.0
+offset_bottom = -21.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_progress = ExtResource("4_h2tn8")
+script = ExtResource("5_oqxo7")
+enemy = NodePath("..")
