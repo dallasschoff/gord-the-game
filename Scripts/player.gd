@@ -19,12 +19,17 @@ var landing_window = 0
 var landing = false
 var attacking_cooldown = 0
 var attacking = false
+var running_attacking_cooldown = 0
+var running_attacking = false
+var crouching_cooldown = 0
+var crouching = false
 var hitting = false
 var moving = false
 var isHurt: bool = false
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_sprite_puff = $AnimatedSprite2D/AnimatedSpritePuff
 @onready var landing_ray1 = $LandingRay1
 @onready var landing_ray2 = $LandingRay2
 @export var enemy: Area2D
@@ -44,9 +49,11 @@ func handle_player_movement(delta):
 	if Input.is_action_pressed("walk"):
 		WALK_FORCE = 200
 		WALK_MAX_SPEED = 50
+		moving = true
 	if Input.is_action_just_released("walk"):
 		WALK_FORCE = 600
 		WALK_MAX_SPEED = 200
+		moving = true
 	
 	# Horizontal movement code. First, get the player's input.
 	var walk = WALK_FORCE * (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
@@ -75,6 +82,10 @@ func handle_player_movement(delta):
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = -JUMP_SPEED
 
+	# Check for double jumping. is_on_floor() must be called after movement code.
+	if !is_on_floor() and Input.is_action_just_pressed("jump"):
+		velocity.y = -JUMP_SPEED
+
 #--------------------------------#
 
 func handle_player_animations():
@@ -88,41 +99,67 @@ func handle_player_animations():
 	# Play landing animation if landing
 	if (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and !is_on_floor() and velocity.y > 0:
 		animated_sprite.play("landing")
-		landing_window = 16
+		landing_window = 12
 		landing = true
+		running_attacking = false
 		print("landing")
 
 	# Play jumping animation if rising/falling
+	if !is_on_floor() and Input.is_action_just_pressed("jump") and !landing_ray1.is_colliding() and !landing_ray2.is_colliding():
+		animated_sprite.stop()
+		animated_sprite.play("double_jumping")
+		animated_sprite_puff.play("puff")
+		print("double jumping")
+
+	# Play double jump animation
 	if velocity.y != 0 and !landing_ray1.is_colliding() and !landing_ray2.is_colliding():
 		animated_sprite.play("jumping")
 		print("jumping")
 
 	# Play idle animation if not moving
-	if velocity.x == 0 and velocity.y == 0 and !landing and !attacking:
+	if velocity.x == 0 and velocity.y == 0 and !landing and !attacking and !crouching:
 		animated_sprite.play("idle")
 		moving = false
+		running_attacking = false
 		print("idle")
 
-	# Play walk  animation if moving on ground at low speed
-	if is_on_floor() and abs(velocity.x) > 10 and abs(velocity.x) < 100 and !landing:
+	# Play walk animation if moving on ground at low speed
+	if is_on_floor() and abs(velocity.x) > 10 and abs(velocity.x) < 100 and !landing and !running_attacking:
 		animated_sprite.play("walking")
 		moving = true
 		print("walking")
 
 	# Play running animation if moving on ground at high speed
-	if is_on_floor() and abs(velocity.x) > 100 and !landing:
+	if is_on_floor() and abs(velocity.x) > 100 and !landing and !running_attacking:
 		animated_sprite.play("running")
 		moving = true
 		print("running")
 
 	# Play attack animation if attack
-	if is_on_floor() and Input.is_action_pressed("attack") and !moving:
+	if is_on_floor() and Input.is_action_pressed("attack") and !moving and !running_attacking and !attacking:
 		animated_sprite.play("attack")
-		attacking_cooldown = 20
+		attacking_cooldown = 24
 		attacking = true
 		attack_hit()
 		print("attacking")
-		
+
+	# Play running_attack animation if moving while attacking
+	if is_on_floor() and Input.is_action_pressed("attack") and moving and !running_attacking and !attacking and abs(velocity.x) > 100:
+		animated_sprite.play("running_attack")
+		attacking_cooldown = 24
+		attacking = true
+		running_attacking_cooldown = 24
+		running_attacking = true
+		attack_hit()
+		print("running attack")
+
+	# Play crouching animation if crouching
+	if is_on_floor() and Input.is_action_pressed("crouch") and !moving and !crouching:
+		animated_sprite.play("crouching")
+		crouching_cooldown = 20
+		crouching = true
+		print("crouching")
+
 #--------------------------------#
 		
 func handle_cooldowns():
@@ -139,7 +176,21 @@ func handle_cooldowns():
 	if attacking_cooldown > 0:
 		attacking_cooldown -= 1
 		moving = false
-		
+
+	if running_attacking_cooldown == 0:
+		running_attacking = false
+		hitting = false
+
+	if running_attacking_cooldown > 0:
+		running_attacking_cooldown -= 1
+		moving = true
+
+	if crouching_cooldown == 0:
+		crouching = false
+
+	if crouching_cooldown > 0:
+		crouching_cooldown -= 1
+
 #--------------------------------#
 
 func attack_hit():

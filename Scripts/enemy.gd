@@ -13,16 +13,19 @@ var SPEED = 30 #30 pixels per sec
 @onready var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var enemy_attack_area = $AttackArea
 var hit_cooldown = 0
+var is_dead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	healthChanged.emit()
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	move_character(delta)
 	attack_player()
+	death_check()
 	
 # Handle moving character left and right on its own
 func move_character(delta):
@@ -41,3 +44,7 @@ func attack_player():
 func hit_by_player():
 	CURRENT_HEALTH -= 10
 	healthChanged.emit()
+
+func death_check():
+	if CURRENT_HEALTH < 1:
+		queue_free()
