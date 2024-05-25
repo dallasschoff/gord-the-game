@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://7dqbt8amwd7m"]
+[gd_scene load_steps=12 format=3 uid="uid://7dqbt8amwd7m"]
 
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="1_c6qi5"]
 [ext_resource type="PackedScene" uid="uid://bi55tqinwgdp8" path="res://Scenes/GravityPlayer.tscn" id="2_m0co3"]
 [ext_resource type="PackedScene" uid="uid://cons8miakf58n" path="res://Scenes/RigidBodyX.tscn" id="3_kbx1v"]
 [ext_resource type="Texture2D" uid="uid://bu080wgnyr58e" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap-backgrounds_packed.png" id="4_cpca8"]
+[ext_resource type="Texture2D" uid="uid://ducaw1t6w2tjf" path="res://Assets/Health Bar/healthbarUnder.png" id="5_r2dha"]
+[ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgress.png" id="6_gdj80"]
+[ext_resource type="Script" path="res://Scripts/healthBar.gd" id="7_mqyf0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xxq0m"]
 resource_name = "world-tiles"
@@ -1056,3 +1059,21 @@ position = Vector2(560, 384)
 
 [node name="RigidBodyX10" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
 position = Vector2(560, 312)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 43.0
+offset_top = -65.0
+offset_right = 159.0
+offset_bottom = -45.0
+grow_vertical = 0
+scale = Vector2(3, 3)
+value = 50.0
+texture_under = ExtResource("5_r2dha")
+texture_progress = ExtResource("6_gdj80")
+script = ExtResource("7_mqyf0")
+player = NodePath("../../GravityPlayer")

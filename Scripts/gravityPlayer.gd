@@ -7,6 +7,10 @@ var WALK_MAX_SPEED = 200
 const STOP_FORCE = 1000
 const JUMP_SPEED = 350
 
+@export var MAX_HEALTH = 100
+@onready var CURRENT_HEALTH: int = MAX_HEALTH
+signal healthChanged
+
 # Action cooldowns
 var landing_window = 0
 var landing = false
@@ -21,6 +25,7 @@ var moving = false
 @onready var landing_ray2 = $LandingRay2
 
 func _physics_process(delta):
+	healthChanged.emit()
 	if Input.is_action_pressed("walk"):
 		WALK_FORCE = 200
 		WALK_MAX_SPEED = 50
