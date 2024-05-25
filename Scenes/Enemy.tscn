@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://51hnnfpcevs6" path="res://Assets/icon.svg" id="2_bw85g"]
-[ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgress.png" id="4_h2tn8"]
+[ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgressUnder.png" id="4_h2tn8"]
 [ext_resource type="Script" path="res://Scripts/enemyHealthBar.gd" id="5_oqxo7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83saj"]
