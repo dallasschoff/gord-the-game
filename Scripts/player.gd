@@ -13,6 +13,7 @@ var WALK_FORCE = 600
 var WALK_MAX_SPEED = 200
 const STOP_FORCE = 1000
 const JUMP_SPEED = 350
+const DOUBLE_JUMP_MULT = 1.2
 
 # Actions/Cooldowns
 var landing_window = 0
@@ -26,6 +27,8 @@ var crouching = false
 var hitting = false
 var moving = false
 var isHurt: bool = false
+var canDoubleJump = true
+
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
@@ -81,10 +84,12 @@ func handle_player_movement(delta):
 	# Check for jumping. is_on_floor() must be called after movement code.
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = -JUMP_SPEED
+		canDoubleJump = true
 
-	# Check for double jumping. is_on_floor() must be called after movement code.
-	if !is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y = -JUMP_SPEED
+	# Check for double jumping.
+	if !is_on_floor() and Input.is_action_just_pressed("jump") and canDoubleJump:
+		velocity.y = -JUMP_SPEED * DOUBLE_JUMP_MULT
+		canDoubleJump = false
 
 #--------------------------------#
 
@@ -92,10 +97,19 @@ func handle_player_animations():
 	# Flips player sprite based on left and right inputs.
 	if Input.get_action_strength("move_left"):
 		animated_sprite.flip_h = true
+		if animated_sprite_puff.position.x < 0:
+			animated_sprite_puff.position.x = animated_sprite_puff.position.x + 4.3
 
 	if Input.get_action_strength("move_right"):
 		animated_sprite.flip_h = false
-		
+		animated_sprite_puff.position.x = -2.33
+
+	if velocity.x == 0 and animated_sprite.flip_h == false:
+		animated_sprite_puff.position.x = -2.33
+
+	if velocity.x == 0 and animated_sprite.flip_h == true:
+		animated_sprite_puff.position.x = 2
+
 	# Play landing animation if landing
 	if (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and !is_on_floor() and velocity.y > 0:
 		animated_sprite.play("landing")
@@ -104,17 +118,21 @@ func handle_player_animations():
 		running_attacking = false
 		print("landing")
 
-	# Play jumping animation if rising/falling
-	if !is_on_floor() and Input.is_action_just_pressed("jump") and !landing_ray1.is_colliding() and !landing_ray2.is_colliding():
+# Play jumping animation if rising/falling
+	if velocity.y != 0 and !landing_ray1.is_colliding() and !landing_ray2.is_colliding():
+		animated_sprite.play("jumping")
+		print("jumping")
+
+# Play double jump animation
+	if !is_on_floor() and Input.is_action_just_pressed("jump") and !landing_ray1.is_colliding() and !landing_ray2.is_colliding() and canDoubleJump:
 		animated_sprite.stop()
 		animated_sprite.play("double_jumping")
 		animated_sprite_puff.play("puff")
 		print("double jumping")
 
-	# Play double jump animation
-	if velocity.y != 0 and !landing_ray1.is_colliding() and !landing_ray2.is_colliding():
-		animated_sprite.play("jumping")
-		print("jumping")
+# Reset canDoubleJump state
+	if is_on_floor():
+		canDoubleJump = true
 
 	# Play idle animation if not moving
 	if velocity.x == 0 and velocity.y == 0 and !landing and !attacking and !crouching:

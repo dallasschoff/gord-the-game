@@ -511,7 +511,7 @@ animation = &"double_jumping"
 autoplay = "idle"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
-position = Vector2(-2.5, 35.8333)
+position = Vector2(-2.333, 35)
 sprite_frames = SubResource("SpriteFrames_ppk2a")
 animation = &"puff"
 frame = 3
