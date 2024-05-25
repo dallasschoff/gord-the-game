@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://7dqbt8amwd7m"]
+[gd_scene load_steps=10 format=3 uid="uid://7dqbt8amwd7m"]
 
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="1_c6qi5"]
 [ext_resource type="PackedScene" uid="uid://bi55tqinwgdp8" path="res://Scenes/GravityPlayer.tscn" id="2_m0co3"]
 [ext_resource type="PackedScene" uid="uid://cons8miakf58n" path="res://Scenes/RigidBodyX.tscn" id="3_kbx1v"]
 [ext_resource type="Texture2D" uid="uid://bu080wgnyr58e" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap-backgrounds_packed.png" id="4_cpca8"]
+[ext_resource type="PackedScene" uid="uid://c1beqtkqyu8x1" path="res://Scenes/Enemy.tscn" id="5_rruqm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xxq0m"]
 resource_name = "world-tiles"
@@ -1056,3 +1057,6 @@ position = Vector2(560, 384)
 
 [node name="RigidBodyX10" parent="RigidGroup" instance=ExtResource("3_kbx1v")]
 position = Vector2(560, 312)
+
+[node name="Enemy" parent="." instance=ExtResource("5_rruqm")]
+position = Vector2(668, 212)

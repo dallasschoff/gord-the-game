@@ -13,6 +13,8 @@ var landing = false
 var attacking_cooldown = 0
 var attacking = false
 
+var hitting = false
+
 var moving = false
 
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -46,6 +48,7 @@ func _physics_process(delta):
 
 	if attacking_cooldown == 0:
 		attacking = false
+		hitting = false
 
 	if attacking_cooldown > 0:
 		attacking_cooldown -= 1
@@ -88,11 +91,8 @@ func _physics_process(delta):
 		animated_sprite.play("attack")
 		attacking_cooldown = 20
 		attacking = true
+		attack_hit()
 		print("attacking")
-
-	# Play idle animation if landing
-	#if is_on_floor():
-	#	animated_sprite.play("idle")
 
 	# Slow down the player if they're not trying to move.
 	if abs(walk) < WALK_FORCE * 0.2:
@@ -117,3 +117,13 @@ func _physics_process(delta):
 	# Check for jumping. is_on_floor() must be called after movement code.
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = -JUMP_SPEED
+
+# ATTACK WIP
+@export var enemy: Area2D
+@onready var sword_attack = $AttackArea
+
+func attack_hit():
+	if sword_attack.has_overlapping_areas() and !hitting:
+		hitting = true
+		print("Hit!")
+	
