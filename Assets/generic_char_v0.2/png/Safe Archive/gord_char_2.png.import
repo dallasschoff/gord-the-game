@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4p4iwbqehc6o"
-path="res://.godot/imported/char_purple_2.png-100defbb4dda8241de03645e7bdfa273.ctex"
+uid="uid://dkctjq2v6tdax"
+path="res://.godot/imported/gord_char_2.png-93707d349dff7c679a90824281136217.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/generic_char_v0.2/png/Archive/char_purple_2.png"
-dest_files=["res://.godot/imported/char_purple_2.png-100defbb4dda8241de03645e7bdfa273.ctex"]
+source_file="res://Assets/generic_char_v0.2/png/Safe Archive/gord_char_2.png"
+dest_files=["res://.godot/imported/gord_char_2.png-93707d349dff7c679a90824281136217.ctex"]
 
 [params]
 
