@@ -2,13 +2,7 @@ extends CharacterBody2D
 
 class_name Player
 
-#Signals
-signal healthChanged
-signal attackEnemy
-
 #Player Traits
-@export var MAX_HEALTH = 100
-@onready var CURRENT_HEALTH: int = MAX_HEALTH
 var WALK_FORCE = 600
 var WALK_MAX_SPEED = 200
 const STOP_FORCE = 1000
@@ -20,8 +14,6 @@ var landing_window = 0
 var landing = false
 var attacking_cooldown = 0
 var attacking = false
-var running_attacking_cooldown = 0
-var running_attacking = false
 var crouching_cooldown = 0
 var crouching = false
 var hitting = false
@@ -35,11 +27,8 @@ var canDoubleJump = true
 @onready var animated_sprite_puff = $AnimatedSprite2D/AnimatedSpritePuff
 @onready var landing_ray1 = $LandingRay1
 @onready var landing_ray2 = $LandingRay2
-@export var enemy: Area2D
-@onready var sword_attack = $AttackArea
 
-func _ready():
-	healthChanged.emit()
+@export var weapon: Weapon
 
 func _physics_process(delta):
 	handle_cooldowns()
@@ -115,7 +104,7 @@ func handle_player_animations():
 		animated_sprite.play("landing")
 		landing_window = 12
 		landing = true
-		running_attacking = false
+		attacking = false
 		print("landing")
 
 # Play jumping animation if rising/falling
@@ -138,37 +127,35 @@ func handle_player_animations():
 	if velocity.x == 0 and velocity.y == 0 and !landing and !attacking and !crouching:
 		animated_sprite.play("idle")
 		moving = false
-		running_attacking = false
+		attacking = false
 		print("idle")
 
 	# Play walk animation if moving on ground at low speed
-	if is_on_floor() and abs(velocity.x) > 10 and abs(velocity.x) < 100 and !landing and !running_attacking:
+	if is_on_floor() and abs(velocity.x) > 10 and abs(velocity.x) < 100 and !landing and !attacking:
 		animated_sprite.play("walking")
 		moving = true
 		print("walking")
 
 	# Play running animation if moving on ground at high speed
-	if is_on_floor() and abs(velocity.x) > 100 and !landing and !running_attacking:
+	if is_on_floor() and abs(velocity.x) > 100 and !landing and !attacking:
 		animated_sprite.play("running")
 		moving = true
 		print("running")
 
 	# Play attack animation if attack
-	if is_on_floor() and Input.is_action_pressed("attack") and !moving and !running_attacking and !attacking:
+	if is_on_floor() and Input.is_action_pressed("attack") and !moving and !attacking:
 		animated_sprite.play("attack")
 		attacking_cooldown = 24
 		attacking = true
-		attack_hit()
+		enable_attacking()
 		print("attacking")
 
 	# Play running_attack animation if moving while attacking
-	if is_on_floor() and Input.is_action_pressed("attack") and moving and !running_attacking and !attacking and abs(velocity.x) > 100:
+	if is_on_floor() and Input.is_action_pressed("attack") and moving and !attacking and abs(velocity.x) > 100:
 		animated_sprite.play("running_attack")
 		attacking_cooldown = 24
 		attacking = true
-		running_attacking_cooldown = 24
-		running_attacking = true
-		attack_hit()
+		enable_attacking()
 		print("running attack")
 
 	# Play crouching animation if crouching
@@ -189,19 +176,11 @@ func handle_cooldowns():
 
 	if attacking_cooldown == 0:
 		attacking = false
-		hitting = false
+		disable_attacking()
 
 	if attacking_cooldown > 0:
 		attacking_cooldown -= 1
 		moving = false
-
-	if running_attacking_cooldown == 0:
-		running_attacking = false
-		hitting = false
-
-	if running_attacking_cooldown > 0:
-		running_attacking_cooldown -= 1
-		moving = true
 
 	if crouching_cooldown == 0:
 		crouching = false
@@ -211,14 +190,14 @@ func handle_cooldowns():
 
 #--------------------------------#
 
-func attack_hit():
-	if sword_attack.has_overlapping_areas() and !hitting:
-		attackEnemy.emit()
-		hitting = true
-		print("Hit!")
+func enable_attacking():
+	weapon.attack_area.set_deferred("disabled", false)
+	hitting = true
+
+func disable_attacking():
+	weapon.attack_area.set_deferred("disabled", true)
+	hitting = false
 	
 #--------------------------------#
 
-func hurt_by_enemy():
-	CURRENT_HEALTH -= 5
-	healthChanged.emit()
+

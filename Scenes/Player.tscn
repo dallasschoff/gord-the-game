@@ -1,12 +1,19 @@
-[gd_scene load_steps=71 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=75 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://n0nuaep8vq4h" path="res://Assets/generic_char_v0.2/png/purple/char_purple_1.png" id="2_jce60"]
 [ext_resource type="Texture2D" uid="uid://capiubg74pwnu" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="2_ncw1g"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="4_cewfm"]
 [ext_resource type="Texture2D" uid="uid://dkctjq2v6tdax" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_2.png" id="4_fi44k"]
+[ext_resource type="Texture2D" uid="uid://4p4iwbqehc6o" path="res://Assets/generic_char_v0.2/png/purple/char_purple_2.png" id="3_2akdk"]
+[ext_resource type="Texture2D" uid="uid://c3ebfq3r754nd" path="res://Assets/Health Bar/EnemyhealthbarProgressUnder.png" id="3_384xg"]
+[ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_vsftd"]
+[ext_resource type="PackedScene" uid="uid://v3t0otae5xuo" path="res://Scenes/HitboxComponent.tscn" id="6_b2iks"]
+[ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/BasicWeapon.tscn" id="7_w7s6t"]
+[ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="8_4sj3i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vruan"]
+size = Vector2(20.375, 39)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2e5wr"]
 atlas = ExtResource("2_ncw1g")
@@ -494,13 +501,28 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0oo7"]
-size = Vector2(47, 22)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qb0ct"]
+size = Vector2(20, 39)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_45wk2")
+weapon = NodePath("Sword")
+
+[node name="HealthBar" parent="." instance=ExtResource("8_4sj3i")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -58.0
+offset_right = -55.0
+offset_bottom = -49.0
+grow_vertical = 0
+scale = Vector2(4, 4)
+nine_patch_stretch = false
+texture_progress = ExtResource("3_384xg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.1875, -10.5)
 shape = SubResource("RectangleShape2D_vruan")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -508,7 +530,7 @@ z_index = 5
 position = Vector2(2, -24)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"double_jumping"
+animation = &"attack"
 autoplay = "idle"
 frame = 3
 frame_progress = 1.0
@@ -532,11 +554,20 @@ scale = Vector2(1.2, 1.2)
 target_position = Vector2(0, 12)
 collide_with_areas = true
 
-[node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(34, -8)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-24.5, 7)
-shape = SubResource("RectangleShape2D_m0oo7")
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component") instance=ExtResource("5_vsftd")]
+healthbar_component = NodePath("../HealthBar")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_b2iks")]
+position = Vector2(0, -10)
+collision_layer = 2
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_qb0ct")
+
+[node name="Sword" parent="." instance=ExtResource("7_w7s6t")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

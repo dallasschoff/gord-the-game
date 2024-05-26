@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi17htw7utwlx"]
+
+[ext_resource type="Script" path="res://Scripts/healthBar.gd" id="2_h4x0d"]
+
+[node name="HealthBar" type="TextureProgressBar"]
+offset_left = -16.0
+offset_top = -30.0
+offset_right = 16.0
+offset_bottom = -21.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+script = ExtResource("2_h4x0d")

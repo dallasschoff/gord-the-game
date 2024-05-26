@@ -1,15 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=12 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://51hnnfpcevs6" path="res://Assets/icon.svg" id="2_bw85g"]
-[ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgressUnder.png" id="4_h2tn8"]
-[ext_resource type="Script" path="res://Scripts/enemyHealthBar.gd" id="5_oqxo7"]
+[ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="3_y1yev"]
+[ext_resource type="Texture2D" uid="uid://c3ebfq3r754nd" path="res://Assets/Health Bar/EnemyhealthbarProgressUnder.png" id="4_02nc5"]
+[ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_qxt31"]
+[ext_resource type="Texture2D" uid="uid://fjqktjiml4ly" path="res://Assets/Health Bar/EnemyhealthbarProgressOver.png" id="5_vlku6"]
+[ext_resource type="PackedScene" uid="uid://v3t0otae5xuo" path="res://Scenes/HitboxComponent.tscn" id="6_gouuo"]
+[ext_resource type="Script" path="res://Scenes/hurtboxComponent.gd" id="8_t4n2f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83saj"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1nk1"]
-size = Vector2(50, 22)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5e38c"]
+size = Vector2(50, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkh7u"]
+size = Vector2(42, 32)
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_qdflj")
@@ -21,23 +28,31 @@ shape = SubResource("RectangleShape2D_83saj")
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_bw85g")
 
-[node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(34, -8)
+[node name="HealthBar" parent="." instance=ExtResource("3_y1yev")]
+offset_left = -17.0
+offset_top = -23.0
+offset_right = 17.0
+offset_bottom = -19.0
+stretch_margin_left = 0
+stretch_margin_top = 0
+stretch_margin_right = 0
+stretch_margin_bottom = 0
+texture_under = ExtResource("4_02nc5")
+texture_progress = ExtResource("5_vlku6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-34, 7)
-shape = SubResource("RectangleShape2D_a1nk1")
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component") instance=ExtResource("5_qxt31")]
+healthbar_component = NodePath("../HealthBar")
 
-[node name="EnemyHealthBar" type="TextureProgressBar" parent="." node_paths=PackedStringArray("enemy")]
-offset_left = -16.0
-offset_top = -30.0
-offset_right = 16.0
-offset_bottom = -21.0
-nine_patch_stretch = true
-stretch_margin_left = 4
-stretch_margin_top = 4
-stretch_margin_right = 4
-stretch_margin_bottom = 4
-texture_progress = ExtResource("4_h2tn8")
-script = ExtResource("5_oqxo7")
-enemy = NodePath("..")
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_gouuo")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_5e38c")
+disabled = true
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("8_t4n2f")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_jkh7u")

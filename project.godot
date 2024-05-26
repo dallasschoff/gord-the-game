@@ -11,18 +11,13 @@ config_version=5
 [application]
 
 config/name="WRRS_game2"
-run/main_scene="res://Scenes/Game_0.2.tscn"
+run/main_scene="res://Scenes/Game_0.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [debug]
 
 shapes/collision/shape_color=Color(3.7542e-06, 0.621533, 0.553554, 0.42)
-
-[display]
-
-window/size/viewport_width=2304
-window/size/viewport_height=1296
 
 [dotnet]
 
