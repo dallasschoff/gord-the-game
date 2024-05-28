@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://v3t0otae5xuo"]
+[gd_scene load_steps=2 format=3 uid="uid://db8tf2sqncff0"]
 
-[ext_resource type="Script" path="res://Scripts/hitboxComponent.gd" id="1_gjykr"]
+[sub_resource type="GDScript" id="GDScript_1pxbx"]
+script/source = "extends Area2D
+class_name HitboxComponent
+
+@export var health_component : HealthComponent
+
+func damage(attack: Attack):
+	if health_component:
+		health_component.damage(attack)
+"
 
 [node name="HitboxComponent" type="Area2D"]
-script = ExtResource("1_gjykr")
+script = SubResource("GDScript_1pxbx")

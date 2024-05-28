@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="3_y1yev"]
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_qxt31"]
 [ext_resource type="Texture2D" uid="uid://fjqktjiml4ly" path="res://Assets/Health Bar/EnemyhealthbarProgressOver.png" id="5_vlku6"]
-[ext_resource type="PackedScene" uid="uid://v3t0otae5xuo" path="res://Scenes/HitboxComponent.tscn" id="6_gouuo"]
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/HurtboxComponent.tscn" id="7_1ttu6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83saj"]
