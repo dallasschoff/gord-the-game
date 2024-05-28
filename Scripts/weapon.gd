@@ -1,7 +1,7 @@
 extends Node2D
 class_name Weapon
 
-var attack_damage := 50.0
+var attack_damage := 10.0
 var knockback_force := 500.0
 @export var attack_area: CollisionShape2D
 

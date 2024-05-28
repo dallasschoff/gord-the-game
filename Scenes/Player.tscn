@@ -481,8 +481,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdwns"]
 size = Vector2(52, 40)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_45wk2")
+weapon = NodePath("Sword")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.1875, -10.5)
