@@ -1,16 +1,17 @@
-[gd_scene load_steps=75 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=79 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
-[ext_resource type="Texture2D" uid="uid://n0nuaep8vq4h" path="res://Assets/generic_char_v0.2/png/purple/char_purple_1.png" id="2_jce60"]
-[ext_resource type="Texture2D" uid="uid://capiubg74pwnu" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="2_ncw1g"]
+[ext_resource type="Texture2D" uid="uid://n0nuaep8vq4h" path="res://Assets/generic_char_v0.2/png/Safe Archive/char_purple_1.png" id="2_jce60"]
+[ext_resource type="Texture2D" uid="uid://capiubg74pwnu" path="res://Assets/generic_char_v0.2/png/Safe Archive/gord_char_1.png" id="2_ncw1g"]
+[ext_resource type="Texture2D" uid="uid://fjqktjiml4ly" path="res://Assets/Health Bar/EnemyhealthbarProgressOver.png" id="3_27o87"]
+[ext_resource type="Texture2D" uid="uid://c1pqavsfkb6ci" path="res://Assets/Health Bar/healthbarProgressOver.png" id="4_4g2e5"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="4_cewfm"]
-[ext_resource type="Texture2D" uid="uid://dkctjq2v6tdax" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_2.png" id="4_fi44k"]
-[ext_resource type="Texture2D" uid="uid://4p4iwbqehc6o" path="res://Assets/generic_char_v0.2/png/purple/char_purple_2.png" id="3_2akdk"]
-[ext_resource type="Texture2D" uid="uid://c3ebfq3r754nd" path="res://Assets/Health Bar/EnemyhealthbarProgressUnder.png" id="3_384xg"]
+[ext_resource type="Texture2D" uid="uid://dkctjq2v6tdax" path="res://Assets/generic_char_v0.2/png/Safe Archive/gord_char_2.png" id="4_fi44k"]
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_vsftd"]
 [ext_resource type="PackedScene" uid="uid://v3t0otae5xuo" path="res://Scenes/HitboxComponent.tscn" id="6_b2iks"]
 [ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/BasicWeapon.tscn" id="7_w7s6t"]
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="8_4sj3i"]
+[ext_resource type="PackedScene" uid="uid://dmp5ox0jlyhqo" path="res://Scenes/HurtboxComponent.tscn" id="12_gfehi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vruan"]
 size = Vector2(20.375, 39)
@@ -502,24 +503,29 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qb0ct"]
-size = Vector2(20, 39)
+size = Vector2(49, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ap1ke"]
+size = Vector2(20, 40)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_45wk2")
-weapon = NodePath("Sword")
+weapon = NodePath("BasicWeapon")
 
 [node name="HealthBar" parent="." instance=ExtResource("8_4sj3i")]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -113.0
-offset_top = -58.0
-offset_right = -55.0
-offset_bottom = -49.0
+offset_left = -29.0
+offset_top = -41.0
+offset_right = 29.0
+offset_bottom = -37.0
 grow_vertical = 0
-scale = Vector2(4, 4)
+pivot_offset = Vector2(29, 0)
+auto_translate = false
 nine_patch_stretch = false
-texture_progress = ExtResource("3_384xg")
+texture_under = ExtResource("3_27o87")
+texture_progress = ExtResource("4_4g2e5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.1875, -10.5)
@@ -530,10 +536,9 @@ z_index = 5
 position = Vector2(2, -24)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
-frame = 3
-frame_progress = 1.0
+frame_progress = 0.583972
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -565,9 +570,16 @@ collision_layer = 2
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, -0.5)
+position = Vector2(8.5, -0.5)
 shape = SubResource("RectangleShape2D_qb0ct")
+disabled = true
 
-[node name="Sword" parent="." instance=ExtResource("7_w7s6t")]
+[node name="BasicWeapon" parent="." instance=ExtResource("7_w7s6t")]
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("12_gfehi")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_ap1ke")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

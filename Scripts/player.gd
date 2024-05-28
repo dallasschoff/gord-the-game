@@ -108,7 +108,7 @@ func handle_player_animations():
 		print("landing")
 
 # Play jumping animation if rising/falling
-	if velocity.y != 0 and !landing_ray1.is_colliding() and !landing_ray2.is_colliding():
+	if velocity.y != 0 and (!landing_ray1.is_colliding() or !landing_ray2.is_colliding()):
 		animated_sprite.play("jumping")
 		print("jumping")
 

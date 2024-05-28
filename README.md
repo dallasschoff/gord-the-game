@@ -17,6 +17,8 @@ Development Plan
 	Attack functionality, simple visual indicator
 	Attack to interact with enemy
 	Enemy death
+Level
+	Tutorial information written in stars in the sky
   Menu
 	Pause
 	Quit
