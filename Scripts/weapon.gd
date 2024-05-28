@@ -5,7 +5,7 @@ var attack_damage := 50.0
 var knockback_force := 500.0
 @export var attack_area: CollisionShape2D
 
-func _on_hitbox_body_entered(area):
+func _on_weapon_hitbox_entered(area):
 	if area is HurtboxComponent:
 		var hurtbox: HurtboxComponent = area
 		var attack = Attack.new()
