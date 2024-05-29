@@ -104,7 +104,7 @@ func _physics_process(delta):
 	elif is_landing:
 		print("landing")
 		animated_sprite.play("landing")
-	elif is_jumping and !is_falling:
+	elif is_jumping and !is_falling and !is_landing:
 		print("jumping")
 		animated_sprite.play("jumping")
 	elif is_double_jumping and !jump_limit_reached:
