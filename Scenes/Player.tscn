@@ -488,6 +488,7 @@ weapon = NodePath("Sword")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.1875, -10.5)
 shape = SubResource("RectangleShape2D_vruan")
+debug_color = Color(1, 0, 0.0901961, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 5

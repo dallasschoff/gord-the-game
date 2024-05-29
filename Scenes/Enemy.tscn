@@ -18,6 +18,7 @@ script = ExtResource("1_qdflj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_83saj")
+debug_color = Color(0.995883, 0, 0.197232, 0.42)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
@@ -40,4 +41,4 @@ health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_exnf7")
-debug_color = Color(0.822805, 0.400381, 0, 0.42)
+debug_color = Color(0.683781, 0.501668, 0, 0.42)
