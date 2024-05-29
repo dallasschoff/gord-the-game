@@ -15,6 +15,8 @@ func _on_weapon_hitbox_entered(area):
 		
 		hurtbox.damage(attack)
 
-#Sprite:
-# -hitbox: it deals damage to other sprites
-# -hurtbox (aka its shape): receives damages if enters enemy hitbox?
+func change_direction(new_direction: String):
+	var current_direction = "right" if attack_area.position.x > 0 else "left"
+	
+	if current_direction != new_direction:
+		attack_area.position.x = -attack_area.position.x

@@ -77,11 +77,13 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("move_left"):
 		animated_sprite.flip_h = true
+		weapon.change_direction("left")
 		if animated_sprite_puff.position.x < 0:
 			animated_sprite_puff.position.x = animated_sprite_puff.position.x + 4.3
 	if Input.is_action_pressed("move_right"):
 		animated_sprite.flip_h = false
 		animated_sprite_puff.position.x = -2.33
+		weapon.change_direction("right")
 	
 	if velocity.x == 0 and animated_sprite.flip_h == false:
 		animated_sprite_puff.position.x = -2.33
