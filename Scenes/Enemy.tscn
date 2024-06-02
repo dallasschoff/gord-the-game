@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=28 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
-[ext_resource type="Texture2D" uid="uid://cndwefq78ykpf" path="res://Assets/My Assets/PB Monster/Idle PB Monster.png" id="2_05g4r"]
+[ext_resource type="Texture2D" uid="uid://dwsujkc70hx7c" path="res://Assets/My Assets/PB Monster/Idle PB Monster.png" id="2_05g4r"]
+[ext_resource type="Texture2D" uid="uid://b32usfjmwgqc6" path="res://Assets/My Assets/PB Monster/Walk PB Monster.png" id="3_0rkwa"]
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="3_y1yev"]
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_qxt31"]
 [ext_resource type="Texture2D" uid="uid://fjqktjiml4ly" path="res://Assets/Health Bar/EnemyhealthbarProgressOver.png" id="5_vlku6"]
@@ -35,6 +36,46 @@ region = Rect2(56, 56, 56, 56)
 atlas = ExtResource("2_05g4r")
 region = Rect2(112, 56, 56, 56)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_br8j1"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(0, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcl1y"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(56, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khcvx"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(112, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lg5c0"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(168, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec4v6"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(224, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxftw"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(0, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txa1w"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(56, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg542"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(112, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82qkp"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(168, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfi46"]
+atlas = ExtResource("3_0rkwa")
+region = Rect2(224, 56, 56, 56)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_7ycgr"]
 animations = [{
 "frames": [{
@@ -62,6 +103,41 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br8j1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dcl1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khcvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lg5c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec4v6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxftw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txa1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg542")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82qkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfi46")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 12.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83saj"]
@@ -76,8 +152,8 @@ script = ExtResource("1_qdflj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_7ycgr")
-animation = &"idle"
-frame_progress = 0.916583
+animation = &"walking"
+frame_progress = 0.593012
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_83saj")

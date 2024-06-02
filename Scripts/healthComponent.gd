@@ -1,7 +1,7 @@
 extends Node2D
 class_name HealthComponent
 
-@export var MAX_HEALTH := 100.0
+@export var MAX_HEALTH := 30.0
 var HEALTH : float
 
 @export var healthbar_component : HealthBar

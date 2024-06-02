@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwsujkc70hx7c"
-path="res://.godot/imported/Idle PB Monster.png-16b723847760b294a19076cbb32065db.ctex"
+uid="uid://b32usfjmwgqc6"
+path="res://.godot/imported/Walk PB Monster.png-6face211aaadaa10389ea3cc51e87446.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/My Assets/PB Monster/Idle PB Monster.png"
-dest_files=["res://.godot/imported/Idle PB Monster.png-16b723847760b294a19076cbb32065db.ctex"]
+source_file="res://Assets/My Assets/PB Monster/Walk PB Monster.png"
+dest_files=["res://.godot/imported/Walk PB Monster.png-6face211aaadaa10389ea3cc51e87446.ctex"]
 
 [params]
 

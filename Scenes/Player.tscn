@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="8_4sj3i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vruan"]
-size = Vector2(20.375, 39)
+size = Vector2(20.375, 32.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fdg2r"]
 atlas = ExtResource("3_v6etn")
@@ -478,7 +478,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdwns"]
-size = Vector2(52, 38)
+size = Vector2(45.65, 27)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_45wk2")
@@ -486,17 +486,17 @@ maxium_jumps = 100
 weapon = NodePath("Sword")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.1875, -10.5)
+position = Vector2(0, -7.75)
 shape = SubResource("RectangleShape2D_vruan")
 debug_color = Color(1, 0, 0.0901961, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 5
-position = Vector2(2, -24)
-scale = Vector2(1.2, 1.2)
+position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"running_attack"
-frame_progress = 0.808489
+animation = &"attack"
+frame = 3
+flip_h = true
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -537,7 +537,7 @@ texture_progress = ExtResource("7_n68bo")
 attack_area = NodePath("SwordHitbox")
 
 [node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]
-position = Vector2(7, -11)
+position = Vector2(-5.175, -5.5)
 shape = SubResource("RectangleShape2D_hdwns")
 debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 

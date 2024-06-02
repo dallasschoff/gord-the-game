@@ -4,20 +4,20 @@ class_name Enemy
 
 #Enemy trait values
 var taking_damage = false
-var SPEED = 30 #30 pixels per sec
+var SPEED = 60 #60 pixels per sec
 @onready var TARGET = $"../Player"
 @onready var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
 
 #Animation traits
-var is_idle = true
+var is_walking = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	move_character(delta)
-	if is_idle:
-		animated_sprite.play("idle")
+	if is_walking:
+		animated_sprite.play("walking")
 	
 # Handle moving en emy left and right on its own
 func move_character(delta):
