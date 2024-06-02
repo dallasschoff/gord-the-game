@@ -541,4 +541,11 @@ position = Vector2(7, -11)
 shape = SubResource("RectangleShape2D_hdwns")
 debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_bottom = 300
+position_smoothing_enabled = true
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
