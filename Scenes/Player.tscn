@@ -502,8 +502,7 @@ debug_color = Color(1, 0, 0.0901961, 0.419608)
 z_index = 5
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"running_attack"
-flip_h = true
+animation = &"idle"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -549,7 +548,7 @@ shape = SubResource("RectangleShape2D_hdwns")
 debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(3.5, 3.5)
 limit_left = 0
 limit_top = 0
 limit_bottom = 300
