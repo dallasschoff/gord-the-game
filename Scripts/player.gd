@@ -74,6 +74,13 @@ func _physics_process(delta):
 	if is_crouching:
 		crouching_cooldown = 20
 	
+	if animated_sprite.animation == "attack" and (animated_sprite.frame == 3 or animated_sprite.frame == 4):
+		weapon.attack_area.set_deferred("disabled", false)
+	elif animated_sprite.animation == "running_attack" and animated_sprite.frame >= 2 and animated_sprite.frame <= 5:
+		weapon.attack_area.set_deferred("disabled", false)
+	else:
+		weapon.attack_area.set_deferred("disabled", true)
+		
 	move_and_slide()
 	
 	if Input.is_action_pressed("move_left"):
@@ -96,12 +103,10 @@ func _physics_process(delta):
 		print("attacking moving")
 		animated_sprite.play("running_attack")
 		attacking_cooldown = 24
-		weapon.attack_area.set_deferred("disabled", false)
 	elif is_attacking_idle:
 		print("attacking idle")
 		animated_sprite.play("attack")
 		attacking_cooldown = 24
-		weapon.attack_area.set_deferred("disabled", false)
 	elif is_jumping and !is_landing:
 		print("jumping")
 		animated_sprite.play("jumping")
@@ -142,6 +147,3 @@ func _handle_animation_cooldowns():
 		
 	if crouching_cooldown > 0:
 		crouching_cooldown -= 1
-		
-	if attacking_cooldown == 0:
-		weapon.attack_area.set_deferred("disabled", true)
