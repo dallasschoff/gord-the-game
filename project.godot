@@ -19,11 +19,6 @@ config/icon="res://icon.svg"
 
 shapes/collision/shape_color=Color(3.7542e-06, 0.621533, 0.553554, 0.42)
 
-[display]
-
-window/size/viewport_width=2304
-window/size/viewport_height=1296
-
 [dotnet]
 
 project/assembly_name="First Script"

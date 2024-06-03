@@ -64,6 +64,10 @@ region = Rect2(392, 168, 56, 56)
 atlas = ExtResource("3_v6etn")
 region = Rect2(0, 224, 56, 56)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_q73dg"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(392, 168, 56, 56)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_518mr"]
 atlas = ExtResource("3_v6etn")
 region = Rect2(0, 0, 56, 56)
@@ -107,10 +111,6 @@ region = Rect2(280, 168, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dk8su"]
 atlas = ExtResource("3_v6etn")
 region = Rect2(336, 168, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q73dg"]
-atlas = ExtResource("3_v6etn")
-region = Rect2(392, 168, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_se40n"]
 atlas = ExtResource("3_v6etn")
@@ -286,6 +286,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"double_jumping",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 100.0,
+"texture": SubResource("AtlasTexture_q73dg")
+}],
+"loop": true,
+"name": &"free_falling",
 "speed": 12.0
 }, {
 "frames": [{
@@ -494,8 +502,7 @@ debug_color = Color(1, 0, 0.0901961, 0.419608)
 z_index = 5
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"attack"
-frame = 3
+animation = &"free_falling"
 flip_h = true
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
@@ -542,7 +549,7 @@ shape = SubResource("RectangleShape2D_hdwns")
 debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 0
 limit_bottom = 300
