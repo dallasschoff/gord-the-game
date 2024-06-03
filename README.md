@@ -22,3 +22,13 @@ Level
   Menu
 	Pause
 	Quit
+
+Remaining Goals for Phase 1 (Playable game):
+1. Fine tune combat
+2. Enemy attacking logic/animation
+3. Add Player/Enemy death animations/logic
+4. Black screen respawning on death
+5. Replenish health after not getting hit for certain amount of time
+6. Mini-boss battle that the player moves towards to activate
+7. Game over win screen to end demo
+8. Finish environment
