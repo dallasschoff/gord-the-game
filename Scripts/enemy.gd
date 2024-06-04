@@ -3,7 +3,6 @@ extends CharacterBody2D
 class_name Enemy
 
 #Enemy trait values
-var taking_damage = false
 var SPEED = 60 #60 pixels per sec
 @onready var TARGET = $"../Player"
 @onready var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -43,12 +42,13 @@ func knockback(attack: Attack):
 	print("Knocked back!")
 
 func _on_hurtbox_component_area_entered(area):
-	is_walking = false
-	is_idle = false
-	hurting_cooldown = 36
-	animated_sprite.play("hurting")
-	print("Enemy hit")
+	if area is Weapon:
+		is_walking = false
+		is_idle = false
+		hurting_cooldown = 36
+		animated_sprite.play("hurting")
+		print("Enemy hit")
 
 func _handle_animation_cooldowns():
-		if hurting_cooldown > 0:
-			hurting_cooldown -= 1
+	if hurting_cooldown > 0:
+		hurting_cooldown -= 1

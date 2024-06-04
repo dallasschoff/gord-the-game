@@ -8,6 +8,7 @@ class_name Player
 @export var stop_force := 1000
 @export var maxium_jumps := 2
 @export var weapon: Weapon
+@export var log_movement := false
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var animated_sprite_puff = $AnimatedSprite2D/AnimatedSpritePuff
 @onready var landing_ray1 = $LandingRay1
@@ -100,41 +101,33 @@ func _physics_process(delta):
 		animated_sprite_puff.position.x = 2
 	
 	if is_attacking_running:
-		print("attacking moving")
 		animated_sprite.play("running_attack")
 		attacking_cooldown = 24
 	elif is_attacking_idle:
-		print("attacking idle")
 		animated_sprite.play("attack")
 		attacking_cooldown = 24
 	elif is_jumping and !is_landing:
-		print("jumping")
 		animated_sprite.play("jumping")
 	elif is_double_jumping and !jump_limit_reached:
-		print("double jumping")
 		animated_sprite.play("double_jumping")
 		animated_sprite_puff.play("puff")
 	elif is_running and !is_jumping and !is_in_cooldown:
-		print("running")
 		animated_sprite.play("running")
 	elif is_landing:
-		print("landing")
 		animated_sprite.play("landing")
 	elif is_falling:
-		print("falling")
 		animated_sprite.play("running")
 	elif is_free_falling:
-		print("free falling")
 		animated_sprite.play("free_falling")
 	elif is_walking and !is_jumping:
-		print("walking")
 		animated_sprite.play("walking")
 	elif is_crouching:
-		print("crouching")
 		animated_sprite.play("crouching")
 	elif is_idling:
-		print("idle")
 		animated_sprite.play("idle")
+	
+	if log_movement:
+		print(animated_sprite.animation)
 
 #--------------------------------#
 

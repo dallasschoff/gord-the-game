@@ -15,11 +15,11 @@ func start_game():
 	move_child(world, 0)
 	
 	player = PlayerScene.instantiate()
-	player.position = Vector2(650, 150)
+	player.position = Vector2(600, 150)
 	world.add_child(player)
 	
 	enemy = EnemyScene.instantiate()
-	enemy.position = Vector2(600, 150)
+	enemy.position = Vector2(700, 150)
 	world.add_child(enemy)
 	
 func _on_main_menu_component_start_game():
