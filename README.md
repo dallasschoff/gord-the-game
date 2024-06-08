@@ -32,3 +32,8 @@ Remaining Goals for Phase 1 (Playable game):
 6. Mini-boss battle that the player moves towards to activate
 7. Game over win screen to end demo
 8. Finish environment
+
+Ideas
+1. Crunchy and smooth peanut butter monsters 
+2. crunchy has a ranged attack to throw peanuts
+

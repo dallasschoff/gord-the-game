@@ -1,11 +1,69 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=14 format=3 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_v065r"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="1_vgsox"]
 [ext_resource type="Texture2D" uid="uid://bu080wgnyr58e" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap-backgrounds_packed.png" id="2_qwhah"]
+[ext_resource type="Texture2D" uid="uid://4w06n1a2llwx" path="res://Assets/My Assets/Tileset/Repeating Tile third.png" id="3_rimwh"]
 [ext_resource type="PackedScene" uid="uid://cons8miakf58n" path="res://Scenes/RigidBodyX.tscn" id="4_8y6ld"]
 [ext_resource type="PackedScene" uid="uid://d3hdve1decu6n" path="res://Scenes/Player.tscn" id="5_n1e0p"]
 [ext_resource type="PackedScene" uid="uid://c1beqtkqyu8x1" path="res://Scenes/Enemy.tscn" id="5_topvf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8lhj1"]
+texture = ExtResource("3_rimwh")
+texture_region_size = Vector2i(112, 112)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_kopih"]
+tile_size = Vector2i(112, 112)
+sources/0 = SubResource("TileSetAtlasSource_8lhj1")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xxq0m"]
 resource_name = "world-tiles"
@@ -1007,6 +1065,11 @@ sources/2 = SubResource("TileSetAtlasSource_17qgp")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_v065r")
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = 4
+tile_set = SubResource("TileSet_kopih")
+format = 2
 
 [node name="WorldTileMap" type="TileMap" parent="."]
 z_index = 1
