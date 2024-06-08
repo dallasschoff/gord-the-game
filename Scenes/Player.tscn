@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=73 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_2.png" id="3_p2441"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgressUnder.png" id="7_n68bo"]
 [ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/Weapon.tscn" id="7_w7s6t"]
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="8_4sj3i"]
+[ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/HurtboxComponent.tscn" id="8_hyne7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vruan"]
 size = Vector2(20.375, 32.5)
@@ -485,6 +486,9 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ufp0"]
+size = Vector2(26, 32)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdwns"]
 size = Vector2(45.65, 27)
 
@@ -503,6 +507,7 @@ z_index = 5
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
 animation = &"idle"
+flip_h = true
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -534,17 +539,34 @@ offset_top = -25.0
 offset_right = 218.0
 offset_bottom = -10.0
 grow_vertical = 0
+max_value = 100.0
+value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("7_n68bo")
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_vsftd")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component") instance=ExtResource("5_vsftd")]
+MAX_HEALTH = 100.0
+healthbar_component = NodePath("../CanvasLayer/TextureProgressBar")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_hyne7")]
+collision_layer = 2
+collision_mask = 0
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_3ufp0")
 
 [node name="Sword" parent="." node_paths=PackedStringArray("attack_area") instance=ExtResource("7_w7s6t")]
+collision_layer = 0
+collision_mask = 4
+attack_damage = 5.0
 attack_area = NodePath("SwordHitbox")
 
 [node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]
 position = Vector2(-5.175, -5.5)
 shape = SubResource("RectangleShape2D_hdwns")
+disabled = true
 debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]

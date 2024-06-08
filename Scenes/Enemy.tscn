@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=39 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://dwsujkc70hx7c" path="res://Assets/My Assets/PB Monster/Idle PB Monster.png" id="2_05g4r"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_qxt31"]
 [ext_resource type="Texture2D" uid="uid://fjqktjiml4ly" path="res://Assets/Health Bar/EnemyhealthbarProgressOver.png" id="5_vlku6"]
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/HurtboxComponent.tscn" id="7_1ttu6"]
+[ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/Weapon.tscn" id="9_aidfx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_amfpl"]
 atlas = ExtResource("2_alvqa")
@@ -208,6 +209,9 @@ size = Vector2(14, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exnf7"]
 size = Vector2(30, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1oh1"]
+size = Vector2(38, 20)
+
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_qdflj")
 
@@ -233,11 +237,22 @@ texture_progress = ExtResource("5_vlku6")
 healthbar_component = NodePath("../HealthBarComponent")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_1ttu6")]
-collision_layer = 3
+collision_layer = 4
+collision_mask = 0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_exnf7")
 debug_color = Color(0.683781, 0.501668, 0, 0.42)
+
+[node name="Fists" parent="." node_paths=PackedStringArray("attack_area") instance=ExtResource("9_aidfx")]
+collision_layer = 0
+collision_mask = 2
+attack_damage = 5.0
+attack_area = NodePath("FistHitbox")
+
+[node name="FistHitbox" type="CollisionShape2D" parent="Fists"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_o1oh1")
 
 [connection signal="area_entered" from="HurtboxComponent" to="." method="_on_hurtbox_component_area_entered"]

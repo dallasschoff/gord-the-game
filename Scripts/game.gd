@@ -17,7 +17,7 @@ func start_game():
 	#player = PlayerScene.instantiate()
 	#player.position = Vector2(650, 150)
 	#world.add_child(player)
-	#
+
 	#enemy = EnemyScene.instantiate()
 	#enemy.position = Vector2(600, 150)
 	#world.add_child(enemy)
