@@ -140,3 +140,8 @@ func _handle_animation_cooldowns():
 		
 	if crouching_cooldown > 0:
 		crouching_cooldown -= 1
+
+
+func _on_hurtbox_component_area_entered(area):
+	animated_sprite.play("hurting")
+	print("Player hit")

@@ -1,8 +1,8 @@
-[gd_scene load_steps=73 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=77 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_2.png" id="3_p2441"]
-[ext_resource type="Texture2D" uid="uid://cfyr0webx5fg" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="3_v6etn"]
+[ext_resource type="Texture2D" uid="uid://delqoqdujivof" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="3_v6etn"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="4_cewfm"]
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_vsftd"]
 [ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgressUnder.png" id="7_n68bo"]
@@ -192,6 +192,22 @@ region = Rect2(336, 224, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_o45di"]
 atlas = ExtResource("3_p2441")
 region = Rect2(392, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_didia"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(0, 280, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwxei"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(56, 280, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_puxsv"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(112, 280, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph1xl"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(168, 280, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_umdid"]
 atlas = ExtResource("3_p2441")
@@ -420,6 +436,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_didia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwxei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_puxsv")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ph1xl")
+}],
+"loop": true,
+"name": &"taking_damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_umdid")
 }, {
 "duration": 1.0,
@@ -506,7 +539,7 @@ debug_color = Color(1, 0, 0.0901961, 0.419608)
 z_index = 5
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"idle"
+animation = &"taking_damage"
 flip_h = true
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
@@ -550,7 +583,7 @@ healthbar_component = NodePath("../CanvasLayer/TextureProgressBar")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_hyne7")]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
@@ -558,7 +591,7 @@ position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_3ufp0")
 
 [node name="Sword" parent="." node_paths=PackedStringArray("attack_area") instance=ExtResource("7_w7s6t")]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 attack_damage = 5.0
 attack_area = NodePath("SwordHitbox")
@@ -570,10 +603,10 @@ disabled = true
 debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -128)
-zoom = Vector2(3.5, 3.5)
+zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 128
 position_smoothing_enabled = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="HurtboxComponent" to="." method="_on_hurtbox_component_area_entered"]
