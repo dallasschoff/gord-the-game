@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_2.png" id="3_p2441"]
-[ext_resource type="Texture2D" uid="uid://delqoqdujivof" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="3_v6etn"]
+[ext_resource type="Texture2D" uid="uid://cex8cv6wbjebr" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="3_v6etn"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="4_cewfm"]
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_vsftd"]
 [ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/Health Bar/healthbarProgressUnder.png" id="7_n68bo"]
@@ -444,12 +444,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_puxsv")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ph1xl")
 }],
 "loop": true,
 "name": &"taking_damage",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -529,6 +529,7 @@ size = Vector2(45.65, 27)
 script = ExtResource("1_45wk2")
 maxium_jumps = 100
 weapon = NodePath("Sword")
+log_movement = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7.75)
@@ -581,10 +582,11 @@ texture_progress = ExtResource("7_n68bo")
 MAX_HEALTH = 100.0
 healthbar_component = NodePath("../CanvasLayer/TextureProgressBar")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_hyne7")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("8_hyne7")]
 collision_layer = 2
 collision_mask = 2
 health_component = NodePath("../HealthComponent")
+entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, -7)
@@ -594,6 +596,7 @@ shape = SubResource("RectangleShape2D_3ufp0")
 collision_layer = 4
 collision_mask = 4
 attack_damage = 5.0
+knockback_force = 125.0
 attack_area = NodePath("SwordHitbox")
 
 [node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]
@@ -607,6 +610,3 @@ zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 128
 position_smoothing_enabled = true
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="HurtboxComponent" to="." method="_on_hurtbox_component_area_entered"]

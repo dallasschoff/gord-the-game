@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=15 format=3 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_v065r"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="1_vgsox"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cons8miakf58n" path="res://Scenes/RigidBodyX.tscn" id="4_8y6ld"]
 [ext_resource type="PackedScene" uid="uid://d3hdve1decu6n" path="res://Scenes/Player.tscn" id="5_n1e0p"]
 [ext_resource type="PackedScene" uid="uid://c1beqtkqyu8x1" path="res://Scenes/Enemy.tscn" id="5_topvf"]
+[ext_resource type="PackedScene" uid="uid://kx84jcamypoo" path="res://Scenes/HeartPickup.tscn" id="8_fq6fh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t3uqc"]
 texture = ExtResource("2_ibvp6")
@@ -1093,9 +1094,13 @@ position = Vector2(560, 312)
 
 [node name="Player" parent="." instance=ExtResource("5_n1e0p")]
 position = Vector2(1808, 64)
+log_movement = false
 
 [node name="Enemy" parent="." instance=ExtResource("5_topvf")]
 position = Vector2(304, 161)
 
 [node name="Enemy2" parent="." instance=ExtResource("5_topvf")]
 position = Vector2(965, 195)
+
+[node name="HeartPickup" parent="." instance=ExtResource("8_fq6fh")]
+position = Vector2(445, 74)

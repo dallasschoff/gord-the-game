@@ -212,8 +212,9 @@ size = Vector2(30, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1oh1"]
 size = Vector2(38, 20)
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
 script = ExtResource("1_qdflj")
+weapon = NodePath("Fists")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 6
@@ -236,10 +237,11 @@ texture_progress = ExtResource("5_vlku6")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component") instance=ExtResource("5_qxt31")]
 healthbar_component = NodePath("../HealthBarComponent")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_1ttu6")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("7_1ttu6")]
 collision_layer = 4
 collision_mask = 4
 health_component = NodePath("../HealthComponent")
+entity = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_exnf7")

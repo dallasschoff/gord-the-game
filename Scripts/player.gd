@@ -18,6 +18,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var attacking_cooldown = 0
 var crouching_cooldown = 0
 var landing_window = 0
+var hurting_cooldown = 0
+
+var knockback = Vector2(0,0)
+var knockbackTween
 
 func _physics_process(delta):
 	var _horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -81,8 +85,12 @@ func _physics_process(delta):
 		weapon.attack_area.set_deferred("disabled", false)
 	else:
 		weapon.attack_area.set_deferred("disabled", true)
-		
+	
+	velocity = velocity + knockback
 	move_and_slide()
+	if hurting_cooldown > 0:
+		animated_sprite.play("taking_damage")
+		return
 	
 	if Input.is_action_pressed("move_left"):
 		animated_sprite.flip_h = true
@@ -140,8 +148,19 @@ func _handle_animation_cooldowns():
 		
 	if crouching_cooldown > 0:
 		crouching_cooldown -= 1
+		
+	if hurting_cooldown > 0:
+		hurting_cooldown -= 1
 
 
-func _on_hurtbox_component_area_entered(area):
+func _hit(attack: Attack):
+	hurting_cooldown = 40
 	animated_sprite.play("hurting")
 	print("Player hit")
+	knockback = attack.knockback
+	
+	knockbackTween = get_tree().create_tween()
+	knockbackTween.parallel().tween_property(self, "knockback", Vector2(0,0), 0.5)
+	
+	animated_sprite.modulate = Color.RED
+	knockbackTween.parallel().tween_property(animated_sprite, "modulate", Color.WHITE, 0.5)	

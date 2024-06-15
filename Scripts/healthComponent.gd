@@ -12,10 +12,16 @@ func _ready():
 
 func damage(attack: Attack):
 	HEALTH -= attack.attack_damage
-	print("%s's Health: %s" % [get_owner().name, HEALTH])
 	update_healthbar()
+	print("%s's Health: %s" % [get_owner().name, HEALTH])
 	if HEALTH <= 0:
 		get_parent().queue_free()
+	
+func heal():
+	if (HEALTH < MAX_HEALTH):
+		HEALTH += 10
+		update_healthbar()
+	print("%s's Health: %s" % [get_owner().name, HEALTH])
 
 func update_healthbar():
 	healthbar_component.update(HEALTH)
