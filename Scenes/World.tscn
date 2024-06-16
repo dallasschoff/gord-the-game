@@ -1103,4 +1103,5 @@ position = Vector2(304, 161)
 position = Vector2(965, 195)
 
 [node name="HeartPickup" parent="." instance=ExtResource("8_fq6fh")]
-position = Vector2(445, 74)
+position = Vector2(445, 64)
+scale = Vector2(0.714285, 0.714286)

@@ -1,22 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://kx84jcamypoo"]
+[gd_scene load_steps=8 format=3 uid="uid://kx84jcamypoo"]
 
-[ext_resource type="Texture2D" uid="uid://51hnnfpcevs6" path="res://Assets/icon.svg" id="1_djdf4"]
+[ext_resource type="Texture2D" uid="uid://b61ioyr0c0gxf" path="res://Assets/My Assets/Items/pickups.png" id="1_xexf5"]
 [ext_resource type="Script" path="res://Scripts/heartPickup.gd" id="2_pb5iu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mw65b"]
-radius = 64.0703
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp5hv"]
+atlas = ExtResource("1_xexf5")
+region = Rect2(0, 0, 56, 56)
 
-[node name="HeartPickup" type="Sprite2D" node_paths=PackedStringArray("heartArea")]
-scale = Vector2(0.078125, 0.078125)
-texture = ExtResource("1_djdf4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgy6o"]
+atlas = ExtResource("1_xexf5")
+region = Rect2(56, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6a62r"]
+atlas = ExtResource("1_xexf5")
+region = Rect2(112, 0, 56, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ksc3m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp5hv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgy6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6a62r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgy6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp5hv")
+}],
+"loop": true,
+"name": &"spinning",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mw65b"]
+radius = 8.65061
+
+[node name="HeartPickup" type="AnimatedSprite2D" node_paths=PackedStringArray("heartArea")]
+position = Vector2(0.3, -3)
+scale = Vector2(0.198103, 0.207031)
+sprite_frames = SubResource("SpriteFrames_ksc3m")
+animation = &"spinning"
+frame_progress = 0.178098
+speed_scale = 1.5
 script = ExtResource("2_pb5iu")
 heartArea = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 15.5826)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1.51437, -1.09204)
 shape = SubResource("CircleShape2D_mw65b")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
