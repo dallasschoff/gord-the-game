@@ -29,10 +29,10 @@ Remaining Goals for Phase 1 (Playable game):
 3. Add Player/Enemy death animations/logic
 4. Black screen respawning on death
 5. ~~Replenish health on item pickup~~
-	5a. Tween Health Bar changes
-6. Mini-boss battle that the player moves towards to activate
-7. Game over win screen to end demo
-8. Finish environment
+   5a. Tween Health Bar changes
+7. Mini-boss battle that the player moves towards to activate
+8. Game over win screen to end demo
+9. Finish environment
 
 Ideas
 1. Crunchy and smooth peanut butter monsters 
