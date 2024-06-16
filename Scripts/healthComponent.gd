@@ -5,6 +5,7 @@ class_name HealthComponent
 var HEALTH : float
 
 @export var healthbar_component : HealthBar
+@export var entity: CharacterBody2D
 
 func _ready():
 	HEALTH = MAX_HEALTH
@@ -14,8 +15,8 @@ func damage(attack: Attack):
 	HEALTH -= attack.attack_damage
 	update_healthbar()
 	print("%s's Health: %s" % [get_owner().name, HEALTH])
-	if HEALTH <= 0:
-		get_parent().queue_free()
+	if HEALTH <= 0 and entity:
+		entity._die()
 	
 func heal():
 	if (HEALTH < MAX_HEALTH):
