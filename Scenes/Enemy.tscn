@@ -234,14 +234,14 @@ offset_left = -21.0
 offset_top = -24.0
 offset_right = 21.0
 offset_bottom = -20.0
-max_value = 15.0
-value = 15.0
+max_value = 10.0
+value = 10.0
 nine_patch_stretch = true
 texture_under = ExtResource("7_2x107")
 texture_progress = ExtResource("5_vlku6")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("5_qxt31")]
-MAX_HEALTH = 15.0
+MAX_HEALTH = 10.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 

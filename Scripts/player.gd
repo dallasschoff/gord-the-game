@@ -25,7 +25,7 @@ var knockbackTween
 
 func _physics_process(delta):
 	var _horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	
+
 	if Input.is_action_pressed("walk"):
 		speed = 200
 		max_speed = 50
@@ -164,3 +164,4 @@ func _hit(attack: Attack):
 	
 	animated_sprite.modulate = Color.RED
 	knockbackTween.parallel().tween_property(animated_sprite, "modulate", Color.WHITE, 0.5)	
+

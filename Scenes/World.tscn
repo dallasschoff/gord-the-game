@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_v065r"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="1_vgsox"]
-[ext_resource type="Texture2D" uid="uid://dipsb2js7ycdl" path="res://Assets/My Assets/Tileset/Repeating Tile v2.png" id="2_ibvp6"]
+[ext_resource type="Texture2D" uid="uid://c7ch5uhvolyva" path="res://Assets/My Assets/Tileset/Repeating Tile v2.png" id="2_ibvp6"]
 [ext_resource type="Texture2D" uid="uid://bu080wgnyr58e" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap-backgrounds_packed.png" id="2_qwhah"]
 [ext_resource type="PackedScene" uid="uid://cons8miakf58n" path="res://Scenes/RigidBodyX.tscn" id="4_8y6ld"]
 [ext_resource type="PackedScene" uid="uid://d3hdve1decu6n" path="res://Scenes/Player.tscn" id="5_n1e0p"]
@@ -27,7 +27,7 @@ texture_region_size = Vector2i(128, 128)
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-29.6985, -37.6534, -20, -51, -5, -64, 64, -64, 64, 64, -30.25, 64)
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(64, -64, -33.234, -64, -33.4108, 8.13173, -18.3848, 32.7037, -3.35876, 46.6691, 23.3345, 64, 64, 64)
 1:1/0 = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
@@ -35,7 +35,31 @@ texture_region_size = Vector2i(128, 128)
 2:1/0 = 0
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 4.94975, -64, 20.8596, -50.5581, 29.5217, -36.2392, 30.2288, 64, -64, 64)
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, -64, 64, -24.0416, 64, -4.06586, 51.6188, 15.026, 36.2392, 33.4108, 10.4298, 33.9411, -64)
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -34.75, 2.75, -51.25, 24.5, -64, 64, -64, 64, 64, -33.5, 64, -33.5, -10.75)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(64, -64, 64, 64, -64, 64, -64, -64)
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, -24.75, -64, -3.5, -52.75, 17.25, -33.5, 33.25, -8.5, 33.5, 64, -64, 64, -64, 10.25)
+5:1/0 = 0
+5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:1/0/physics_layer_0/angular_velocity = 0.0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 8.75, 43.75, 46.5, 3.25, 64, -42.25, 49.5, -64, 10.25)
+4:1/0 = 0
+4:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:1/0/physics_layer_0/angular_velocity = 0.0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+3:1/0 = 0
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
 
 [sub_resource type="TileSet" id="TileSet_d2kvj"]
 tile_size = Vector2i(128, 128)
@@ -1048,7 +1072,7 @@ z_index = 4
 position = Vector2(0, 64)
 tile_set = SubResource("TileSet_d2kvj")
 format = 2
-layer_0/tile_data = PackedInt32Array(131085, 65536, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 65551, 0, 0, 15, 0, 1, 16, 65536, 1, 17, 65536, 1, 18, 131072, 1, 65554, 131072, 0, 131090, 131072, 0, 65553, 0, 0, 65552, 0, 0, 65549, 0, 1, 65550, 65536, 1, 262156, 0, 1, 262157, 65536, 1, 262158, 65536, 1, 262159, 65536, 1, 262160, 131072, 1)
+layer_0/tile_data = PackedInt32Array(131085, 0, 1, 131086, 65536, 1, 131087, 65536, 1, 131088, 65536, 1, 131089, 65536, 1, 65551, 196608, 1, 15, 196608, 0, 16, 262144, 0, 17, 327680, 0, 65554, 327680, 0, 131090, 131072, 1, 65553, 262144, 1, 65552, 0, 0, 65549, 196608, 0, 65550, 262144, 0, 262156, 262144, 0, 262157, 327680, 0, 262155, 196608, 0, 327691, 0, 1, 327693, 131072, 1, 327692, 65536, 1, 262159, 327680, 1)
 
 [node name="WorldTileMap" type="TileMap" parent="."]
 z_index = 1
@@ -1105,3 +1129,6 @@ position = Vector2(965, 195)
 [node name="HeartPickup" parent="." instance=ExtResource("8_fq6fh")]
 position = Vector2(444, 74)
 scale = Vector2(0.714285, 0.714286)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_topvf")]
+position = Vector2(2112, 40)
