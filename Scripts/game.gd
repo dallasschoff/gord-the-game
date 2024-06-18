@@ -2,25 +2,20 @@ extends Node2D
 class_name Game
 
 @export var WorldScene: PackedScene
-@export var PlayerScene: PackedScene
-@export var EnemyScene: PackedScene
-
+@onready var transitioner = $CanvasLayer/Transitioner
 var world: World
-var player: Player
-var enemy: Enemy
+
+func _ready():
+	transitioner.connect("transition_finished", restart_game)
 
 func start_game():
 	world = WorldScene.instantiate()
 	add_child(world)
 	move_child(world, 0)
-	
-	#player = PlayerScene.instantiate()
-	#player.position = Vector2(650, 150)
-	#world.add_child(player)
+	world.get_node("Player").connect("died", death_screen)
 
-	#enemy = EnemyScene.instantiate()
-	#enemy.position = Vector2(600, 150)
-	#world.add_child(enemy)
+func death_screen():
+	transitioner.play()
 	
-func _on_main_menu_component_start_game():
-	start_game()
+func restart_game():
+	get_tree().reload_current_scene()

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+signal died
+
 @export var speed := 600
 @export var max_speed := 200
 @export var jump_strength := 350
@@ -165,3 +167,5 @@ func _hit(attack: Attack):
 	animated_sprite.modulate = Color.RED
 	knockbackTween.parallel().tween_property(animated_sprite, "modulate", Color.WHITE, 0.5)	
 
+func _die():
+	died.emit()

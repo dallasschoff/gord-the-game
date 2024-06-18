@@ -580,9 +580,10 @@ nine_patch_stretch = true
 texture_under = ExtResource("7_n68bo")
 texture_progress = ExtResource("7_2oyci")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component") instance=ExtResource("5_vsftd")]
-MAX_HEALTH = 100.0
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("5_vsftd")]
+MAX_HEALTH = 10.0
 healthbar_component = NodePath("../CanvasLayer/TextureProgressBar")
+entity = NodePath("..")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("8_hyne7")]
 collision_layer = 2
