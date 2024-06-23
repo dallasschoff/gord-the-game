@@ -24,8 +24,12 @@ var hurting_cooldown = 0
 
 var knockback = Vector2(0,0)
 var knockbackTween
+var dead = false
 
 func _physics_process(delta):
+	if dead:
+		return
+		
 	var _horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 
 	if Input.is_action_pressed("walk"):
@@ -156,6 +160,8 @@ func _handle_animation_cooldowns():
 
 
 func _hit(attack: Attack):
+	if dead:
+		return
 	hurting_cooldown = 40
 	animated_sprite.play("taking_damage")
 	print("Player hit")
@@ -168,4 +174,14 @@ func _hit(attack: Attack):
 	knockbackTween.parallel().tween_property(animated_sprite, "modulate", Color.WHITE, 0.5)	
 
 func _die():
-	died.emit()
+	if dead:
+		return
+	get_node("HurtboxComponent").get_child(0).disabled = true
+	animated_sprite.play("death")
+	dead = true
+	print("Player Died")
+
+
+func _on_animation_finished():
+	if dead:
+		died.emit()

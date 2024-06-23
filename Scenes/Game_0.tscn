@@ -11,6 +11,7 @@ script = ExtResource("1_pkftk")
 WorldScene = ExtResource("2_25qp0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="MainMenuComponent" parent="CanvasLayer" instance=ExtResource("2_j63dr")]
 
