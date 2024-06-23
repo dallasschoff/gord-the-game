@@ -26,13 +26,14 @@ Level
 Remaining Goals for Phase 1 (Playable game):
 1. Fine tune combat
 2. Enemy attacking logic/animation
-3. Add Player/Enemy death animations/logic
-4. ~~Black screen respawning on death~~
-5. ~~Replenish health on item pickup~~
-6. ~~Tween Health Bar changes~~
-7. Mini-boss battle that the player moves towards to activate
-8. Game over win screen to end demo
-9. Finish environment
+3. ~~Add Player death animation/logic~~
+4. Enemy death animations/logic
+5. ~~Black screen respawning on death~~
+6. ~~Replenish health on item pickup~~
+7. ~~Tween Health Bar changes~~
+8. Mini-boss battle that the player moves towards to activate
+9. Game over win screen to end demo
+10. Finish environment
 
 Ideas
 1. Crunchy and smooth peanut butter monsters 

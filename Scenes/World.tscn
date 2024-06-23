@@ -1102,7 +1102,6 @@ position = Vector2(560, 312)
 
 [node name="Player" parent="." instance=ExtResource("5_n1e0p")]
 position = Vector2(1808, 64)
-log_movement = false
 
 [node name="Enemy" parent="." instance=ExtResource("5_topvf")]
 position = Vector2(304, 161)

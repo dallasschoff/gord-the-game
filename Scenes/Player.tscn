@@ -1,8 +1,8 @@
-[gd_scene load_steps=78 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=90 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_2.png" id="3_p2441"]
-[ext_resource type="Texture2D" uid="uid://dtka7s2b4msce" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="3_v6etn"]
+[ext_resource type="Texture2D" uid="uid://dd0fl1plnoew4" path="res://Assets/generic_char_v0.2/png/Gord/gord_char_1.png" id="3_v6etn"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="4_cewfm"]
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_vsftd"]
 [ext_resource type="Texture2D" uid="uid://c1pqavsfkb6ci" path="res://Assets/Health Bar/healthbarProgressOver.png" id="7_2oyci"]
@@ -49,6 +49,54 @@ region = Rect2(56, 504, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_t0k4m"]
 atlas = ExtResource("3_v6etn")
 region = Rect2(112, 504, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kajbj"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(0, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17mgn"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(56, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cusre"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(112, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejsyl"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(168, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhm3x"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(224, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04lx6"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(280, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejtjt"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(336, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc1gc"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(392, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aytqf"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(0, 392, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0c0wi"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(56, 392, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6clv"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(112, 392, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmfac"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(168, 392, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xbr80"]
 atlas = ExtResource("3_v6etn")
@@ -291,6 +339,47 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_kajbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17mgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cusre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejsyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhm3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04lx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejtjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc1gc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aytqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0c0wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6clv")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_hmfac")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_xbr80")
 }, {
 "duration": 1.0,
@@ -448,7 +537,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ph1xl")
 }],
-"loop": true,
+"loop": false,
 "name": &"taking_damage",
 "speed": 4.0
 }, {
@@ -541,8 +630,7 @@ debug_color = Color(1, 0, 0.0901961, 0.419608)
 z_index = 5
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"idle"
-flip_h = true
+animation = &"death"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -613,3 +701,5 @@ zoom = Vector2(3.2, 3.2)
 limit_left = 0
 limit_top = 128
 position_smoothing_enabled = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]
