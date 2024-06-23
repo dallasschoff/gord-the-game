@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_v065r"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/Misc/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="1_vgsox"]
-[ext_resource type="Texture2D" uid="uid://72hlp13rddv" path="res://Assets/My Assets/Tileset/Foreground.png" id="2_ibvp6"]
+[ext_resource type="Texture2D" uid="uid://dyrqhv82hi354" path="res://Assets/My Assets/Tileset/Foreground.png" id="2_ibvp6"]
 [ext_resource type="Texture2D" uid="uid://cpcyr3t3x3bb5" path="res://Assets/My Assets/Tileset/BackgroundMountains.png" id="4_abyi0"]
 [ext_resource type="Texture2D" uid="uid://dbi7ebibq4w18" path="res://Assets/My Assets/Tileset/BackgroundTrees.png" id="5_8d78j"]
 [ext_resource type="PackedScene" uid="uid://d3hdve1decu6n" path="res://Scenes/Player.tscn" id="5_n1e0p"]
