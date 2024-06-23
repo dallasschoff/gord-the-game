@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w4gcophuoqeh"
-path="res://.godot/imported/Repeating Tile v2.png-b88db79968add141fe144dd22f6dc2bb.ctex"
+uid="uid://dbi7ebibq4w18"
+path="res://.godot/imported/BackgroundTrees.png-dd95ab14636842e1482cbaf4a1fa0797.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/My Assets/Tileset/Repeating Tile v2.png"
-dest_files=["res://.godot/imported/Repeating Tile v2.png-b88db79968add141fe144dd22f6dc2bb.ctex"]
+source_file="res://Assets/My Assets/Tileset/BackgroundTrees.png"
+dest_files=["res://.godot/imported/BackgroundTrees.png-dd95ab14636842e1482cbaf4a1fa0797.ctex"]
 
 [params]
 

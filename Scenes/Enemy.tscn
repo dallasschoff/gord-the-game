@@ -220,7 +220,7 @@ weapon = NodePath("Fists")
 HeartPickup = ExtResource("2_fyq8d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 6
+z_index = 5
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_7ycgr")
 animation = &"idle"
@@ -230,6 +230,7 @@ shape = SubResource("RectangleShape2D_83saj")
 debug_color = Color(0.995883, 0, 0.197232, 0.42)
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_y1yev")]
+z_index = 6
 offset_left = -21.0
 offset_top = -24.0
 offset_right = 21.0
