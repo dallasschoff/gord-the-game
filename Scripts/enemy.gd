@@ -2,67 +2,91 @@ extends CharacterBody2D
 
 class_name Enemy
 
+signal blocked
+
 #Enemy trait values
 var SPEED = 60 #60 pixels per sec
-@onready var TARGET = $"../Player"
-@onready var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
-
+@export var raycasts: Node2D
+@export var wall_raycast: RayCast2D
+@export var floor_raycast: RayCast2D
 @export var weapon: Weapon
 @export var HeartPickup: PackedScene
 #Animation traits
 var hurting_cooldown = 0
 var is_idle
 var is_walking
-
+var right_colliding = false
+var left_colliding = false
 var knockback = Vector2(0,0)
 var tween
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	move_character(delta)
-	_handle_animation_cooldowns()
-	is_walking = abs(velocity.x) > 10 and hurting_cooldown == 0
-	is_idle = abs(velocity.x) < 1 and !is_walking and hurting_cooldown == 0
-	if is_walking:
+	move_and_slide()
+	
+	if abs(velocity.x) > 0:
 		animated_sprite.play("walking")
-	if is_idle:
+	else:
 		animated_sprite.play("idle")
-
-
-# Handle moving en emy left and right on its own
-func move_character(delta):
-	if TARGET != null:
-		velocity.x = position.direction_to(TARGET.position).x * SPEED
-		velocity.y += GRAVITY * delta
-		velocity += knockback
-		move_and_slide()
-		if velocity.x < 0:
+		
+	if velocity.x < 0:
 			weapon.change_direction("left")
 			animated_sprite.flip_h = false
-		if velocity.x > 0:
-			weapon.change_direction("right")
-			animated_sprite.flip_h = true
+			raycasts.scale.x = 1
+	if velocity.x > 0:
+		weapon.change_direction("right")
+		animated_sprite.flip_h = true
+		raycasts.scale.x = -1
 		
-func _hit(attack: Attack):
-	is_walking = false
-	is_idle = false
-	hurting_cooldown = 36
-	animated_sprite.play("hurting")
-	print("Enemy hit")
+	if wall_raycast.is_colliding() or (is_on_floor() and !floor_raycast.is_colliding()):
+		blocked.emit()
 	
-	knockback = attack.knockback
-	
-	tween = get_tree().create_tween()
-	tween.parallel().tween_property(self, "knockback", Vector2(0,0), 0.75)
-	
-func _die():
-	animated_sprite.play("hurting")
-	var heart = HeartPickup.instantiate()
-	heart.position = Vector2(position.x, position.y)
-	get_node("..").add_child(heart)
-	queue_free()
-
-func _handle_animation_cooldowns():
-	if hurting_cooldown > 0:
-		hurting_cooldown -= 1
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _physics_process(delta):
+	#move_character(delta)
+	#_handle_animation_cooldowns()
+	#is_walking = abs(velocity.x) > 10 and hurting_cooldown == 0
+	#is_idle = abs(velocity.x) < 1 and !is_walking and hurting_cooldown == 0
+	#if is_walking:
+		#animated_sprite.play("walking")
+	#if is_idle:
+		#animated_sprite.play("idle")
+#
+#
+## Handle moving en emy left and right on its own
+#func move_character(delta):
+	#if TARGET != null:
+		#velocity.x = position.direction_to(TARGET.position).x * SPEED
+		#velocity.y += GRAVITY * delta
+		#velocity += knockback
+		#move_and_slide()
+		#if velocity.x < 0:
+			#weapon.change_direction("left")
+			#animated_sprite.flip_h = false
+		#if velocity.x > 0:
+			#weapon.change_direction("right")
+			#animated_sprite.flip_h = true
+		#
+#func _hit(attack: Attack):
+	#is_walking = false
+	#is_idle = false
+	#hurting_cooldown = 36
+	#animated_sprite.play("hurting")
+	#print("Enemy hit")
+	#
+	#knockback = attack.knockback
+	#
+	#tween = get_tree().create_tween()
+	#tween.parallel().tween_property(self, "knockback", Vector2(0,0), 0.75)
+	#
+#func _die():
+	#animated_sprite.play("hurting")
+	#var heart = HeartPickup.instantiate()
+	#heart.position = Vector2(position.x, position.y)
+	#get_node("..").add_child(heart)
+	#queue_free()
+#
+#func _handle_animation_cooldowns():
+	#if hurting_cooldown > 0:
+		#hurting_cooldown -= 1

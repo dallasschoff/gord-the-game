@@ -640,12 +640,14 @@ frame = 3
 frame_progress = 1.0
 
 [node name="LandingRay1" type="RayCast2D" parent="."]
+z_index = 6
 position = Vector2(-10, 10)
 scale = Vector2(1.2, 1.2)
 target_position = Vector2(0, 12)
 collide_with_areas = true
 
 [node name="LandingRay2" type="RayCast2D" parent="."]
+z_index = 6
 position = Vector2(10, 10)
 scale = Vector2(1.2, 1.2)
 target_position = Vector2(0, 12)
@@ -669,7 +671,7 @@ texture_under = ExtResource("7_n68bo")
 texture_progress = ExtResource("7_2oyci")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("5_vsftd")]
-MAX_HEALTH = 10.0
+MAX_HEALTH = 100.0
 healthbar_component = NodePath("../CanvasLayer/TextureProgressBar")
 entity = NodePath("..")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=43 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://dwsujkc70hx7c" path="res://Assets/My Assets/Sprites/PB Monster/Idle PB Monster.png" id="2_05g4r"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/HurtboxComponent.tscn" id="7_1ttu6"]
 [ext_resource type="Texture2D" uid="uid://c3ebfq3r754nd" path="res://Assets/My Assets/Sprites/Health Bar/EnemyhealthbarProgressUnder.png" id="7_2x107"]
 [ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/Weapon.tscn" id="9_aidfx"]
+[ext_resource type="Script" path="res://Scripts/States/state_machine.gd" id="12_03mob"]
+[ext_resource type="Script" path="res://Scripts/States/enemy_idle.gd" id="13_xovag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_amfpl"]
 atlas = ExtResource("2_alvqa")
@@ -214,8 +216,11 @@ size = Vector2(30, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1oh1"]
 size = Vector2(38, 20)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
 script = ExtResource("1_qdflj")
+raycasts = NodePath("RayCasts")
+wall_raycast = NodePath("RayCasts/WallRayCast")
+floor_raycast = NodePath("RayCasts/FloorRayCast")
 weapon = NodePath("Fists")
 HeartPickup = ExtResource("2_fyq8d")
 
@@ -265,5 +270,25 @@ attack_area = NodePath("FistHitbox")
 [node name="FistHitbox" type="CollisionShape2D" parent="Fists"]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_o1oh1")
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_03mob")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("13_xovag")
+enemy = NodePath("../..")
+
+[node name="RayCasts" type="Node2D" parent="."]
+
+[node name="FloorRayCast" type="RayCast2D" parent="RayCasts"]
+z_index = 6
+position = Vector2(-16, 20)
+target_position = Vector2(0, 16)
+hit_from_inside = true
+
+[node name="WallRayCast" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-16, -3)
+target_position = Vector2(-6, 0)
 
 [connection signal="area_entered" from="HurtboxComponent" to="." method="_on_hurtbox_component_area_entered"]
