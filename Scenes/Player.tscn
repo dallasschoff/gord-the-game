@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="8_4sj3i"]
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/HurtboxComponent.tscn" id="8_hyne7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vruan"]
-size = Vector2(20.375, 32.5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6qfi5"]
+height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fdg2r"]
 atlas = ExtResource("3_v6etn")
@@ -622,8 +622,8 @@ weapon = NodePath("Sword")
 log_movement = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7.75)
-shape = SubResource("RectangleShape2D_vruan")
+position = Vector2(-2, -7)
+shape = SubResource("CapsuleShape2D_6qfi5")
 debug_color = Color(1, 0, 0.0901961, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

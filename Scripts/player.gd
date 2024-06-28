@@ -56,7 +56,7 @@ func _physics_process(delta):
 	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0
 	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
 	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
-	var is_falling = velocity.y > 0.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
+	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
 	var is_jumping := Input.is_action_just_pressed("jump") and is_on_floor()
 	var is_double_jumping := Input.is_action_just_pressed("jump") and velocity.y >= 0 and !is_on_floor()
 	var is_running = is_on_floor() and !is_zero_approx(velocity.x) and !Input.is_action_pressed("walk") and !is_free_falling
@@ -64,7 +64,7 @@ func _physics_process(delta):
 	var is_moving = is_walking or is_running
 	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
 	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor()
-	var is_attacking_running = Input.is_action_pressed("attack") and is_moving and is_on_floor() and abs(velocity.x) > 100
+	var is_attacking_running = Input.is_action_pressed("attack") and is_moving and abs(velocity.x) > 100 #and is_on_floor() 
 	var is_idling = is_on_floor() and is_zero_approx(velocity.x) and !is_crouching and !is_moving and !is_attacking_idle and !is_in_cooldown
 	
 	var jump_limit_reached = false
