@@ -68,24 +68,24 @@ func _physics_process(delta):
 			#weapon.change_direction("right")
 			#animated_sprite.flip_h = true
 		#
-#func _hit(attack: Attack):
-	#is_walking = false
-	#is_idle = false
-	#hurting_cooldown = 36
-	#animated_sprite.play("hurting")
-	#print("Enemy hit")
-	#
-	#knockback = attack.knockback
-	#
-	#tween = get_tree().create_tween()
-	#tween.parallel().tween_property(self, "knockback", Vector2(0,0), 0.75)
-	#
-#func _die():
-	#animated_sprite.play("hurting")
-	#var heart = HeartPickup.instantiate()
-	#heart.position = Vector2(position.x, position.y)
-	#get_node("..").add_child(heart)
-	#queue_free()
+func _hit(attack: Attack):
+	is_walking = false
+	is_idle = false
+	hurting_cooldown = 36
+	animated_sprite.play("hurting")
+	print("Enemy hit")
+	
+	knockback = attack.knockback
+	
+	tween = get_tree().create_tween()
+	tween.parallel().tween_property(self, "knockback", Vector2(0,0), 0.75)
+	
+func _die():
+	animated_sprite.play("hurting")
+	var heart = HeartPickup.instantiate()
+	heart.position = Vector2(position.x, position.y-8)
+	get_node("..").add_child(heart)
+	queue_free()
 #
 #func _handle_animation_cooldowns():
 	#if hurting_cooldown > 0:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://biy3vugb6shn3"
-path="res://.godot/imported/Foreground.png-444a489e2b60007ded6361277cb71514.ctex"
+uid="uid://byyvx3fhm4d7t"
+path="res://.godot/imported/Death PB Monster.png-eebab1cc882f07ce008bfa1ed84e2a1e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/My Assets/Tileset/Foreground.png"
-dest_files=["res://.godot/imported/Foreground.png-444a489e2b60007ded6361277cb71514.ctex"]
+source_file="res://Assets/My Assets/Sprites/PB Monster/Death PB Monster.png"
+dest_files=["res://.godot/imported/Death PB Monster.png-eebab1cc882f07ce008bfa1ed84e2a1e.ctex"]
 
 [params]
 
