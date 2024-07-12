@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=82 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://dwsujkc70hx7c" path="res://Assets/My Assets/Sprites/PB Monster/Idle PB Monster.png" id="2_05g4r"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Scripts/States/state_machine.gd" id="12_03mob"]
 [ext_resource type="Script" path="res://Scripts/States/enemy_idle.gd" id="13_xovag"]
 [ext_resource type="Script" path="res://Scripts/States/enemy_follow.gd" id="14_8quct"]
+[ext_resource type="Script" path="res://Scripts/States/enemy_attack.gd" id="17_6jq8q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4g6ap"]
 atlas = ExtResource("3_wp7wr")
@@ -487,7 +488,6 @@ z_index = 5
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_7ycgr")
 animation = &"attack"
-frame_progress = 0.695215
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_83saj")
@@ -499,14 +499,14 @@ offset_left = -21.0
 offset_top = -24.0
 offset_right = 21.0
 offset_bottom = -20.0
-max_value = 10.0
-value = 10.0
+max_value = 100.0
+value = 100.0
 nine_patch_stretch = true
 texture_under = ExtResource("7_2x107")
 texture_progress = ExtResource("5_vlku6")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("5_qxt31")]
-MAX_HEALTH = 10.0
+MAX_HEALTH = 100.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 
@@ -540,6 +540,10 @@ enemy = NodePath("../..")
 
 [node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("14_8quct")
+enemy = NodePath("../..")
+
+[node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("17_6jq8q")
 enemy = NodePath("../..")
 
 [node name="RayCasts" type="Node2D" parent="."]
