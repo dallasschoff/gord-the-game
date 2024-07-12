@@ -162,7 +162,7 @@ func _handle_animation_cooldowns():
 func _hit(attack: Attack):
 	if dead:
 		return
-	hurting_cooldown = 40
+	hurting_cooldown = 30
 	animated_sprite.play("taking_damage")
 	print("Player hit")
 	knockback = attack.knockback

@@ -240,3 +240,6 @@ scale = Vector2(0.714285, 0.714286)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(536, 30)
 sprite_frames = SubResource("SpriteFrames_l42dr")
+
+[node name="Enemy" parent="." instance=ExtResource("5_topvf")]
+position = Vector2(447, 75)

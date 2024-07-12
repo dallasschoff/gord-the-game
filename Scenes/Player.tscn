@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=89 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/My Assets/Sprites/Gord/gord_char_2.png" id="3_p2441"]
@@ -249,10 +249,6 @@ region = Rect2(0, 280, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwxei"]
 atlas = ExtResource("3_v6etn")
 region = Rect2(56, 280, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_puxsv"]
-atlas = ExtResource("3_v6etn")
-region = Rect2(112, 280, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ph1xl"]
 atlas = ExtResource("3_v6etn")
@@ -532,14 +528,14 @@ animations = [{
 "texture": SubResource("AtlasTexture_xwxei")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_puxsv")
+"texture": SubResource("AtlasTexture_ph1xl")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ph1xl")
 }],
 "loop": false,
 "name": &"taking_damage",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -631,9 +627,8 @@ debug_color = Color(1, 0, 0.0901961, 0.419608)
 z_index = 5
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"attack"
-frame = 5
-frame_progress = 1.0
+animation = &"taking_damage"
+frame = 2
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
