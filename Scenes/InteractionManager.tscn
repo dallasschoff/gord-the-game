@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://5rmw86m6ydfo"]
+
+[ext_resource type="Script" path="res://Scripts/InteractionManager.gd" id="1_6bnm0"]
+[ext_resource type="Theme" uid="uid://de5wx5e0jeuil" path="res://Assets/Themes/default_theme.tres" id="1_vp52s"]
+
+[node name="InteractionManager" type="Node2D"]
+script = ExtResource("1_6bnm0")
+
+[node name="Label" type="Label" parent="."]
+z_index = 50
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_vp52s")
+theme_override_font_sizes/font_size = 10
+text = "-E- to interact"

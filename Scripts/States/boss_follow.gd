@@ -12,7 +12,7 @@ func enter():
 func physics_update(delta: float):
 	var direction = player.global_position - boss.global_position
 	
-	if direction.length() > 40:
+	if direction.length() > 80:
 		boss.velocity.x = direction.normalized().x * move_speed
 	else:
 		transitioned.emit(self, "attack")

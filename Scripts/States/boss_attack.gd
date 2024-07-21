@@ -13,9 +13,9 @@ func enter():
 func physics_update(delta: float):
 	var direction = player.global_position - boss.global_position
 	
-	if direction.length() > 60:
+	if direction.length() > 80:
 		transitioned.emit(self, "follow")
-	elif direction.length() < 60 and can_attack:
+	elif direction.length() < 80 and can_attack:
 		#continue to attack player if in range
 		var lunge_direction = boss.global_position.direction_to(player.global_position)
 		var lunge = lunge_direction * move_speed

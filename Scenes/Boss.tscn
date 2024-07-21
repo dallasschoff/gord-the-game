@@ -380,7 +380,7 @@ size = Vector2(30, 32)
 size = Vector2(38, 20)
 
 [node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(3, 3)
 script = ExtResource("1_jjnmy")
 raycasts = NodePath("RayCasts")
 wall_raycast = NodePath("RayCasts/WallRayCast")
@@ -393,7 +393,7 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"walking"
+animation = &"running"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rhp6g")
@@ -419,8 +419,8 @@ entity = NodePath("..")
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("7_nkaqf")]
 collision_layer = 4
 collision_mask = 4
-health_component = NodePath("")
-entity = NodePath("")
+health_component = NodePath("../HealthComponent")
+entity = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_te2pr")
@@ -448,7 +448,7 @@ boss = NodePath("../..")
 [node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("boss")]
 script = ExtResource("12_757ne")
 boss = NodePath("../..")
-move_speed = 150
+move_speed = 200
 
 [node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("boss")]
 script = ExtResource("13_s0c35")

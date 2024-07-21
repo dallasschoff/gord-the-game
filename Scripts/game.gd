@@ -14,6 +14,9 @@ func start_game():
 	move_child(world, 0)
 	world.get_node("Player").connect("died", death_screen)
 
+#func _on_door_entered():
+	#
+
 func death_screen():
 	transitioner.play()
 	
