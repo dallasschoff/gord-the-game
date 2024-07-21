@@ -1,29 +1,23 @@
 extends State
-class_name EnemyFollow
+class_name BossFollow
 
-@export var enemy: CharacterBody2D
+@export var boss: CharacterBody2D
 @export var move_speed := 60
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player: CharacterBody2D
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
-	#if enemy:
-		#enemy.connect("blocked", stop)
 	
 func physics_update(delta: float):
-	var direction = player.global_position - enemy.global_position
+	var direction = player.global_position - boss.global_position
 	
 	if direction.length() > 40:
-		enemy.velocity.x = direction.normalized().x * move_speed
+		boss.velocity.x = direction.normalized().x * move_speed
 	else:
 		transitioned.emit(self, "attack")
 	
-	if direction.length() > 200:
+	if direction.length() > 400:
 		transitioned.emit(self, "idle")
 		
-	enemy.velocity.y += gravity * delta
-
-func stop():
-	print("enemy stop!")
-	enemy.velocity.x = 0
+	boss.velocity.y += gravity * delta

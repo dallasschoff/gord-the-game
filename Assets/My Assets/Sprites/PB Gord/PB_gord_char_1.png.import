@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbqxngga53dws"
-path="res://.godot/imported/Environment.png-9d2df737b07ef6f087aa6932575c9268.ctex"
+uid="uid://bpc8h4tik1jvo"
+path="res://.godot/imported/PB_gord_char_1.png-1ff1555ef061ebdf8dc3a465fccf5862.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/My Assets/Tileset/Environment.png"
-dest_files=["res://.godot/imported/Environment.png-9d2df737b07ef6f087aa6932575c9268.ctex"]
+source_file="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png"
+dest_files=["res://.godot/imported/PB_gord_char_1.png-1ff1555ef061ebdf8dc3a465fccf5862.ctex"]
 
 [params]
 

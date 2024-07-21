@@ -529,6 +529,7 @@ attack_area = NodePath("FistHitbox")
 [node name="FistHitbox" type="CollisionShape2D" parent="Fists"]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_o1oh1")
+disabled = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("12_03mob")

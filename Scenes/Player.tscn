@@ -627,8 +627,7 @@ debug_color = Color(1, 0, 0.0901961, 0.419608)
 z_index = 5
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"taking_damage"
-frame = 2
+animation = &"walking"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -697,7 +696,7 @@ debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -64)
-zoom = Vector2(3.2, 3.2)
+zoom = Vector2(2.6, 2.6)
 limit_left = 0
 limit_top = 128
 position_smoothing_enabled = true

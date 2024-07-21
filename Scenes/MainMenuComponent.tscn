@@ -41,7 +41,7 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 60
 text = "Gord: The Game"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -59,7 +59,7 @@ focus_neighbor_top = NodePath("../QuitButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
 focus_next = NodePath("../QuitButton")
 focus_previous = NodePath("../QuitButton")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 text = "Start Game"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBox"]
@@ -70,7 +70,7 @@ focus_neighbor_top = NodePath("../StartGameButton")
 focus_neighbor_bottom = NodePath("../StartGameButton")
 focus_next = NodePath("../StartGameButton")
 focus_previous = NodePath("../StartGameButton")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 text = "Quit"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
