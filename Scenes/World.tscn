@@ -139,7 +139,7 @@ position = Vector2(5824, 441)
 sprite_frames = SubResource("SpriteFrames_l42dr")
 
 [node name="Boss" parent="." instance=ExtResource("11_4fhwp")]
-position = Vector2(4291, 86)
+position = Vector2(3229, 363)
 
 [node name="Door" parent="." instance=ExtResource("12_qlo1t")]
 position = Vector2(3720, 142)

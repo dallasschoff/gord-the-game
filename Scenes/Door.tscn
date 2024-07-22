@@ -53,6 +53,7 @@ frame_progress = 0.661512
 
 [node name="InteractionArea" parent="." instance=ExtResource("2_a0qs4")]
 collision_mask = 128
+action_name = "open door"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("RectangleShape2D_o0rq5")
