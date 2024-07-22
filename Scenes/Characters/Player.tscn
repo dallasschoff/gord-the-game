@@ -1,15 +1,15 @@
 [gd_scene load_steps=89 format=3 uid="uid://d3hdve1decu6n"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_45wk2"]
+[ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/My Assets/Sprites/Gord/gord_char_2.png" id="3_p2441"]
 [ext_resource type="Texture2D" uid="uid://dd0fl1plnoew4" path="res://Assets/My Assets/Sprites/Gord/gord_char_1.png" id="3_v6etn"]
 [ext_resource type="Texture2D" uid="uid://c533v0nrux4hg" path="res://Assets/Misc/kenney_pixel-platformer/Tilemap/tilemap_packed.png" id="4_cewfm"]
-[ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/HealthComponent.tscn" id="5_vsftd"]
+[ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/Components/HealthComponent.tscn" id="5_vsftd"]
 [ext_resource type="Texture2D" uid="uid://c1pqavsfkb6ci" path="res://Assets/My Assets/Sprites/Health Bar/healthbarProgressOver.png" id="7_2oyci"]
 [ext_resource type="Texture2D" uid="uid://dpj3a3rlq5xf" path="res://Assets/My Assets/Sprites/Health Bar/healthbarProgressUnder.png" id="7_n68bo"]
-[ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/Weapon.tscn" id="7_w7s6t"]
-[ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/HealthBarComponent.tscn" id="8_4sj3i"]
-[ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/HurtboxComponent.tscn" id="8_hyne7"]
+[ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/Components/Weapon.tscn" id="7_w7s6t"]
+[ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/Components/HealthBarComponent.tscn" id="8_4sj3i"]
+[ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/Components/HurtboxComponent.tscn" id="8_hyne7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6qfi5"]
 height = 32.0

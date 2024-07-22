@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://7dqbt8amwd7m"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_pkftk"]
-[ext_resource type="PackedScene" uid="uid://c0t7kx5cm5w8v" path="res://Scenes/World.tscn" id="2_25qp0"]
-[ext_resource type="PackedScene" uid="uid://lgnapwcoon1c" path="res://Scenes/MainMenuComponent.tscn" id="2_j63dr"]
-[ext_resource type="PackedScene" uid="uid://cjvcbbgb6dviw" path="res://Scenes/Transitioner.tscn" id="4_3sb3v"]
+[ext_resource type="PackedScene" uid="uid://c0t7kx5cm5w8v" path="res://Scenes/Cells/World.tscn" id="2_25qp0"]
+[ext_resource type="PackedScene" uid="uid://lgnapwcoon1c" path="res://Scenes/Menus/MainMenu.tscn" id="2_j63dr"]
+[ext_resource type="PackedScene" uid="uid://cjvcbbgb6dviw" path="res://Scenes/Menus/Transitioner.tscn" id="4_3sb3v"]
 
 [node name="Game" type="Node2D"]
 position = Vector2(0, 81)

@@ -1,9 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://d3qcdfctvcfau"]
 
-[ext_resource type="Script" path="res://Scripts/Cave1.gd" id="1_1k565"]
+[ext_resource type="Script" path="res://Scripts/Cells/Cave1.gd" id="1_1k565"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_1yvoo"]
 [ext_resource type="TileSet" uid="uid://oom7ecgwg3gm" path="res://Assets/My Assets/Tileset/Environ.tres" id="3_yl2xu"]
 [ext_resource type="Texture2D" uid="uid://biat7k86hxblg" path="res://Assets/Misc/prototype-textures/PNG/checker_black_512x512.png" id="4_e1rsj"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bgm8c"]
 texture = ExtResource("4_e1rsj")

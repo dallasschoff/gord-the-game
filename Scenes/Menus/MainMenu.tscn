@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://lgnapwcoon1c"]
 
-[ext_resource type="Theme" uid="uid://de5wx5e0jeuil" path="res://Assets/Themes/default_theme.tres" id="1_fg037"]
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="2_3xhcx"]
+[ext_resource type="Theme" uid="uid://de5wx5e0jeuil" path="res://Assets/Themes/default_theme.tres" id="1_vwkjo"]
+[ext_resource type="Script" path="res://Scripts/Menus/main_menu.gd" id="2_mnftr"]
 
 [node name="MainMenuComponent" type="Control"]
 layout_mode = 3
@@ -10,8 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_fg037")
-script = ExtResource("2_3xhcx")
+theme = ExtResource("1_vwkjo")
+script = ExtResource("2_mnftr")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

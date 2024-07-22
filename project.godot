@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-boss_idle="*res://Scripts/States/boss_idle.gd"
-InteractionManager="*res://Scenes/InteractionManager.tscn"
+boss_idle="*res://Scripts/Components/States/boss_idle.gd"
+InteractionManager="*res://Scenes/Components/InteractionManager.tscn"
 
 [debug]
 
