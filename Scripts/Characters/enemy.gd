@@ -26,7 +26,7 @@ var lunge = Vector2(0,0)
 var getting_hit = false
 
 func _physics_process(delta):
-	if attack_cooldown > 0 and hurting_cooldown == 0:
+	if attack_cooldown > 0 and not getting_hit:
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
 			move_and_slide()
 		if animated_sprite.animation == "attack" and animated_sprite.frame == 5:
@@ -43,7 +43,6 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	if hurting_cooldown > 0:
-		print("getting_hurt")
 		animated_sprite.play("hurting")
 		hurting_cooldown -= 1
 		return
@@ -70,13 +69,14 @@ func _physics_process(delta):
 
 func _hit(attack: Attack):
 	getting_hit = true
-	hit_started.emit()
+	print("getting_hurt")
 	hurting_cooldown = 30
+	attack_cooldown = 0
 	knockback = attack.knockback
-	print(knockback)
 	
 	tween = get_tree().create_tween()
 	tween.parallel().tween_property(self, "knockback", Vector2(0,0), 0.5)
+	hit_started.emit()
 	
 func _die():
 	animated_sprite.play("death")

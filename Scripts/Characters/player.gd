@@ -29,17 +29,20 @@ var dead = false
 func _physics_process(delta):
 	if dead:
 		return
-		
-	var _horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	
+	var walk = 0
+	var _horizontal_direction
+	if hurting_cooldown == 0:
+		_horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 
-	if Input.is_action_pressed("walk"):
-		speed = 200
-		max_speed = 50
-	else:
-		speed = 600
-		max_speed = 200
-		
-	var walk = _horizontal_direction * speed
+		if Input.is_action_pressed("walk"):
+			speed = 200
+			max_speed = 50
+		else:
+			speed = 600
+			max_speed = 200
+			
+		walk = _horizontal_direction * speed
 	
 	# Slow down the player if they're not trying to move
 	if abs(walk) < speed * 0.2:
@@ -53,11 +56,11 @@ func _physics_process(delta):
 	set_up_direction(Vector2.UP)
 	_handle_animation_cooldowns()
 	
-	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0
+	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0 or hurting_cooldown > 0
 	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
 	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
 	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
-	var is_jumping := Input.is_action_just_pressed("jump") and is_on_floor()
+	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and is_on_floor()
 	var is_double_jumping := Input.is_action_just_pressed("jump") and velocity.y >= 0 and !is_on_floor()
 	var is_running = is_on_floor() and !is_zero_approx(velocity.x) and !Input.is_action_pressed("walk") and !is_free_falling
 	var is_walking := is_on_floor() and !is_zero_approx(velocity.x) and Input.is_action_pressed("walk")
@@ -94,8 +97,8 @@ func _physics_process(delta):
 	
 	velocity = velocity + knockback
 	move_and_slide()
+	
 	if hurting_cooldown > 0:
-		animated_sprite.play("taking_damage")
 		return
 	
 	if Input.is_action_pressed("move_left"):
