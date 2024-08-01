@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=83 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://dwsujkc70hx7c" path="res://Assets/My Assets/Sprites/PB Monster/Idle PB Monster.png" id="2_05g4r"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/States/enemy_idle.gd" id="13_xovag"]
 [ext_resource type="Script" path="res://Scripts/Components/States/enemy_follow.gd" id="14_8quct"]
 [ext_resource type="Script" path="res://Scripts/Components/States/enemy_attack.gd" id="17_6jq8q"]
+[ext_resource type="Script" path="res://Scripts/Components/States/enemy_hurt.gd" id="18_volq2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4g6ap"]
 atlas = ExtResource("3_wp7wr")
@@ -545,6 +546,10 @@ enemy = NodePath("../..")
 
 [node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("17_6jq8q")
+enemy = NodePath("../..")
+
+[node name="Hurt" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("18_volq2")
 enemy = NodePath("../..")
 
 [node name="RayCasts" type="Node2D" parent="."]

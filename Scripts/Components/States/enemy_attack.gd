@@ -8,6 +8,7 @@ var player: CharacterBody2D
 var can_attack = true
 
 func enter():
+	enemy.connect("hit_started", _got_hurt)
 	player = get_tree().get_first_node_in_group("Player")
 	
 func physics_update(delta: float):
@@ -22,3 +23,6 @@ func physics_update(delta: float):
 		enemy._attack(lunge)
 		
 	enemy.velocity.y += gravity * delta
+	
+func _got_hurt():
+	transitioned.emit(self, "hurt")

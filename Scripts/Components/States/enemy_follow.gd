@@ -7,9 +7,8 @@ class_name EnemyFollow
 var player: CharacterBody2D
 
 func enter():
+	enemy.connect("hit_started", _got_hurt)
 	player = get_tree().get_first_node_in_group("Player")
-	#if enemy:
-		#enemy.connect("blocked", stop)
 	
 func physics_update(delta: float):
 	var direction = player.global_position - enemy.global_position
@@ -27,3 +26,6 @@ func physics_update(delta: float):
 func stop():
 	print("enemy stop!")
 	enemy.velocity.x = 0
+	
+func _got_hurt():
+	transitioned.emit(self, "hurt")

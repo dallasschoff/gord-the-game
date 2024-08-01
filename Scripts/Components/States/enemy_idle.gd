@@ -44,4 +44,3 @@ func change_direction():
 	if !changed_direction:
 		move_direction = -move_direction
 		changed_direction = true
-		
