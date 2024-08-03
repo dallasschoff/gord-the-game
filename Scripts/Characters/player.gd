@@ -8,7 +8,7 @@ signal died
 @export var jump_strength := 350
 @export var double_jump_multiplier := 1.2
 @export var stop_force := 1000
-@export var maxium_jumps := 2
+@export var double_jumps := 1
 @export var weapon: Weapon
 @export var log_movement := false
 @onready var animated_sprite = $AnimatedSprite2D
@@ -16,15 +16,27 @@ signal died
 @onready var landing_ray1 = $LandingRay1
 @onready var landing_ray2 = $LandingRay2
 var jumps_made := 0
+var double_jumps_made := 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var terminal_velocity = 700
 var attacking_cooldown = 0
 var crouching_cooldown = 0
 var landing_window = 0
 var hurting_cooldown = 0
+var coyote = false
+var last_floor = false
+var coyote_timer: Timer
 
 var knockback = Vector2(0,0)
 var knockbackTween
 var dead = false
+
+func _ready():
+	coyote_timer = Timer.new()
+	add_child(coyote_timer)
+	coyote_timer.one_shot = true
+	coyote_timer.wait_time = 0.1
+	coyote_timer.connect("timeout", _on_coyote_timer_timeout)
 
 func _physics_process(delta):
 	if dead:
@@ -53,6 +65,7 @@ func _physics_process(delta):
 	
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	velocity.y += gravity * delta
+	velocity.y = clamp(velocity.y, -terminal_velocity, terminal_velocity)
 	set_up_direction(Vector2.UP)
 	_handle_animation_cooldowns()
 	
@@ -60,8 +73,8 @@ func _physics_process(delta):
 	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
 	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
 	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
-	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and is_on_floor()
-	var is_double_jumping := Input.is_action_just_pressed("jump") and velocity.y >= 0 and !is_on_floor()
+	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and (is_on_floor() or coyote)
+	var is_double_jumping := Input.is_action_just_pressed("jump") and velocity.y >= 0 and !is_on_floor() and double_jumps_made != double_jumps
 	var is_running = is_on_floor() and !is_zero_approx(velocity.x) and !Input.is_action_pressed("walk") and !is_free_falling
 	var is_walking := is_on_floor() and !is_zero_approx(velocity.x) and Input.is_action_pressed("walk")
 	var is_moving = is_walking or is_running
@@ -70,23 +83,32 @@ func _physics_process(delta):
 	var is_attacking_running = Input.is_action_pressed("attack") and is_moving and abs(velocity.x) > 100 #and is_on_floor() 
 	var is_idling = is_on_floor() and is_zero_approx(velocity.x) and !is_crouching and !is_moving and !is_attacking_idle and !is_in_cooldown
 	
-	var jump_limit_reached = false
+	if !is_on_floor() and last_floor and jumps_made == 0:
+		print("coyote time")
+		coyote = true
+		coyote_timer.start()
+	last_floor = is_on_floor()
+	
 	if is_jumping:
 		jumps_made += 1
 		velocity.y = -jump_strength
 	elif is_double_jumping:
-		jumps_made += 1
-		if jumps_made <= maxium_jumps:
+		if jumps_made <= double_jumps:
 			velocity.y = -jump_strength * double_jump_multiplier
-		else:
-			jump_limit_reached = true
+		double_jumps_made += 1
 	elif is_on_floor():
 		jumps_made = 0
-	
+		double_jumps_made = 0
+		
+	if jumps_made >= 1 and !is_on_floor() and Input.is_action_just_released("jump") and velocity.y < -200:
+		velocity.y = -200	
 	if is_landing:
 		landing_window = 12
 	if is_crouching:
 		crouching_cooldown = 20
+		
+	#drop through platforms
+	set_collision_mask_value(2, false) if Input.is_action_pressed("crouch") else set_collision_mask_value(2, true)
 	
 	if animated_sprite.animation == "attack" and (animated_sprite.frame == 3 or animated_sprite.frame == 4):
 		weapon.attack_area.set_deferred("disabled", false)
@@ -125,7 +147,7 @@ func _physics_process(delta):
 		attacking_cooldown = 24
 	elif is_jumping and !is_landing:
 		animated_sprite.play("jumping")
-	elif is_double_jumping and !jump_limit_reached:
+	elif is_double_jumping:
 		animated_sprite.play("double_jumping")
 		animated_sprite_puff.play("puff")
 	elif is_running and !is_jumping and !is_in_cooldown:
@@ -188,3 +210,7 @@ func _die():
 func _on_animation_finished():
 	if dead:
 		died.emit()
+
+func _on_coyote_timer_timeout():
+	coyote = false
+	print("coyote time over")

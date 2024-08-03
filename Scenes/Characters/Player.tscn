@@ -613,9 +613,9 @@ size = Vector2(45.65, 27)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon") groups=["Player"]]
 collision_layer = 129
+collision_mask = 3
 script = ExtResource("1_45wk2")
 jump_strength = 375
-maxium_jumps = 100
 weapon = NodePath("Sword")
 log_movement = true
 
@@ -657,11 +657,12 @@ collide_with_areas = true
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -25.0
-offset_right = 218.0
-offset_bottom = -10.0
+offset_left = 15.0
+offset_top = -33.0
+offset_right = 213.0
+offset_bottom = -18.0
 grow_vertical = 0
+scale = Vector2(1.5, 1.5)
 max_value = 100.0
 value = 100.0
 nine_patch_stretch = true

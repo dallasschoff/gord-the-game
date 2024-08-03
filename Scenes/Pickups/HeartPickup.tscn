@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://b61ioyr0c0gxf" path="res://Assets/My Assets/Sprites/Items/pickups.png" id="1_xexf5"]
 [ext_resource type="Script" path="res://Scripts/Pickups/heartPickup.gd" id="2_pb5iu"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_yag51"]
 atlas = ExtResource("1_xexf5")
 region = Rect2(0, 29, 56, 29)
@@ -56,5 +55,6 @@ collision_mask = 2
 z_index = 8
 position = Vector2(-1.51437, 0)
 shape = SubResource("CircleShape2D_mw65b")
+disabled = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
