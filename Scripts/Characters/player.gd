@@ -26,6 +26,8 @@ var hurting_cooldown = 0
 var coyote = false
 var last_floor = false
 var coyote_timer: Timer
+var running_attack_boost = false
+var running_attack_timer: Timer
 
 var knockback = Vector2(0,0)
 var knockbackTween
@@ -37,14 +39,36 @@ func _ready():
 	coyote_timer.one_shot = true
 	coyote_timer.wait_time = 0.1
 	coyote_timer.connect("timeout", _on_coyote_timer_timeout)
+	
+	running_attack_timer = Timer.new()
+	add_child(running_attack_timer)
+	running_attack_timer.one_shot = true
+	running_attack_timer.wait_time = 0.2
+	running_attack_timer.connect("timeout", _on_running_attack_timer_timeout)
 
 func _physics_process(delta):
 	if dead:
 		return
 	
-	var walk = 0
+	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0 or hurting_cooldown > 0
+	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
+	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
+	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
+	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and (is_on_floor() or coyote)
+	var is_double_jumping := Input.is_action_just_pressed("jump") and velocity.y >= 0 and !is_on_floor() and double_jumps_made != double_jumps
+	var is_running = is_on_floor() and !is_zero_approx(velocity.x) and !Input.is_action_pressed("walk") and !is_free_falling and abs(velocity.x) > 50
+	var is_walking := is_on_floor() and !is_zero_approx(velocity.x) and Input.is_action_pressed("walk")
+	var is_moving = is_walking or is_running
+	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
+	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor() and attacking_cooldown == 0
+	var is_attacking_running = Input.is_action_pressed("attack") and is_moving and abs(velocity.x) > 100 #and is_on_floor() 
+	var is_idling = is_on_floor() and is_zero_approx(velocity.x) and !is_crouching and !is_moving and !is_attacking_idle and !is_in_cooldown 
+	
+	var move = 0
 	var _horizontal_direction
-	if hurting_cooldown == 0:
+	
+	#Can only move if not hurting or attacking
+	if hurting_cooldown == 0 and attacking_cooldown == 0:
 		_horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 
 		if Input.is_action_pressed("walk"):
@@ -54,14 +78,14 @@ func _physics_process(delta):
 			speed = 600
 			max_speed = 200
 			
-		walk = _horizontal_direction * speed
-	
+		move = _horizontal_direction * speed
+
 	# Slow down the player if they're not trying to move
-	if abs(walk) < speed * 0.2:
+	if abs(move) < speed * 0.2:
 		# The velocity, slowed down a bit, and then reassigned
 		velocity.x = move_toward(velocity.x, 0, stop_force * delta)
 	else:
-		velocity.x += walk * delta
+		velocity.x += move * delta
 	
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	velocity.y += gravity * delta
@@ -69,19 +93,16 @@ func _physics_process(delta):
 	set_up_direction(Vector2.UP)
 	_handle_animation_cooldowns()
 	
-	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0 or hurting_cooldown > 0
-	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
-	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
-	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
-	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and (is_on_floor() or coyote)
-	var is_double_jumping := Input.is_action_just_pressed("jump") and velocity.y >= 0 and !is_on_floor() and double_jumps_made != double_jumps
-	var is_running = is_on_floor() and !is_zero_approx(velocity.x) and !Input.is_action_pressed("walk") and !is_free_falling
-	var is_walking := is_on_floor() and !is_zero_approx(velocity.x) and Input.is_action_pressed("walk")
-	var is_moving = is_walking or is_running
-	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
-	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor()
-	var is_attacking_running = Input.is_action_pressed("attack") and is_moving and abs(velocity.x) > 100 #and is_on_floor() 
-	var is_idling = is_on_floor() and is_zero_approx(velocity.x) and !is_crouching and !is_moving and !is_attacking_idle and !is_in_cooldown
+	#All of the "is_" variables used to be here
+	
+		#Small speed boost / slide to running attack (I want need to relocate this)
+	if Input.is_action_just_pressed("attack") and is_moving:
+		print("running attack boost")
+		running_attack_boost = true
+		running_attack_timer.start()
+	if running_attack_boost:
+		if velocity.x > 100: velocity.x = 300
+		if velocity.x < -100: velocity.x = -300
 	
 	if !is_on_floor() and last_floor and jumps_made == 0:
 		print("coyote time")
@@ -100,8 +121,9 @@ func _physics_process(delta):
 		jumps_made = 0
 		double_jumps_made = 0
 		
-	if jumps_made >= 1 and !is_on_floor() and Input.is_action_just_released("jump") and velocity.y < -200:
-		velocity.y = -200	
+	#Variable Jump Height
+	if jumps_made >= 1 and !is_on_floor() and Input.is_action_just_released("jump") and velocity.y < -125:
+		velocity.y = -125	
 	if is_landing:
 		landing_window = 12
 	if is_crouching:
@@ -123,12 +145,12 @@ func _physics_process(delta):
 	if hurting_cooldown > 0:
 		return
 	
-	if Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed("move_left") and attacking_cooldown == 0 and hurting_cooldown == 0:
 		animated_sprite.flip_h = true
 		weapon.change_direction("left")
 		if animated_sprite_puff.position.x < 0:
 			animated_sprite_puff.position.x = animated_sprite_puff.position.x + 4.3
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed("move_right") and attacking_cooldown == 0 and hurting_cooldown == 0:
 		animated_sprite.flip_h = false
 		animated_sprite_puff.position.x = -2.33
 		weapon.change_direction("right")
@@ -139,12 +161,12 @@ func _physics_process(delta):
 	if velocity.x == 0 and animated_sprite.flip_h == true:
 		animated_sprite_puff.position.x = 2
 	
-	if is_attacking_running:
+	if is_attacking_running and attacking_cooldown == 0:
 		animated_sprite.play("running_attack")
-		attacking_cooldown = 24
-	elif is_attacking_idle:
+		attacking_cooldown = 36
+	elif is_attacking_idle and attacking_cooldown == 0:
 		animated_sprite.play("attack")
-		attacking_cooldown = 24
+		attacking_cooldown = 48
 	elif is_jumping and !is_landing:
 		animated_sprite.play("jumping")
 	elif is_double_jumping:
@@ -214,3 +236,7 @@ func _on_animation_finished():
 func _on_coyote_timer_timeout():
 	coyote = false
 	print("coyote time over")
+
+func _on_running_attack_timer_timeout():
+	running_attack_boost = false
+	print("running attack boost over")

@@ -508,7 +508,7 @@ texture_under = ExtResource("7_2x107")
 texture_progress = ExtResource("5_vlku6")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("5_qxt31")]
-MAX_HEALTH = 10.0
+MAX_HEALTH = 100.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 
