@@ -6,7 +6,7 @@ class_name EnemyIdle
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player: CharacterBody2D
 var move_direction: float
-var looking_direction: float
+var looking_direction: float = -1
 var wander_time: float
 var changed_direction = false
 var idle = true

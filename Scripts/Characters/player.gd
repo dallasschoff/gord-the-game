@@ -49,7 +49,6 @@ func _ready():
 func _physics_process(delta):
 	if dead:
 		return
-	
 	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0 or hurting_cooldown > 0
 	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
 	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0

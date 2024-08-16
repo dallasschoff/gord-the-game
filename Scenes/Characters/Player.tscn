@@ -687,7 +687,7 @@ shape = SubResource("RectangleShape2D_3ufp0")
 [node name="Sword" parent="." node_paths=PackedStringArray("attack_area") instance=ExtResource("7_w7s6t")]
 collision_layer = 4
 collision_mask = 4
-attack_damage = 5.0
+attack_damage = 12.0
 attack_area = NodePath("SwordHitbox")
 
 [node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]
