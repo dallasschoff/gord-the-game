@@ -16,11 +16,13 @@ func physics_update(delta: float):
 	
 	if direction.length() > 40:
 		transitioned.emit(self, "follow")
-	elif direction.length() < 40 and can_attack:
+	elif direction.length() < 40 and not player._is_dead():
 		#continue to attack player if in range
 		var lunge_direction = enemy.global_position.direction_to(player.global_position)
 		var lunge = lunge_direction * move_speed
 		enemy._attack(lunge)
+	elif player._is_dead():
+		transitioned.emit(self, "goon")
 		
 	enemy.velocity.y += gravity * delta
 	

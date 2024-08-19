@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=84 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://dwsujkc70hx7c" path="res://Assets/My Assets/Sprites/PB Monster/Idle PB Monster.png" id="2_05g4r"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/States/enemy_follow.gd" id="14_8quct"]
 [ext_resource type="Script" path="res://Scripts/Components/States/enemy_attack.gd" id="17_6jq8q"]
 [ext_resource type="Script" path="res://Scripts/Components/States/enemy_hurt.gd" id="18_volq2"]
+[ext_resource type="Script" path="res://Scripts/Components/States/enemy_goon.gd" id="19_ejcig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4g6ap"]
 atlas = ExtResource("3_wp7wr")
@@ -372,7 +373,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bun7n")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 16.0
 }, {
@@ -488,7 +489,7 @@ HeartPickup = ExtResource("2_fyq8d")
 z_index = 5
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_7ycgr")
-animation = &"attack"
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_83saj")
@@ -550,6 +551,10 @@ enemy = NodePath("../..")
 script = ExtResource("18_volq2")
 enemy = NodePath("../..")
 
+[node name="Goon" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("19_ejcig")
+enemy = NodePath("../..")
+
 [node name="RayCasts" type="Node2D" parent="."]
 
 [node name="FloorRayCast" type="RayCast2D" parent="RayCasts"]
@@ -562,4 +567,5 @@ hit_from_inside = true
 position = Vector2(-16, -3)
 target_position = Vector2(-6, 0)
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]
 [connection signal="area_entered" from="HurtboxComponent" to="." method="_on_hurtbox_component_area_entered"]

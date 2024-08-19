@@ -22,6 +22,7 @@ func randomize_wander():
 	
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
+	player.connect("died", _start_gooning)	
 	randomize_wander()
 	if enemy:
 		enemy.connect("blocked", change_direction)
@@ -49,3 +50,8 @@ func change_direction():
 		move_direction = -move_direction
 		looking_direction = move_direction
 		changed_direction = true
+
+func _start_gooning():
+	var distance = player.global_position - enemy.global_position
+	if (distance.length() < 250):
+		transitioned.emit(self, "goon")
