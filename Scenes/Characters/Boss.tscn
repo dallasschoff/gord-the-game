@@ -1,7 +1,7 @@
-[gd_scene load_steps=65 format=3 uid="uid://8g3jtf213pi0"]
+[gd_scene load_steps=73 format=3 uid="uid://8g3jtf213pi0"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/boss.gd" id="1_jjnmy"]
-[ext_resource type="Texture2D" uid="uid://bpc8h4tik1jvo" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png" id="2_lr6p8"]
+[ext_resource type="Texture2D" uid="uid://m4ofpyjg5tc5" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png" id="2_lr6p8"]
 [ext_resource type="PackedScene" uid="uid://kx84jcamypoo" path="res://Scenes/Pickups/HeartPickup.tscn" id="2_yg40c"]
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/Components/HealthBarComponent.tscn" id="3_whs26"]
 [ext_resource type="Texture2D" uid="uid://c3ebfq3r754nd" path="res://Assets/My Assets/Sprites/Health Bar/EnemyhealthbarProgressUnder.png" id="4_tc4oc"]
@@ -41,6 +41,38 @@ region = Rect2(224, 56, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hberv"]
 atlas = ExtResource("2_lr6p8")
 region = Rect2(280, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5xqg"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(0, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cn3w"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(56, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bilj"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(112, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62ryp"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(168, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu2se"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(224, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1axal"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(280, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkdlq"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(336, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shi3w"]
+atlas = ExtResource("2_lr6p8")
+region = Rect2(392, 448, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b1lgx"]
 atlas = ExtResource("2_lr6p8")
@@ -229,6 +261,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_k5xqg")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_0cn3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bilj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62ryp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu2se")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1axal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkdlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shi3w")
+}],
+"loop": false,
+"name": &"cast meteor",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_b1lgx")
 }, {
 "duration": 1.0,
@@ -398,7 +459,9 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"running"
+animation = &"cast meteor"
+frame = 7
+frame_progress = 1.0
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6
@@ -466,3 +529,5 @@ hit_from_inside = true
 [node name="WallRayCast" type="RayCast2D" parent="RayCasts"]
 position = Vector2(-16, -3)
 target_position = Vector2(-6, 0)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="State Machine/Follow" method="_on_animated_sprite_2d_animation_finished"]

@@ -24,8 +24,12 @@ var knockback = Vector2(0,0)
 var tween
 var lunge = Vector2(0,0)
 
+#func _process(delta):
+	#if attack_cooldown > 0:
+
 func _physics_process(delta):
 	if attack_cooldown > 0:
+		attack_cooldown -= 1
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
 			move_and_slide()
 		if animated_sprite.animation == "attack" and animated_sprite.frame == 5:
@@ -35,9 +39,8 @@ func _physics_process(delta):
 			weapon.attack_area.set_deferred("disabled", false)
 		else:
 			weapon.attack_area.set_deferred("disabled", true)
-		attack_cooldown -= 1
 		return
-		
+	
 	move_and_slide()
 	
 	if abs(velocity.x) > 0 and abs(velocity.x) <= (boss_idle.move_speed):
@@ -110,3 +113,9 @@ func _attack(lunge_movement):
 	animated_sprite.play("attack")
 	attack_cooldown = 24
 	lunge = lunge_movement
+
+func _cast_meteor():
+	if attack_cooldown <= 0:
+		animated_sprite.play("cast meteor")
+		print("cast meteor")
+		attack_cooldown = 30
