@@ -33,6 +33,11 @@ var knockback = Vector2(0,0)
 var knockbackTween
 var dead = false
 
+#@onready var meteor_sprite = $PBMeteor/Meteor
+#@onready var explosion_sprite = $PBMeteor/Explosion
+#@onready var pb_meteor = $PBMeteor
+@export var PBMeteorScene: PackedScene
+
 func _ready():
 	coyote_timer = Timer.new()
 	add_child(coyote_timer)
@@ -65,6 +70,27 @@ func _physics_process(delta):
 	
 	var move = 0
 	var _horizontal_direction
+	
+	#Meteor Attack demo
+	if Input.is_action_just_pressed("test_button1"):
+		print("test 1 meteor")
+		var world = get_tree().get_first_node_in_group("World")
+		var pb_meteor_instance = PBMeteorScene.instantiate()
+		pb_meteor_instance.position = position
+		world.add_child(pb_meteor_instance)
+		
+		var meteor_sprite = pb_meteor_instance.get_child(0)
+		var explosion_sprite = pb_meteor_instance.get_child(1)
+		#var pb_meteor_root = pb_meteor_attack.get_tree().get_child(-1)
+		#pb_meteor_attack.visible = true
+		#meteor_sprite.visible = true
+		explosion_sprite.visible = false
+
+		world.add_child(pb_meteor_instance)
+		meteor_sprite.play("pb meteor")
+	
+		#if meteor_sprite.animation_finished:
+			#explosion_sprite.play("explosion")
 	
 	#Can only move if not hurting or attacking
 	if hurting_cooldown == 0 and attacking_cooldown == 0:

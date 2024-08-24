@@ -15,6 +15,8 @@
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_follow.gd" id="12_757ne"]
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_attack.gd" id="13_s0c35"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhp6g"]
+size = Vector2(14, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_02xnc"]
 atlas = ExtResource("2_lr6p8")
@@ -371,9 +373,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhp6g"]
-size = Vector2(14, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_te2pr"]
 size = Vector2(30, 32)
 
@@ -389,16 +388,17 @@ floor_raycast = NodePath("RayCasts/FloorRayCast")
 weapon = NodePath("Fists")
 HeartPickup = ExtResource("2_yg40c")
 
+[node name="CollisionGround" type="CollisionShape2D" parent="."]
+position = Vector2(1.81195e-06, 0)
+shape = SubResource("RectangleShape2D_rhp6g")
+debug_color = Color(0.995883, 0, 0.197232, 0.42)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
 animation = &"running"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_rhp6g")
-debug_color = Color(0.995883, 0, 0.197232, 0.42)
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6

@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=90 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/My Assets/Sprites/Gord/gord_char_2.png" id="3_p2441"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/Components/Weapon.tscn" id="7_w7s6t"]
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/Components/HealthBarComponent.tscn" id="8_4sj3i"]
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/Components/HurtboxComponent.tscn" id="8_hyne7"]
+[ext_resource type="PackedScene" uid="uid://dl2xhvrh1ay6f" path="res://Scenes/Characters/Attacks/PB Meteor.tscn" id="11_wg183"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6qfi5"]
 height = 32.0
@@ -618,6 +619,7 @@ script = ExtResource("1_45wk2")
 jump_strength = 375
 weapon = NodePath("Sword")
 log_movement = true
+PBMeteorScene = ExtResource("11_wg183")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, -7)
