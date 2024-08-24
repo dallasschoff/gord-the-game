@@ -93,7 +93,7 @@ func _physics_process(delta):
 			#explosion_sprite.play("explosion")
 	
 	#Can only move if not hurting or attacking
-	if hurting_cooldown == 0 and attacking_cooldown == 0:
+	if hurting_cooldown == 0 and attacking_cooldown == 0 and crouching_cooldown == 0:
 		_horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 
 		if Input.is_action_pressed("walk"):
@@ -253,6 +253,8 @@ func _die():
 	dead = true
 	print("Player Died")
 
+func _is_dead():
+	return dead
 
 func _on_animation_finished():
 	if dead:

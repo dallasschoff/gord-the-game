@@ -24,9 +24,18 @@ var knockback = Vector2(0,0)
 var tween
 var lunge = Vector2(0,0)
 var getting_hit = false
+var gooning = false
+var dead = false
 
 func _physics_process(delta):
-	if attack_cooldown > 0 and not getting_hit:
+	if dead:
+		return
+	
+	if gooning:
+		animated_sprite.play("death")
+		return
+		
+	if attack_cooldown > 0 and not getting_hit and not gooning:
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
 			move_and_slide()
 		if animated_sprite.animation == "attack" and animated_sprite.frame == 5:
@@ -79,14 +88,23 @@ func _hit(attack: Attack):
 	hit_started.emit()
 	
 func _die():
+	if dead:
+		return
 	animated_sprite.play("death")
+	dead = true
 	var heart = HeartPickup.instantiate()
 	heart.position = Vector2(position.x, position.y-8)
 	get_node("..").add_child(heart)
-	queue_free()
 	
 func _attack(lunge_movement):
-	if not getting_hit:
+	if not getting_hit and not gooning:
 		animated_sprite.play("attack")
 		attack_cooldown = 24
 		lunge = lunge_movement
+
+func _goon():
+	gooning = true
+
+func _on_animation_finished():
+	if dead:
+		queue_free()
