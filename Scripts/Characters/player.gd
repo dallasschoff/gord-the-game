@@ -130,7 +130,7 @@ func _physics_process(delta):
 		if velocity.x < -100: velocity.x = -300
 	
 	if !is_on_floor() and last_floor and jumps_made == 0:
-		print("coyote time")
+		#print("coyote time")
 		coyote = true
 		coyote_timer.start()
 	last_floor = is_on_floor()
@@ -262,7 +262,7 @@ func _on_animation_finished():
 
 func _on_coyote_timer_timeout():
 	coyote = false
-	print("coyote time over")
+	#print("coyote time over")
 
 func _on_running_attack_timer_timeout():
 	running_attack_boost = false
