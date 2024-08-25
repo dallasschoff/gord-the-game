@@ -1,8 +1,9 @@
-[gd_scene load_steps=73 format=3 uid="uid://8g3jtf213pi0"]
+[gd_scene load_steps=76 format=3 uid="uid://8g3jtf213pi0"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/boss.gd" id="1_jjnmy"]
 [ext_resource type="Texture2D" uid="uid://m4ofpyjg5tc5" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png" id="2_lr6p8"]
 [ext_resource type="PackedScene" uid="uid://kx84jcamypoo" path="res://Scenes/Pickups/HeartPickup.tscn" id="2_yg40c"]
+[ext_resource type="Texture2D" uid="uid://bye5lsmj5beyv" path="res://Assets/My Assets/Sprites/PB Gord/PB Gord Swing Attack.png" id="3_ieg1d"]
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/Components/HealthBarComponent.tscn" id="3_whs26"]
 [ext_resource type="Texture2D" uid="uid://c3ebfq3r754nd" path="res://Assets/My Assets/Sprites/Health Bar/EnemyhealthbarProgressUnder.png" id="4_tc4oc"]
 [ext_resource type="Texture2D" uid="uid://c3ycu2j0f8uhr" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_2.png" id="4_xui21"]
@@ -18,29 +19,37 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rhp6g"]
 size = Vector2(14, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_02xnc"]
-atlas = ExtResource("2_lr6p8")
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrehj"]
+atlas = ExtResource("3_ieg1d")
+region = Rect2(0, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ix84m"]
+atlas = ExtResource("3_ieg1d")
+region = Rect2(56, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8ylg"]
+atlas = ExtResource("3_ieg1d")
+region = Rect2(112, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvgel"]
+atlas = ExtResource("3_ieg1d")
+region = Rect2(168, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1ly1"]
+atlas = ExtResource("3_ieg1d")
 region = Rect2(0, 56, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_neloo"]
-atlas = ExtResource("2_lr6p8")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8js4"]
+atlas = ExtResource("3_ieg1d")
 region = Rect2(56, 56, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7scea"]
-atlas = ExtResource("2_lr6p8")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m70pt"]
+atlas = ExtResource("3_ieg1d")
 region = Rect2(112, 56, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j0xwm"]
-atlas = ExtResource("2_lr6p8")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7oa2m"]
+atlas = ExtResource("3_ieg1d")
 region = Rect2(168, 56, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bn2wy"]
-atlas = ExtResource("2_lr6p8")
-region = Rect2(224, 56, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hberv"]
-atlas = ExtResource("2_lr6p8")
-region = Rect2(280, 56, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k5xqg"]
 atlas = ExtResource("2_lr6p8")
@@ -238,22 +247,28 @@ region = Rect2(56, 56, 56, 56)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_02xnc")
+"texture": SubResource("AtlasTexture_hrehj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_neloo")
+"texture": SubResource("AtlasTexture_ix84m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7scea")
+"texture": SubResource("AtlasTexture_l8ylg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_j0xwm")
+"texture": SubResource("AtlasTexture_xvgel")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bn2wy")
+"texture": SubResource("AtlasTexture_e1ly1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hberv")
+"texture": SubResource("AtlasTexture_m8js4")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_m70pt")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_7oa2m")
 }],
 "loop": true,
 "name": &"attack",
@@ -441,7 +456,7 @@ size = Vector2(30, 32)
 size = Vector2(38, 20)
 
 [node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
-scale = Vector2(3, 3)
+scale = Vector2(2.2, 2.2)
 script = ExtResource("1_jjnmy")
 raycasts = NodePath("RayCasts")
 wall_raycast = NodePath("RayCasts/WallRayCast")
@@ -459,9 +474,7 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"cast meteor"
-frame = 7
-frame_progress = 1.0
+animation = &"attack"
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6
@@ -512,7 +525,7 @@ boss = NodePath("../..")
 [node name="Follow" type="Node" parent="State Machine" node_paths=PackedStringArray("boss")]
 script = ExtResource("12_757ne")
 boss = NodePath("../..")
-move_speed = 200
+move_speed = 100
 
 [node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("boss")]
 script = ExtResource("13_s0c35")

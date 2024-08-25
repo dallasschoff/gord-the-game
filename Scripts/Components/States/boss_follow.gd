@@ -35,7 +35,7 @@ func physics_update(delta: float):
 	var direction = player.global_position - boss.global_position
 	boss.velocity.y += gravity * delta
 	#Defines length at which boss transitions to attack
-	if direction.length() > 80:
+	if direction.length() > 60:
 		boss.velocity.x = direction.normalized().x * move_speed
 		if can_attack:
 			boss._cast_meteor()

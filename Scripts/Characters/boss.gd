@@ -118,4 +118,4 @@ func _cast_meteor():
 	if attack_cooldown <= 0:
 		animated_sprite.play("cast meteor")
 		print("cast meteor")
-		attack_cooldown = 30
+		attack_cooldown = 36
