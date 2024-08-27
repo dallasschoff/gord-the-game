@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=25 format=3 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
 [ext_resource type="TileSet" uid="uid://oom7ecgwg3gm" path="res://Assets/My Assets/Tileset/Environ.tres" id="3_rqiqu"]
-[ext_resource type="Texture2D" uid="uid://c534us74cdu16" path="res://Assets/My Assets/Tileset/Grass Background Spritesheet.png" id="4_0asnj"]
+[ext_resource type="Texture2D" uid="uid://byfpfmtrdixsv" path="res://Assets/My Assets/Tileset/Grass Background Spritesheet.png" id="4_0asnj"]
+[ext_resource type="Texture2D" uid="uid://dxrf1wcsmkgv0" path="res://Assets/My Assets/Tileset/Grass Foreground Spritesheet.png" id="4_d1hln"]
 [ext_resource type="Texture2D" uid="uid://cpcyr3t3x3bb5" path="res://Assets/My Assets/Tileset/BackgroundMountains.png" id="5_h4k0o"]
 [ext_resource type="Texture2D" uid="uid://dbi7ebibq4w18" path="res://Assets/My Assets/Tileset/BackgroundTrees.png" id="6_if51q"]
 [ext_resource type="PackedScene" uid="uid://d3hdve1decu6n" path="res://Scenes/Characters/Player.tscn" id="7_6igws"]
@@ -12,6 +13,16 @@
 [ext_resource type="Texture2D" uid="uid://d2rcoxhj5bkkn" path="res://Assets/My Assets/Sprites/Info/Arrow.png" id="10_d5g63"]
 [ext_resource type="PackedScene" uid="uid://8g3jtf213pi0" path="res://Scenes/Characters/Boss.tscn" id="11_544vx"]
 [ext_resource type="PackedScene" uid="uid://cr8vjckv3kn60" path="res://Scenes/Interactions/Door.tscn" id="12_gkqas"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vwdut"]
+texture = ExtResource("4_d1hln")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6lyx"]
 texture = ExtResource("4_0asnj")
@@ -26,6 +37,17 @@ texture_region_size = Vector2i(128, 128)
 [sub_resource type="TileSet" id="TileSet_ouyn4"]
 tile_size = Vector2i(128, 128)
 sources/1 = SubResource("TileSetAtlasSource_q6lyx")
+sources/0 = SubResource("TileSetAtlasSource_vwdut")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p54g6"]
+texture = ExtResource("4_d1hln")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3b8ni"]
 texture = ExtResource("4_0asnj")
@@ -40,6 +62,7 @@ texture_region_size = Vector2i(128, 128)
 [sub_resource type="TileSet" id="TileSet_vsa82"]
 tile_size = Vector2i(128, 128)
 sources/1 = SubResource("TileSetAtlasSource_3b8ni")
+sources/0 = SubResource("TileSetAtlasSource_p54g6")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hq6uv"]
 texture = ExtResource("5_h4k0o")
@@ -100,17 +123,17 @@ format = 2
 layer_0/modulate = Color(0.685146, 0.685146, 0.685146, 1)
 layer_0/tile_data = PackedInt32Array(196626, 262144, 0, 196627, 262144, 0, 196628, 262144, 0, 196629, 327680, 0, 131094, 0, 1, 196625, 196608, 0, 131093, 131072, 1, 131096, 65536, 1, 65561, 196608, 1, 196642, 0, 0, 65585, 196608, 1, 196674, 131072, 1, 196679, 131072, 1, 196675, 0, 1, 196678, 0, 1)
 
-[node name="GrassTileMap" type="TileMap" parent="."]
+[node name="BehindPlayer" type="TileMap" parent="."]
 z_index = 4
 tile_set = SubResource("TileSet_ouyn4")
 format = 2
-layer_0/tile_data = PackedInt32Array(4, 0, 0, 196621, 65537, 0, 196622, 131073, 0, 196623, 131073, 1, 196624, 65537, 1, 196625, 1, 1)
+layer_0/tile_data = PackedInt32Array(196622, 131073, 0, 196623, 1, 1, 196624, 65537, 1, 196625, 131073, 1)
 
-[node name="Grass2TileMap" type="TileMap" parent="."]
+[node name="InfrontPlayer" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_vsa82")
 format = 2
 layer_0/z_index = 8
-layer_0/tile_data = PackedInt32Array(2, 0, 0, 3, 0, 0)
+layer_0/tile_data = PackedInt32Array(2, 0, 0, 3, 0, 0, 196621, 65536, 0, 196622, 131072, 0, 196623, 0, 1, 196624, 65536, 1, 196625, 131072, 1)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
