@@ -209,3 +209,4 @@ sprite_frames = SubResource("SpriteFrames_lb6hy")
 animation = &"explosion"
 
 [connection signal="animation_finished" from="Meteor" to="." method="_on_meteor_animation_finished"]
+[connection signal="animation_finished" from="Explosion" to="." method="_on_explosion_animation_finished"]

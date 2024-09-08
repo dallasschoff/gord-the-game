@@ -33,6 +33,9 @@ var knockback = Vector2(0,0)
 var knockbackTween
 var dead = false
 
+var last_ground_position
+var ground_level
+
 #@onready var meteor_sprite = $PBMeteor/Meteor
 #@onready var explosion_sprite = $PBMeteor/Explosion
 #@onready var pb_meteor = $PBMeteor
@@ -50,6 +53,8 @@ func _ready():
 	running_attack_timer.one_shot = true
 	running_attack_timer.wait_time = 0.2
 	running_attack_timer.connect("timeout", _on_running_attack_timer_timeout)
+	
+	last_ground_position = position.y
 
 func _physics_process(delta):
 	if dead:
@@ -165,6 +170,8 @@ func _physics_process(delta):
 		weapon.attack_area.set_deferred("disabled", true)
 	
 	velocity = velocity + knockback
+	_update_ground_position()
+	last_ground_position = position.y
 	move_and_slide()
 	
 	if hurting_cooldown > 0:
@@ -267,3 +274,11 @@ func _on_coyote_timer_timeout():
 func _on_running_attack_timer_timeout():
 	running_attack_boost = false
 	print("running attack boost over")
+	
+func _update_ground_position():
+	var test = position.y
+	if last_ground_position == position.y:
+		ground_level = position.y
+func _get_ground_position():
+	print(ground_level)
+	return ground_level

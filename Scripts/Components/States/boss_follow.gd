@@ -15,7 +15,7 @@ func randomize_behavior():
 		behavior = 1
 	else:
 		behavior = randi_range(-1, 1)
-		print(behavior)
+		print("behavior",behavior)
 	if behavior == 0: 
 		can_attack = true
 	wait_time = 1
@@ -38,7 +38,7 @@ func physics_update(delta: float):
 	if direction.length() > 60:
 		boss.velocity.x = direction.normalized().x * move_speed
 		if can_attack:
-			boss._cast_meteor()
+			boss._cast_meteor(player.velocity, player.position, player._get_ground_position())
 			can_attack = false
 	
 	else:

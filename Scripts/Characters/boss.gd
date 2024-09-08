@@ -13,6 +13,7 @@ var SPEED = 60
 @export var floor_raycast: RayCast2D
 @export var weapon: Weapon
 @export var HeartPickup: PackedScene
+@export var Meteor: PackedScene
 #Animation traits
 var hurting_cooldown = 0
 var attack_cooldown = 0
@@ -23,6 +24,7 @@ var left_colliding = false
 var knockback = Vector2(0,0)
 var tween
 var lunge = Vector2(0,0)
+
 
 #func _process(delta):
 	#if attack_cooldown > 0:
@@ -114,8 +116,15 @@ func _attack(lunge_movement):
 	attack_cooldown = 24
 	lunge = lunge_movement
 
-func _cast_meteor():
+func _cast_meteor(player_velocity, player_position, ground_level):
 	if attack_cooldown <= 0:
 		animated_sprite.play("cast meteor")
+		#instantiate meteor
+		var meteor = Meteor.instantiate()
+		var meteor_x = (player_velocity.x * 1) + player_position.x
+		var meteor_y = (ground_level)
+		meteor.position = Vector2(meteor_x, meteor_y)
+		meteor.scale.x = 1 if animated_sprite.flip_h == false else -1
+		get_node("..").add_child(meteor)
 		print("cast meteor")
 		attack_cooldown = 36
