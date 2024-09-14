@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmxw4gtoklq72"]
+
+[ext_resource type="Texture2D" uid="uid://1wg1lu13xyxh" path="res://Assets/My Assets/Sprites/PB Gord/PB Wall.png" id="1_unhdy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kugea"]
+size = Vector2(28, 111)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ng4f"]
+atlas = ExtResource("1_unhdy")
+region = Rect2(0, 0, 56, 112)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8abhy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ng4f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PB Wall" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(-11, 0.5)
+shape = SubResource("RectangleShape2D_kugea")
+
+[node name="PBWallSprite" type="AnimatedSprite2D" parent="."]
+z_index = 5
+sprite_frames = SubResource("SpriteFrames_8abhy")

@@ -75,7 +75,6 @@ func _physics_process(delta):
 	
 	var move = 0
 	var _horizontal_direction
-	
 	#Meteor Attack demo
 	if Input.is_action_just_pressed("test_button1"):
 		print("test 1 meteor")
@@ -279,6 +278,7 @@ func _update_ground_position():
 	var test = position.y
 	if last_ground_position == position.y:
 		ground_level = position.y
+
 func _get_ground_position():
 	print(ground_level)
 	return ground_level

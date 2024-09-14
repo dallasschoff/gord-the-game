@@ -624,7 +624,7 @@ PBMeteorScene = ExtResource("11_wg183")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, -7)
 shape = SubResource("CapsuleShape2D_6qfi5")
-debug_color = Color(1, 0, 0.0901961, 0.419608)
+debug_color = Color(0.998424, 0, 0.145558, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 6
