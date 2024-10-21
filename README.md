@@ -38,4 +38,3 @@ Remaining Goals for Phase 1 (Playable game):
 Ideas
 1. Crunchy and smooth peanut butter monsters 
 2. crunchy has a ranged attack to throw peanuts
-

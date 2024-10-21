@@ -26,6 +26,3 @@ func _ready():
 	print("meteor spawned")
 	explosion_sprite.visible = false
 	meteor_sprite.play("pb meteor")
-
-
-
