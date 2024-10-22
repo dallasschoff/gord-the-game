@@ -79,6 +79,8 @@ func _physics_process(delta):
 	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
 	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor() and attacking_cooldown == 0
 	var is_attacking_running = Input.is_action_pressed("attack") and is_moving and abs(velocity.x) > 100 #and is_on_floor() 
+	var is_combo_attacking = Input.is_action_pressed("attack") and (animated_sprite.animation == "attack" and (animated_sprite.frame == 5))
+	var is_aerial_attacking = Input.is_action_pressed("attack") and ((animated_sprite.animation == "jumping" and (animated_sprite.frame == 5)) or (animated_sprite.animation == "free_falling") or ((animated_sprite.animation == "double_jumping" and (animated_sprite.frame == 3))))
 	var is_idling = is_on_floor() and is_zero_approx(velocity.x) and !is_crouching and !is_moving and !is_attacking_idle and !is_in_cooldown 
 	
 	var move = 0
@@ -173,6 +175,10 @@ func _physics_process(delta):
 	#Attack hitbox enable / disable
 	if animated_sprite.animation == "attack" and (animated_sprite.frame == 3 or animated_sprite.frame == 4):
 		weapon.attack_area.set_deferred("disabled", false)
+	elif animated_sprite.animation == "combo_attack" and (animated_sprite.frame == 1 or animated_sprite.frame == 2):
+		weapon.attack_area.set_deferred("disabled", false)
+	elif animated_sprite.animation == "aerial_attack" and (animated_sprite.frame == 1 or animated_sprite.frame == 2):
+		weapon.attack_area.set_deferred("disabled", false)
 	elif animated_sprite.animation == "running_attack" and animated_sprite.frame >= 2 and animated_sprite.frame <= 5:
 		weapon.attack_area.set_deferred("disabled", false)
 	else:
@@ -212,6 +218,10 @@ func _physics_process(delta):
 	elif is_attacking_idle and attacking_cooldown == 0:
 		animated_sprite.play("attack")
 		attacking_cooldown = 48
+	elif is_combo_attacking:
+		animated_sprite.play("combo_attack")
+	elif is_aerial_attacking:
+		animated_sprite.play("aerial_attack")
 	elif is_jumping and !is_landing:
 		animated_sprite.play("jumping")
 	elif is_double_jumping:

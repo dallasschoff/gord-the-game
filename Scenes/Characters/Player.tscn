@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=96 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/My Assets/Sprites/Gord/gord_char_2.png" id="3_p2441"]
@@ -14,6 +14,18 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6qfi5"]
 height = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwp43"]
+atlas = ExtResource("3_p2441")
+region = Rect2(56, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai626"]
+atlas = ExtResource("3_p2441")
+region = Rect2(112, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvr1j"]
+atlas = ExtResource("3_p2441")
+region = Rect2(168, 224, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fdg2r"]
 atlas = ExtResource("3_v6etn")
@@ -38,6 +50,18 @@ region = Rect2(224, 56, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_bl4pp"]
 atlas = ExtResource("3_v6etn")
 region = Rect2(280, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v8cb"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(280, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d20py"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(336, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or60j"]
+atlas = ExtResource("3_v6etn")
+region = Rect2(392, 56, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t021k"]
 atlas = ExtResource("3_v6etn")
@@ -299,6 +323,20 @@ region = Rect2(56, 56, 56, 56)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_kwp43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ai626")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvr1j")
+}],
+"loop": false,
+"name": &"aerial_attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_fdg2r")
 }, {
 "duration": 1.0,
@@ -318,6 +356,23 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0v8cb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d20py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or60j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or60j")
+}],
+"loop": false,
+"name": &"combo_attack",
 "speed": 12.0
 }, {
 "frames": [{
@@ -630,7 +685,7 @@ debug_color = Color(0.998424, 0, 0.145558, 0.419608)
 z_index = 6
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"running_attack"
+animation = &"combo_attack"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
