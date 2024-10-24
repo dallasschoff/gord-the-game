@@ -11,6 +11,11 @@ func _on_weapon_hitbox_entered(area):
 		var hurtbox: HurtboxComponent = area
 		
 		var direction = global_position.direction_to(hurtbox.global_position)
+		if (direction.x < 0):
+			direction.x = clamp(direction.x, -1, -0.8)
+		else:
+			direction.x = clamp(direction.x, 0.8, 1)
+		direction.y = clamp(direction.y, -0.4, 1)
 		var knockback = direction * knockback_force
 		var attack = Attack.new()
 		attack.attack_damage = attack_damage

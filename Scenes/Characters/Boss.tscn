@@ -476,7 +476,7 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"attack"
+animation = &"cast meteor"
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6
@@ -509,6 +509,7 @@ debug_color = Color(0.683781, 0.501668, 0, 0.42)
 collision_layer = 2
 collision_mask = 2
 attack_damage = 5.0
+knockback_force = 70.0
 attack_area = NodePath("SwordHitbox")
 
 [node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]

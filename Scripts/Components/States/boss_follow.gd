@@ -15,7 +15,7 @@ func randomize_behavior():
 		behavior = 1
 	else:
 		behavior = randi_range(-1, 1)
-		print("behavior",behavior)
+		print("behavior: ",behavior)
 	if behavior == 0: 
 		can_attack = true
 	wait_time = 1

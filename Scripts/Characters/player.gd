@@ -102,7 +102,7 @@ func _physics_process(delta):
 
 		world.add_child(pb_meteor_instance)
 		meteor_sprite.play("pb meteor")
-	
+		
 	#Can only move if not hurting or attacking
 	if hurting_cooldown == 0 and attacking_cooldown == 0 and crouching_cooldown == 0:
 		_horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -190,7 +190,7 @@ func _physics_process(delta):
 	last_ground_position = position.y
 	move_and_slide()
 	
-	#Dallas?
+	#If getting hurt, do not run any code below this point and return
 	if hurting_cooldown > 0:
 		return
 	
@@ -220,6 +220,7 @@ func _physics_process(delta):
 		attacking_cooldown = 48
 	elif is_combo_attacking:
 		animated_sprite.play("combo_attack")
+		attacking_cooldown = 30
 	elif is_aerial_attacking:
 		animated_sprite.play("aerial_attack")
 	elif is_jumping and !is_landing:

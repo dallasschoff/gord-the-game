@@ -93,12 +93,12 @@ func _attack(lunge_movement):
 	lunge = lunge_movement
 
 func _cast_meteor(player_velocity, player_position, ground_level):
-	if attack_cooldown and meteor_cooldown <= 0:
+	if attack_cooldown <= 0 and meteor_cooldown <= 0:
 		animated_sprite.play("cast meteor")
 		#instantiate meteor
 		var meteor = Meteor.instantiate()
 		var meteor_x = (player_velocity.x * 1) + player_position.x
-		var meteor_y = (ground_level)
+		var meteor_y = ground_level
 		meteor.position = Vector2(meteor_x, meteor_y)
 		meteor.scale.x = 1 if animated_sprite.flip_h == false else -1
 		get_node("..").add_child(meteor)
