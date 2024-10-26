@@ -72,7 +72,7 @@ func _physics_process(delta):
 	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
 	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
 	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and (is_on_floor() or coyote)
-	var is_double_jumping := Input.is_action_just_pressed("jump") and velocity.y >= 0 and !is_on_floor() and double_jumps_made != double_jumps
+	var is_double_jumping := Input.is_action_just_pressed("jump") and !is_on_floor() and double_jumps_made != double_jumps #and velocity.y >= 0
 	var is_running = is_on_floor() and !is_zero_approx(velocity.x) and !Input.is_action_pressed("walk") and !is_free_falling and abs(velocity.x) > 50
 	var is_walking := is_on_floor() and !is_zero_approx(velocity.x) and Input.is_action_pressed("walk")
 	var is_moving = is_walking or is_running
