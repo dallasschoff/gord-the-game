@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://dl2xhvrh1ay6f"]
+[gd_scene load_steps=35 format=3 uid="uid://dl2xhvrh1ay6f"]
 
 [ext_resource type="Texture2D" uid="uid://denytmfpah0fl" path="res://Assets/My Assets/Sprites/PB Gord/PB Meteor.png" id="1_jm8lt"]
 [ext_resource type="Script" path="res://Scripts/Characters/Attacks/PB Meteor.gd" id="1_plw6f"]
+[ext_resource type="Script" path="res://Scripts/Components/weapon.gd" id="3_6i28j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ql42a"]
 atlas = ExtResource("1_jm8lt")
@@ -134,7 +135,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pb meteor",
-"speed": 14.0
+"speed": 18.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jo022"]
@@ -194,6 +195,46 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqvmj"]
+radius = 38.0
+
+[sub_resource type="Animation" id="Animation_fidu2"]
+resource_name = "meteor_explosion"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Hitbox:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_7ad7n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/Hitbox:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uxi8e"]
+_data = {
+"RESET": SubResource("Animation_7ad7n"),
+"meteor_explosion": SubResource("Animation_fidu2")
+}
+
 [node name="PBMeteor" type="Node2D"]
 z_index = 10
 script = ExtResource("1_plw6f")
@@ -202,11 +243,32 @@ script = ExtResource("1_plw6f")
 position = Vector2(46, -55)
 sprite_frames = SubResource("SpriteFrames_7owdn")
 animation = &"pb meteor"
+frame = 17
+frame_progress = 1.0
 
 [node name="Explosion" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -55)
 sprite_frames = SubResource("SpriteFrames_lb6hy")
 animation = &"explosion"
+frame = 6
+frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("attack_area")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_6i28j")
+attack_damage = 50.0
+attack_area = NodePath("Hitbox")
+
+[node name="Hitbox" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1, 0.7)
+shape = SubResource("CircleShape2D_kqvmj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uxi8e")
+}
+autoplay = "meteor_explosion"
 
 [connection signal="animation_finished" from="Meteor" to="." method="_on_meteor_animation_finished"]
 [connection signal="animation_finished" from="Explosion" to="." method="_on_explosion_animation_finished"]

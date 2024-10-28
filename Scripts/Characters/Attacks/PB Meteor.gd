@@ -2,9 +2,14 @@ extends Node2D
 
 @onready var meteor_sprite = $Meteor
 @onready var explosion_sprite = $Explosion
+@onready var animation_player = $AnimationPlayer
 var fade_timer
 var fade_tween
 
+func _ready():
+	explosion_sprite.visible = false
+	meteor_sprite.play("pb meteor")
+	animation_player.play("meteor_explosion")
 
 func _on_meteor_animation_finished():
 	meteor_sprite.visible = false
@@ -21,8 +26,3 @@ func _on_explosion_animation_finished():
 	fade_tween.parallel().tween_property(self, "modulate:a", 0, 5)
 func _on_fade_timer_timeout():
 	queue_free()
-
-func _ready():
-	print("meteor spawned")
-	explosion_sprite.visible = false
-	meteor_sprite.play("pb meteor")
