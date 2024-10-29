@@ -4,6 +4,8 @@ class_name Boss
 
 signal blocked
 signal attack_finished
+signal hit_started
+signal hit_finished
 
 #Enemy trait values
 var SPEED = 60
@@ -27,12 +29,27 @@ var knockback = Vector2(0,0)
 var tween
 var lunge = Vector2(0,0)
 var attack_just_finished = false
+var getting_hit = false
+var stagger_timer: Timer
+var will_stagger = true
+
+func _ready():
+	#Initialize stagger timer
+	stagger_timer = Timer.new()
+	add_child(stagger_timer)
+	stagger_timer.one_shot = true
+	stagger_timer.wait_time = 10.0
+	stagger_timer.connect("timeout", _reset_stagger)
+
+#This will run when the stagger_timer times out
+func _reset_stagger():
+	will_stagger = true
 
 func _physics_process(delta):
 	if meteor_cooldown > 0:
 		#Decrement meteor_cooldown
 		meteor_cooldown -= 1
-	if attack_cooldown > 0:
+	if attack_cooldown > 0 and not getting_hit:
 		#Decrement attack_cooldown
 		attack_cooldown -= 1
 		if attack_cooldown == 0:
@@ -47,7 +64,16 @@ func _physics_process(delta):
 	elif attack_cooldown <= 0 and attack_just_finished:
 		attack_finished.emit()
 		attack_just_finished = false
+		
 	move_and_slide()
+	
+	if hurting_cooldown > 0:
+		animated_sprite.play("hurting")
+		hurting_cooldown -= 1
+		return
+	else:
+		getting_hit = false
+		hit_finished.emit()
 	
 	if abs(velocity.x) > 0 and abs(velocity.x) <= (boss_idle.move_speed):
 		animated_sprite.play("walking")
@@ -71,14 +97,24 @@ func _physics_process(delta):
 func _hit(attack: Attack):
 	is_walking = false
 	is_idle = false
-	hurting_cooldown = 36
-	animated_sprite.play("hurting")
-	print("Enemy hit")
-	
-	knockback = attack.knockback
-	
-	tween = get_tree().create_tween()
-	tween.parallel().tween_property(self, "knockback", Vector2(0,0), 0.75)
+	getting_hit = true
+	#If the Boss will stagger this hit, set the hurting_cooldown to a higher value
+	#and play the stagger animation. Also start the stagger_timer to emulate a
+	#period when the Boss will not stagger for.
+	if will_stagger:
+		hurting_cooldown = 160
+		animated_sprite.play("hurting")
+		stagger_timer.start()
+	#Else, the Boss will not stagger, so use normal hurting_cooldown value
+	#and play the hurting animation
+	else:
+		hurting_cooldown = 36
+		animated_sprite.play("hurting")
+	print("Boss hit")
+	#Set will_stagger to false, regardless, as it will only be true when stagger_timer
+	#has hit timeout
+	will_stagger = false
+	hit_started.emit()
 	
 func _die():
 	animated_sprite.play("death")
@@ -88,9 +124,10 @@ func _die():
 	queue_free()
 	
 func _attack(lunge_movement):
-	animated_sprite.play("attack")
-	attack_cooldown = 36
-	lunge = lunge_movement
+	if not getting_hit:
+		animated_sprite.play("attack")
+		attack_cooldown = 36
+		lunge = lunge_movement
 
 func _cast_meteor(player_velocity, player_position, ground_level):
 	if attack_cooldown <= 0 and meteor_cooldown <= 0:

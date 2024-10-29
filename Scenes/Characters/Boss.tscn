@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://8g3jtf213pi0"]
+[gd_scene load_steps=78 format=3 uid="uid://8g3jtf213pi0"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/boss.gd" id="1_jjnmy"]
 [ext_resource type="Texture2D" uid="uid://m4ofpyjg5tc5" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png" id="2_lr6p8"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_idle.gd" id="11_hcr8d"]
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_follow.gd" id="12_757ne"]
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_attack.gd" id="13_s0c35"]
+[ext_resource type="Script" path="res://Scripts/Components/States/boss_hurt.gd" id="17_euu3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rhp6g"]
 size = Vector2(14, 32)
@@ -476,7 +477,7 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"cast meteor"
+animation = &"hurting"
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6
@@ -532,6 +533,10 @@ move_speed = 100
 
 [node name="Attack" type="Node" parent="State Machine" node_paths=PackedStringArray("boss")]
 script = ExtResource("13_s0c35")
+boss = NodePath("../..")
+
+[node name="Hurt" type="Node" parent="State Machine" node_paths=PackedStringArray("boss")]
+script = ExtResource("17_euu3c")
 boss = NodePath("../..")
 
 [node name="RayCasts" type="Node2D" parent="."]

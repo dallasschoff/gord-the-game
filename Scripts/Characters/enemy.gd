@@ -65,9 +65,9 @@ func _physics_process(delta):
 		animated_sprite.play("idle")
 		
 	if velocity.x < 0:
-			weapon.change_direction("left")
-			animated_sprite.flip_h = false
-			raycasts.scale.x = 1
+		weapon.change_direction("left")
+		animated_sprite.flip_h = false
+		raycasts.scale.x = 1
 	if velocity.x > 0:
 		weapon.change_direction("right")
 		animated_sprite.flip_h = true

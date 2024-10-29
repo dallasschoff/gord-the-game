@@ -9,6 +9,7 @@ var player: CharacterBody2D
 var can_follow = false
 
 func enter():
+	boss.connect("hit_started", _got_hurt)
 	player = get_tree().get_first_node_in_group("Player")
 	boss.connect("attack_finished", _attack_animation_finished)
 	
@@ -27,3 +28,6 @@ func physics_update(delta: float):
 
 func _attack_animation_finished():
 	can_follow = true
+
+func _got_hurt():
+	transitioned.emit(self, "hurt")

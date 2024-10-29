@@ -21,6 +21,7 @@ func randomize_behavior():
 	wait_time = 1
 
 func enter():
+	boss.connect("hit_started", _got_hurt)
 	player = get_tree().get_first_node_in_group("Player")
 
 func update(delta: float):
@@ -49,5 +50,8 @@ func physics_update(delta: float):
 		transitioned.emit(self, "idle")
 
 func _on_animated_sprite_2d_animation_finished():
-	if $"../../AnimatedSprite2D".animation == "cast_meteor":
+	if $"../../BossSprite".animation == "cast_meteor":
 		wait_time = 0
+
+func _got_hurt():
+	transitioned.emit(self, "hurt")
