@@ -48,7 +48,9 @@ func _reset_stagger():
 func _physics_process(delta):
 	if meteor_cooldown > 0:
 		#Decrement meteor_cooldown
+		animated_sprite.play("cast meteor")
 		meteor_cooldown -= 1
+		return
 	if attack_cooldown > 0 and not getting_hit:
 		#Decrement attack_cooldown
 		attack_cooldown -= 1

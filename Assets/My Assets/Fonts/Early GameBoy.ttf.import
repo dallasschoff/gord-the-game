@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Early GameBoy.ttf-ac5ecedbafd0890cb66f4bb2105
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

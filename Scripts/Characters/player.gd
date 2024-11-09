@@ -184,7 +184,7 @@ func _physics_process(delta):
 	else:
 		weapon.attack_area.set_deferred("disabled", true)
 	
-	#Aplly knockback physics
+	#Apply knockback physics
 	velocity = velocity + knockback
 	_update_ground_position()
 	last_ground_position = position.y

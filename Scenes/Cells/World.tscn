@@ -153,7 +153,7 @@ tile_set = SubResource("TileSet_83k2e")
 position = Vector2(8608, 448)
 
 [node name="Player" parent="." instance=ExtResource("7_6igws")]
-position = Vector2(9064, 435)
+position = Vector2(8873, 444)
 log_movement = false
 
 [node name="HeartPickup" parent="." instance=ExtResource("9_15s8u")]

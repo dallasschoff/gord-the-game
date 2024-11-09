@@ -19,7 +19,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_hurt.gd" id="17_euu3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rhp6g"]
-size = Vector2(14, 32)
+size = Vector2(14, 31.4091)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrehj"]
 atlas = ExtResource("3_ieg1d")
@@ -459,6 +459,8 @@ size = Vector2(38, 35.5455)
 
 [node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
 scale = Vector2(2.2, 2.2)
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_jjnmy")
 raycasts = NodePath("RayCasts")
 wall_raycast = NodePath("RayCasts/WallRayCast")
@@ -477,7 +479,7 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"hurting"
+animation = &"idle"
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6

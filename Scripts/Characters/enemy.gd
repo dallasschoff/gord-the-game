@@ -5,6 +5,7 @@ class_name Enemy
 signal blocked
 signal hit_started
 signal hit_finished
+signal attack_finished
 
 #Enemy trait values
 var SPEED = 60
@@ -46,6 +47,9 @@ func _physics_process(delta):
 		else:
 			weapon.attack_area.set_deferred("disabled", true)
 		attack_cooldown -= 1
+		#Emit attack_finished once the attack_cooldown has reached 0
+		if attack_cooldown == 0:
+			attack_finished.emit()
 		return
 	
 	velocity = velocity + knockback
@@ -99,7 +103,7 @@ func _die():
 func _attack(lunge_movement):
 	if not getting_hit and not gooning:
 		animated_sprite.play("attack")
-		attack_cooldown = 24
+		attack_cooldown = 64
 		lunge = lunge_movement
 
 func _goon():
