@@ -27,7 +27,7 @@ Remaining Goals for Phase 1 (Playable game):
 1. Fine tune combat
 2. ~~Enemy attacking logic/animation~~
 3. ~~Add Player death animation/logic~~
-4. Enemy death animations/logic
+4. ~~Enemy death animations/logic~~
 5. ~~Black screen respawning on death~~
 6. ~~Replenish health on item pickup~~
 7. ~~Tween Health Bar changes~~
