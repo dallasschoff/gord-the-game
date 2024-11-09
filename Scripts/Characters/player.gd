@@ -31,6 +31,7 @@ var coyote = false
 var last_floor = false
 var coyote_timer: Timer
 #Running attack properties
+var can_running_attack = true
 var running_attack_boost = false
 var running_attack_timer: Timer
 #Player knockback
@@ -58,7 +59,8 @@ func _ready():
 	running_attack_timer = Timer.new()
 	add_child(running_attack_timer)
 	running_attack_timer.one_shot = true
-	running_attack_timer.wait_time = 0.2
+	#Changing this value affects the speed boost
+	running_attack_timer.wait_time = 0.25
 	running_attack_timer.connect("timeout", _on_running_attack_timer_timeout)
 	
 	last_ground_position = position.y
@@ -78,9 +80,13 @@ func _physics_process(delta):
 	var is_moving = is_walking or is_running
 	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
 	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor() and attacking_cooldown == 0
-	var is_attacking_running = Input.is_action_pressed("attack") and is_moving and abs(velocity.x) > 100 #and is_on_floor() 
+	var is_attacking_running = Input.is_action_pressed("attack") and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")) #is_moving and abs(velocity.x) > 100 #and is_on_floor() 
 	var is_combo_attacking = Input.is_action_pressed("attack") and (animated_sprite.animation == "attack" and (animated_sprite.frame == 5))
-	var is_aerial_attacking = Input.is_action_pressed("attack") and ((animated_sprite.animation == "jumping" and (animated_sprite.frame == 5)) or (animated_sprite.animation == "free_falling") or ((animated_sprite.animation == "double_jumping" and (animated_sprite.frame == 3))))
+	var is_aerial_attacking = Input.is_action_pressed("attack") \
+		and ((animated_sprite.animation == "jumping" 
+		and (animated_sprite.frame == 5)) 
+		or (animated_sprite.animation == "free_falling") 
+		or ((animated_sprite.animation == "double_jumping" and (animated_sprite.frame == 3))))
 	var is_idling = is_on_floor() and is_zero_approx(velocity.x) and !is_crouching and !is_moving and !is_attacking_idle and !is_in_cooldown 
 	
 	var move = 0
@@ -132,13 +138,15 @@ func _physics_process(delta):
 	#All of the "is_" variables used to be here
 	
 	#Small speed boost / slide to running attack (May want to relocate this)
-	if Input.is_action_just_pressed("attack") and is_moving:
+	if is_attacking_running and attacking_cooldown == 0:
 		print("running attack boost")
 		running_attack_boost = true
 		running_attack_timer.start()
-	if running_attack_boost:
-		if velocity.x > 100: velocity.x = 300
-		if velocity.x < -100: velocity.x = -300
+	if running_attack_boost and can_running_attack:
+		if Input.is_action_pressed("move_left"): velocity.x = -250
+		if Input.is_action_pressed("move_right"): velocity.x = 250
+	#This is jank as fuck sorry
+	if abs(velocity.x) > 250: can_running_attack = false
 	
 	#Coyote Time
 	if !is_on_floor() and last_floor and jumps_made == 0:
@@ -214,7 +222,7 @@ func _physics_process(delta):
 	#Player animations
 	if is_attacking_running and attacking_cooldown == 0:
 		animated_sprite.play("running_attack")
-		attacking_cooldown = 36
+		attacking_cooldown = 40
 	elif is_attacking_idle and attacking_cooldown == 0:
 		animated_sprite.play("attack")
 		attacking_cooldown = 48
@@ -298,6 +306,9 @@ func _on_coyote_timer_timeout():
 
 func _on_running_attack_timer_timeout():
 	running_attack_boost = false
+	can_running_attack = true
+	
+
 	print("running attack boost over")
 	
 func _update_ground_position():

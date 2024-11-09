@@ -44,6 +44,9 @@ func _ready():
 #This will run when the stagger_timer times out
 func _reset_stagger():
 	will_stagger = true
+	animated_sprite.modulate = Color.AQUA
+	await get_tree().create_timer(0.1).timeout
+	animated_sprite.modulate = Color.WHITE
 
 func _physics_process(delta):
 	if meteor_cooldown > 0:
@@ -70,7 +73,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	if hurting_cooldown > 0:
-		animated_sprite.play("hurting")
+		#animated_sprite.play("hurting")
 		hurting_cooldown -= 1
 		return
 	else:
@@ -100,18 +103,22 @@ func _hit(attack: Attack):
 	is_walking = false
 	is_idle = false
 	getting_hit = true
+	animated_sprite.modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	animated_sprite.modulate = Color(1, 0.67, 0.25, 1)
+
 	#If the Boss will stagger this hit, set the hurting_cooldown to a higher value
 	#and play the stagger animation. Also start the stagger_timer to emulate a
 	#period when the Boss will not stagger for.
 	if will_stagger:
-		hurting_cooldown = 160
-		animated_sprite.play("hurting")
+		hurting_cooldown = 210
+		animated_sprite.play("stagger")
 		stagger_timer.start()
 	#Else, the Boss will not stagger, so use normal hurting_cooldown value
 	#and play the hurting animation
-	else:
-		hurting_cooldown = 36
-		animated_sprite.play("hurting")
+	#else:
+		#hurting_cooldown = 36
+		#animated_sprite.play("hurting")
 	print("Boss hit")
 	#Set will_stagger to false, regardless, as it will only be true when stagger_timer
 	#has hit timeout
