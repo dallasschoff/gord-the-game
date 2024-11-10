@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=95 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/My Assets/Sprites/Gord/gord_char_2.png" id="3_p2441"]
@@ -664,12 +664,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ufp0"]
 size = Vector2(26, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdwns"]
-size = Vector2(45.65, 27)
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon") groups=["Player"]]
 collision_layer = 136
-collision_mask = 11
+collision_mask = 139
 script = ExtResource("1_45wk2")
 jump_strength = 375
 weapon = NodePath("Sword")
@@ -726,10 +723,11 @@ nine_patch_stretch = true
 texture_under = ExtResource("7_n68bo")
 texture_progress = ExtResource("7_2oyci")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("5_vsftd")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("5_vsftd")]
 MAX_HEALTH = 100.0
 healthbar_component = NodePath("../CanvasLayer/TextureProgressBar")
 entity = NodePath("..")
+animated_sprite = NodePath("../AnimatedSprite2D")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("8_hyne7")]
 collision_layer = 2
@@ -745,13 +743,12 @@ shape = SubResource("RectangleShape2D_3ufp0")
 collision_layer = 4
 collision_mask = 4
 attack_damage = 12.0
-attack_area = NodePath("SwordHitbox")
+attack_area = NodePath("SwordHitboxPoly")
 
-[node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]
-position = Vector2(-5.175, -5.5)
-shape = SubResource("RectangleShape2D_hdwns")
+[node name="SwordHitboxPoly" type="CollisionPolygon2D" parent="Sword"]
+position = Vector2(-5, -5)
+polygon = PackedVector2Array(-23, -14, -23, 13, 23, 13, 23, -14)
 disabled = true
-debug_color = Color(0.665498, 0.511752, 1.92523e-07, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -64)

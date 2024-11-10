@@ -11,12 +11,14 @@ signal hit_finished
 var SPEED = 60
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $BossSprite
+@export var next_stagger_time: float = 10.0
 @export var raycasts: Node2D
 @export var wall_raycast: RayCast2D
 @export var floor_raycast: RayCast2D
 @export var weapon: Weapon
 @export var HeartPickup: PackedScene
 @export var Meteor: PackedScene
+
 #Animation traits
 var hurting_cooldown = 0
 var attack_cooldown = 0
@@ -28,47 +30,51 @@ var left_colliding = false
 var knockback = Vector2(0,0)
 var tween
 var lunge = Vector2(0,0)
-var attack_just_finished = false
 var getting_hit = false
 var stagger_timer: Timer
 var will_stagger = true
+var gooning = false
+var dead = false
 
 func _ready():
-	#Initialize stagger timer
+	#Initialize next-stagger timer
 	stagger_timer = Timer.new()
 	add_child(stagger_timer)
 	stagger_timer.one_shot = true
-	stagger_timer.wait_time = 10.0
+	stagger_timer.wait_time = next_stagger_time
 	stagger_timer.connect("timeout", _reset_stagger)
 
 #This will run when the stagger_timer times out
 func _reset_stagger():
 	will_stagger = true
+	#Color flash, then "white" back to normal
 	animated_sprite.modulate = Color.AQUA
 	await get_tree().create_timer(0.1).timeout
 	animated_sprite.modulate = Color.WHITE
 
 func _physics_process(delta):
-	if meteor_cooldown > 0:
+	if gooning:
+		animated_sprite.play("death")
+		return
+	
+	if meteor_cooldown > 0 and not gooning:
 		#Decrement meteor_cooldown
 		animated_sprite.play("cast meteor")
 		meteor_cooldown -= 1
 		return
-	if attack_cooldown > 0 and not getting_hit:
-		#Decrement attack_cooldown
-		attack_cooldown -= 1
-		if attack_cooldown == 0:
-			attack_just_finished = true
+	if attack_cooldown > 0 and not getting_hit and not gooning:
+
 		#Attack Hitbox
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 3 and animated_sprite.frame <= 5):
 			weapon.attack_area.set_deferred("disabled", false)
 		else:
 			weapon.attack_area.set_deferred("disabled", true)
+		#Decrement attack_cooldown
+		attack_cooldown -= 1
+		#Emit attack_finished once the attack_cooldown has reached 0
+		if attack_cooldown == 0:
+			attack_finished.emit()
 		return
-	#Attack_finished signal to boss_attack.gd
-	elif attack_cooldown <= 0 and attack_just_finished:
-		attack_finished.emit()
-		attack_just_finished = false
 		
 	move_and_slide()
 	
@@ -103,22 +109,25 @@ func _hit(attack: Attack):
 	is_walking = false
 	is_idle = false
 	getting_hit = true
-	animated_sprite.modulate = Color.RED
-	await get_tree().create_timer(0.1).timeout
-	animated_sprite.modulate = Color(1, 0.67, 0.25, 1)
 
 	#If the Boss will stagger this hit, set the hurting_cooldown to a higher value
 	#and play the stagger animation. Also start the stagger_timer to emulate a
 	#period when the Boss will not stagger for.
 	if will_stagger:
-		hurting_cooldown = 210
+		#Amount of time staggered (frames)
+		hurting_cooldown = 120
 		animated_sprite.play("stagger")
 		stagger_timer.start()
+	
 	#Else, the Boss will not stagger, so use normal hurting_cooldown value
 	#and play the hurting animation
 	#else:
 		#hurting_cooldown = 36
 		#animated_sprite.play("hurting")
+	#Color red flash, then Orange while staggered
+	animated_sprite.modulate = Color.RED
+	await get_tree().create_timer(0.12).timeout
+	animated_sprite.modulate = Color(1, 0.67, 0.25, 1)
 	print("Boss hit")
 	#Set will_stagger to false, regardless, as it will only be true when stagger_timer
 	#has hit timeout
@@ -126,16 +135,22 @@ func _hit(attack: Attack):
 	hit_started.emit()
 	
 func _die():
+	if dead:
+		return
+	dead = true
 	animated_sprite.play("death")
 	var heart = HeartPickup.instantiate()
+	heart.healValue = 50.0
+	heart.heartScale = Vector2(2,2)
+	heart.scaleTime = 1.5
 	heart.position = Vector2(position.x, position.y-8)
 	get_node("..").add_child(heart)
-	queue_free()
+	
 	
 func _attack(lunge_movement):
-	if not getting_hit:
+	if not getting_hit and not gooning:
 		animated_sprite.play("attack")
-		attack_cooldown = 36
+		attack_cooldown = 48
 		lunge = lunge_movement
 
 func _cast_meteor(player_velocity, player_position, ground_level):
@@ -150,3 +165,10 @@ func _cast_meteor(player_velocity, player_position, ground_level):
 		get_node("..").add_child(meteor)
 		print("cast meteor")
 		meteor_cooldown = 36
+
+func _goon():
+	gooning = true
+
+func _on_boss_sprite_animation_finished():
+	if dead:
+		queue_free()

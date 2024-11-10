@@ -36,12 +36,13 @@ func _physics_process(delta):
 		animated_sprite.play("death")
 		return
 		
+	#Lunge tween and hitbox disabled bool based on animation frames
 	if attack_cooldown > 0 and not getting_hit and not gooning:
-		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
-			move_and_slide()
 		if animated_sprite.animation == "attack" and animated_sprite.frame == 5:
 			tween = get_tree().create_tween()
 			tween.parallel().tween_property(self, "lunge", Vector2(0,0), 2)
+		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
+			move_and_slide()
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 7 and animated_sprite.frame <= 9):
 			weapon.attack_area.set_deferred("disabled", false)
 		else:
@@ -85,6 +86,7 @@ func _hit(attack: Attack):
 	print("getting_hurt")
 	hurting_cooldown = 30
 	attack_cooldown = 0
+	attack_finished.emit()
 	knockback = attack.knockback
 	
 	tween = get_tree().create_tween()
@@ -105,6 +107,9 @@ func _attack(lunge_movement):
 		animated_sprite.play("attack")
 		attack_cooldown = 64
 		lunge = lunge_movement
+		print("lunge_movement", lunge_movement)
+		print("position", position)
+
 
 func _goon():
 	gooning = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://8g3jtf213pi0"]
+[gd_scene load_steps=93 format=3 uid="uid://8g3jtf213pi0"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/boss.gd" id="1_jjnmy"]
 [ext_resource type="Texture2D" uid="uid://m4ofpyjg5tc5" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png" id="2_lr6p8"]
@@ -18,6 +18,10 @@
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_follow.gd" id="12_757ne"]
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_attack.gd" id="13_s0c35"]
 [ext_resource type="Script" path="res://Scripts/Components/States/boss_hurt.gd" id="17_euu3c"]
+[ext_resource type="Script" path="res://Scripts/Components/States/boss_goon.gd" id="19_h35ay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lb135"]
+size = Vector2(13.6364, 16.3636)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rhp6g"]
 size = Vector2(14, 31.4091)
@@ -496,7 +500,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s85wq")
 }, {
-"duration": 30.0,
+"duration": 18.0,
 "texture": SubResource("AtlasTexture_yv7d1")
 }, {
 "duration": 1.0,
@@ -551,20 +555,26 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_te2pr"]
 size = Vector2(30, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_55r1b"]
-size = Vector2(38, 35.5455)
-
 [node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
 scale = Vector2(2.2, 2.2)
-collision_layer = 8
-collision_mask = 9
+collision_layer = 0
 script = ExtResource("1_jjnmy")
+next_stagger_time = 6.0
 raycasts = NodePath("RayCasts")
 wall_raycast = NodePath("RayCasts/WallRayCast")
 floor_raycast = NodePath("RayCasts/FloorRayCast")
 weapon = NodePath("Sword")
 HeartPickup = ExtResource("2_yg40c")
 Meteor = ExtResource("3_detdo")
+
+[node name="CollisionPlayer" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionPlayer"]
+position = Vector2(-2.16744e-07, -7.27273)
+shape = SubResource("RectangleShape2D_lb135")
+debug_color = Color(0.977245, 2.83971e-05, 0.679206, 1)
 
 [node name="CollisionGround" type="CollisionShape2D" parent="."]
 position = Vector2(1.81195e-06, 0)
@@ -576,7 +586,8 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"hurting"
+animation = &"attack"
+frame = 4
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6
@@ -584,14 +595,12 @@ offset_left = -21.0
 offset_top = -24.0
 offset_right = 21.0
 offset_bottom = -20.0
-max_value = 100.0
-value = 100.0
 nine_patch_stretch = true
 texture_under = ExtResource("4_tc4oc")
 texture_progress = ExtResource("5_erdil")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("6_w40hd")]
-MAX_HEALTH = 100.0
+MAX_HEALTH = 150.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 
@@ -610,11 +619,11 @@ collision_layer = 2
 collision_mask = 2
 attack_damage = 5.0
 knockback_force = 70.0
-attack_area = NodePath("SwordHitbox")
+attack_area = NodePath("SwordHitboxPoly")
 
-[node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]
-position = Vector2(0, -1.77273)
-shape = SubResource("RectangleShape2D_55r1b")
+[node name="SwordHitboxPoly" type="CollisionPolygon2D" parent="Sword"]
+position = Vector2(-1, -1.818)
+polygon = PackedVector2Array(12.7273, -3.18182, 11.8182, -13.1818, 5.90909, -17.2727, -13.1818, -17.2727, -20.9091, -11.8182, -25.9091, -2.72727, -26.8182, 7.72727, -25, 17.7273, -19.0909, 16.8182, -10.9091, 11.8182, -7.72727, 3.63636, -1.36364, -1.36364)
 disabled = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -638,6 +647,10 @@ boss = NodePath("../..")
 script = ExtResource("17_euu3c")
 boss = NodePath("../..")
 
+[node name="Goon" type="Node" parent="State Machine" node_paths=PackedStringArray("boss")]
+script = ExtResource("19_h35ay")
+boss = NodePath("../..")
+
 [node name="RayCasts" type="Node2D" parent="."]
 
 [node name="FloorRayCast" type="RayCast2D" parent="RayCasts"]
@@ -650,5 +663,6 @@ hit_from_inside = true
 position = Vector2(-16, -3)
 target_position = Vector2(-6, 0)
 
+[connection signal="animation_finished" from="BossSprite" to="." method="_on_boss_sprite_animation_finished"]
 [connection signal="animation_finished" from="BossSprite" to="State Machine/Follow" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="BossSprite" to="State Machine/Attack" method="_on_animated_sprite_2d_animation_finished"]

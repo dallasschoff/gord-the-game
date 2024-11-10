@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://Scripts/Interactions/Door.gd" id="1_r4u55"]
 [ext_resource type="PackedScene" uid="uid://88xmcerfjv07" path="res://Scenes/Components/InteractionArea.tscn" id="2_a0qs4"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_nikwr"]
 atlas = ExtResource("1_p78gf")
 region = Rect2(0, 0, 256, 256)

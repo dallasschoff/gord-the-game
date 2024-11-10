@@ -9,7 +9,7 @@ var player: CharacterBody2D
 func enter():
 	enemy.connect("hit_started", _got_hurt)
 	player = get_tree().get_first_node_in_group("Player")
-	player.connect("died", _start_gooning)	
+	player.connect("died", _start_gooning)
 	
 func physics_update(delta: float):
 	var direction = player.global_position - enemy.global_position

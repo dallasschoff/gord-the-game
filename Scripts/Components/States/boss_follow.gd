@@ -23,6 +23,8 @@ func randomize_behavior():
 func enter():
 	boss.connect("hit_started", _got_hurt)
 	player = get_tree().get_first_node_in_group("Player")
+	player.connect("died", _start_gooning)
+
 
 func update(delta: float):
 	if wait_time > 0:
@@ -35,7 +37,7 @@ func update(delta: float):
 func physics_update(delta: float):
 	var direction = player.global_position - boss.global_position
 	boss.velocity.y += gravity * delta
-	#Defines length at which boss transitions to attack
+	#Defines length at which boss follows, else transitions to attack
 	if direction.length() > 60:
 		boss.velocity.x = direction.normalized().x * move_speed
 		if can_attack:
@@ -55,3 +57,8 @@ func _on_animated_sprite_2d_animation_finished():
 
 func _got_hurt():
 	transitioned.emit(self, "hurt")
+	
+func _start_gooning():
+	var distance = player.global_position - boss.global_position
+	if (distance.length() > 60):
+		transitioned.emit(self, "goon")

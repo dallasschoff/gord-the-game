@@ -6,9 +6,12 @@ var HEALTH : float
 
 @export var healthbar_component : HealthBar
 @export var entity: CharacterBody2D
+@export var animated_sprite: AnimatedSprite2D
 
 func _ready():
 	HEALTH = MAX_HEALTH
+	healthbar_component.value = HEALTH
+	healthbar_component.max_value = MAX_HEALTH
 	update_healthbar()
 
 func damage(attack: Attack):
@@ -18,10 +21,17 @@ func damage(attack: Attack):
 	if HEALTH <= 0 and entity:
 		entity._die()
 	
-func heal():
+func heal(healValue):
 	if (HEALTH < MAX_HEALTH):
-		HEALTH += 10
+		HEALTH += healValue
+		if HEALTH > MAX_HEALTH: 
+			HEALTH = MAX_HEALTH
+			print("Max health reached, no overheal")
 		update_healthbar()
+	#Color effects
+	animated_sprite.modulate = Color.GREEN
+	await get_tree().create_timer(0.4).timeout
+	animated_sprite.modulate = Color.WHITE
 	print("%s's Health: %s" % [get_owner().name, HEALTH])
 
 func update_healthbar():

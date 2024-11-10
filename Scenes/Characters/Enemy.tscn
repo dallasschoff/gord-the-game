@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://c1beqtkqyu8x1"]
+[gd_scene load_steps=83 format=3 uid="uid://c1beqtkqyu8x1"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/enemy.gd" id="1_qdflj"]
 [ext_resource type="Texture2D" uid="uid://dwsujkc70hx7c" path="res://Assets/My Assets/Sprites/PB Monster/Idle PB Monster.png" id="2_05g4r"]
@@ -474,10 +474,8 @@ size = Vector2(14, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exnf7"]
 size = Vector2(30, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1oh1"]
-size = Vector2(38, 20)
-
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
+collision_layer = 8
 script = ExtResource("1_qdflj")
 raycasts = NodePath("RayCasts")
 wall_raycast = NodePath("RayCasts/WallRayCast")
@@ -502,11 +500,14 @@ offset_top = -25.0
 offset_right = 17.0
 offset_bottom = -21.0
 scale = Vector2(1.2, 1.2)
+max_value = 90.0
+value = 85.0
 nine_patch_stretch = true
 texture_under = ExtResource("7_2x107")
 texture_progress = ExtResource("5_vlku6")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity") instance=ExtResource("5_qxt31")]
+MAX_HEALTH = 90.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 
@@ -524,11 +525,11 @@ debug_color = Color(0.683781, 0.501668, 0, 0.42)
 collision_layer = 2
 collision_mask = 2
 attack_damage = 40.0
-attack_area = NodePath("FistHitbox")
+attack_area = NodePath("FistHitboxPoly")
 
-[node name="FistHitbox" type="CollisionShape2D" parent="Fists"]
+[node name="FistHitboxPoly" type="CollisionPolygon2D" parent="Fists"]
 position = Vector2(0, 6)
-shape = SubResource("RectangleShape2D_o1oh1")
+polygon = PackedVector2Array(19, -10, -19, -10, -19, 10, 19, 10)
 disabled = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

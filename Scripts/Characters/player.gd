@@ -21,7 +21,7 @@ signal died
 var jumps_made := 0
 var double_jumps_made := 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var terminal_velocity = 700
+var terminal_velocity = 350
 var attacking_cooldown = 0
 var crouching_cooldown = 0
 var landing_window = 0
@@ -80,7 +80,7 @@ func _physics_process(delta):
 	var is_moving = is_walking or is_running
 	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
 	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor() and attacking_cooldown == 0
-	var is_attacking_running = Input.is_action_pressed("attack") and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")) #is_moving and abs(velocity.x) > 100 #and is_on_floor() 
+	var is_running_attack = Input.is_action_pressed("attack") and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")) #is_moving and abs(velocity.x) > 100 #and is_on_floor() 
 	var is_combo_attacking = Input.is_action_pressed("attack") and (animated_sprite.animation == "attack" and (animated_sprite.frame == 5))
 	var is_aerial_attacking = Input.is_action_pressed("attack") \
 		and ((animated_sprite.animation == "jumping" 
@@ -138,7 +138,7 @@ func _physics_process(delta):
 	#All of the "is_" variables used to be here
 	
 	#Small speed boost / slide to running attack (May want to relocate this)
-	if is_attacking_running and attacking_cooldown == 0:
+	if is_running_attack and attacking_cooldown == 0:
 		print("running attack boost")
 		running_attack_boost = true
 		running_attack_timer.start()
@@ -220,7 +220,7 @@ func _physics_process(delta):
 		animated_sprite_puff.position.x = 2
 	
 	#Player animations
-	if is_attacking_running and attacking_cooldown == 0:
+	if is_running_attack and attacking_cooldown == 0:
 		animated_sprite.play("running_attack")
 		attacking_cooldown = 40
 	elif is_attacking_idle and attacking_cooldown == 0:

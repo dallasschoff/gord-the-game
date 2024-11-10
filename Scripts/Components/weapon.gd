@@ -4,7 +4,7 @@ class_name Weapon
 @export var attack_damage := 10.0
 @export var knockback_force := 30.0
 var current_direction = "right"
-@export var attack_area: CollisionShape2D
+@export var attack_area: CollisionPolygon2D
 
 func _on_weapon_hitbox_entered(area):
 	if area is HurtboxComponent:
@@ -24,7 +24,7 @@ func _on_weapon_hitbox_entered(area):
 		hurtbox.damage(attack)
 
 func change_direction(new_direction: String):
-	current_direction = "right" if attack_area.position.x > 0 else "left"
+	current_direction = "left" if attack_area.scale.x > 0 else "right"
 	
 	if current_direction != new_direction:
-		attack_area.position.x = -attack_area.position.x
+		attack_area.scale.x = -attack_area.scale.x

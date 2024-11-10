@@ -10,6 +10,6 @@ func damage(attack: Attack):
 	if entity:
 		entity._hit(attack)
 
-func add_health():
+func add_health(healValue):
 	if health_component:
-		health_component.heal()
+		health_component.heal(healValue)
