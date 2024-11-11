@@ -18,7 +18,7 @@ func damage(attack: Attack):
 	HEALTH -= attack.attack_damage
 	update_healthbar()
 	print("%s's Health: %s" % [get_owner().name, HEALTH])
-	if HEALTH <= 0 and entity:
+	if HEALTH <= 0:
 		entity._die()
 	
 func heal(healValue):

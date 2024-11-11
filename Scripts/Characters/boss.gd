@@ -138,7 +138,7 @@ func _die():
 	if dead:
 		return
 	dead = true
-	animated_sprite.play("death")
+	await animated_sprite.play("death")
 	var heart = HeartPickup.instantiate()
 	heart.healValue = 50.0
 	heart.heartScale = Vector2(2,2)

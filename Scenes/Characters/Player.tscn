@@ -682,7 +682,7 @@ debug_color = Color(0.998424, 0, 0.145558, 0.419608)
 z_index = 6
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"running_attack"
+animation = &"idle"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -746,9 +746,7 @@ attack_damage = 12.0
 attack_area = NodePath("SwordHitboxPoly")
 
 [node name="SwordHitboxPoly" type="CollisionPolygon2D" parent="Sword"]
-position = Vector2(-5, -5)
-polygon = PackedVector2Array(-23, -14, -23, 13, 23, 13, 23, -14)
-disabled = true
+polygon = PackedVector2Array(13, 10, -28, 10, -28, -22, 13, -22)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -64)
