@@ -8,16 +8,19 @@ var player: CharacterBody2D
 var behavior: float
 var wait_time: float
 var follow = true
-var can_attack = false
+var can_meteor = false
+var can_wall = false
 
 func randomize_behavior():
 	if follow:
-		behavior = 1
+		behavior = 5
 	else:
-		behavior = randi_range(-1, 1)
+		behavior = randi_range(0, 5)
 		print("behavior: ",behavior)
-	if behavior == 0: 
-		can_attack = true
+	if behavior == 0 or behavior == 1: 
+		can_meteor = true
+	if behavior == 2:
+		can_wall = true
 	wait_time = 1
 
 func enter():
@@ -40,9 +43,12 @@ func physics_update(delta: float):
 	#Defines length at which boss follows, else transitions to attack
 	if direction.length() > 60:
 		boss.velocity.x = direction.normalized().x * move_speed
-		if can_attack:
+		if can_meteor:
 			boss._cast_meteor(player.velocity, player.position, player._get_ground_position())
-			can_attack = false
+			can_meteor = false
+		if can_wall:
+			boss._cast_wall(player.velocity, player.position, player._get_ground_position())
+			can_wall = false
 	
 	else:
 		transitioned.emit(self, "attack")

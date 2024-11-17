@@ -18,11 +18,13 @@ var SPEED = 60
 @export var weapon: Weapon
 @export var HeartPickup: PackedScene
 @export var Meteor: PackedScene
+@export var Wall: PackedScene
 
 #Animation traits
 var hurting_cooldown = 0
 var attack_cooldown = 0
 var meteor_cooldown = 0
+var wall_cooldown = 0
 var is_idle
 var is_walking
 var right_colliding = false
@@ -35,6 +37,8 @@ var stagger_timer: Timer
 var will_stagger = true
 var gooning = false
 var dead = false
+
+var wall_offset
 
 func _ready():
 	#Initialize next-stagger timer
@@ -57,13 +61,15 @@ func _physics_process(delta):
 		animated_sprite.play("death")
 		return
 	
-	if meteor_cooldown > 0 and not gooning:
+	if meteor_cooldown > 0:
 		#Decrement meteor_cooldown
-		animated_sprite.play("cast meteor")
 		meteor_cooldown -= 1
 		return
+	if wall_cooldown > 0:
+		#Decrement wall_cooldown
+		wall_cooldown -= 1
+		return
 	if attack_cooldown > 0 and not getting_hit and not gooning:
-
 		#Attack Hitbox
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 3 and animated_sprite.frame <= 5):
 			weapon.attack_area.set_deferred("disabled", false)
@@ -165,6 +171,24 @@ func _cast_meteor(player_velocity, player_position, ground_level):
 		get_node("..").add_child(meteor)
 		print("cast meteor")
 		meteor_cooldown = 36
+
+func _cast_wall(player_velocity, player_position, ground_level):
+	if attack_cooldown <= 0 and wall_cooldown <= 0:
+		animated_sprite.play("cast meteor") #Replace with "cast wall" later
+		#instantiate wall
+		var wall = Wall.instantiate()
+		#determine player position relative to boss
+		if $".".position.x - player_position.x > 0: #Player is left of boss
+			wall_offset = -100
+		else: #Player is right of boss
+			wall_offset = 100
+		var wall_x = player_position.x + wall_offset
+		var wall_y = ground_level
+		wall.position = Vector2(wall_x, wall_y)
+		wall.scale.x = 1 if animated_sprite.flip_h == false else -1
+		get_node("..").add_child(wall)
+		print("cast wall")
+		wall_cooldown = 48
 
 func _goon():
 	gooning = true
