@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://8g3jtf213pi0"]
+[gd_scene load_steps=107 format=3 uid="uid://8g3jtf213pi0"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/boss.gd" id="1_jjnmy"]
 [ext_resource type="Texture2D" uid="uid://m4ofpyjg5tc5" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png" id="2_lr6p8"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://fjqktjiml4ly" path="res://Assets/My Assets/Sprites/Health Bar/EnemyhealthbarProgressOver.png" id="5_erdil"]
 [ext_resource type="Texture2D" uid="uid://dpg3uifyypmla" path="res://Assets/My Assets/Sprites/PB Gord/PB Gord Stagger.png" id="6_td543"]
 [ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/Components/HealthComponent.tscn" id="6_w40hd"]
+[ext_resource type="Texture2D" uid="uid://kve5n3wvu0ar" path="res://Assets/My Assets/Sprites/PB Gord/PB Gord Cast Wall.png" id="7_nalvb"]
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/Components/HurtboxComponent.tscn" id="7_nkaqf"]
 [ext_resource type="PackedScene" uid="uid://dflxq241xe0gt" path="res://Scenes/Components/Weapon.tscn" id="8_knldt"]
 [ext_resource type="Script" path="res://Scripts/Components/States/state_machine.gd" id="9_iel45"]
@@ -90,6 +91,54 @@ region = Rect2(336, 448, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_shi3w"]
 atlas = ExtResource("2_lr6p8")
 region = Rect2(392, 448, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ux3ub"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(0, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tbg1"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(56, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2geb"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(112, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rcji"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(168, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvato"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(0, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4fed"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(56, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg8hc"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(112, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8dbl"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(168, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5j6w"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(0, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cqk7"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(56, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdtvk"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(112, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ke8sj"]
+atlas = ExtResource("7_nalvb")
+region = Rect2(168, 112, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b1lgx"]
 atlas = ExtResource("2_lr6p8")
@@ -365,6 +414,47 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ux3ub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tbg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2geb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rcji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvato")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4fed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dg8hc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8dbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5j6w")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_7cqk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdtvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ke8sj")
+}],
+"loop": false,
+"name": &"cast wall",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_b1lgx")
 }, {
 "duration": 1.0,
@@ -588,7 +678,7 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"death"
+animation = &"cast wall"
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv13vj5npjd60"
-path="res://.godot/imported/PB Wall.png-daa3b6e1d72f181f0256db944da7a9ce.ctex"
+uid="uid://kve5n3wvu0ar"
+path="res://.godot/imported/PB Gord Cast Wall.png-97fca28e02ce163d8fc65a95f898ee4a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/My Assets/Sprites/PB Gord/PB Wall.png"
-dest_files=["res://.godot/imported/PB Wall.png-daa3b6e1d72f181f0256db944da7a9ce.ctex"]
+source_file="res://Assets/My Assets/Sprites/PB Gord/PB Gord Cast Wall.png"
+dest_files=["res://.godot/imported/PB Gord Cast Wall.png-97fca28e02ce163d8fc65a95f898ee4a.ctex"]
 
 [params]
 

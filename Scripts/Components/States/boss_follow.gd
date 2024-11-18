@@ -17,8 +17,10 @@ func randomize_behavior():
 	else:
 		behavior = randi_range(0, 5)
 		print("behavior: ",behavior)
+	#Behavior values for meteor
 	if behavior == 0 or behavior == 1: 
-		can_meteor = true
+		can_wall = true
+	#Behavior values for wall
 	if behavior == 2:
 		can_wall = true
 	wait_time = 1

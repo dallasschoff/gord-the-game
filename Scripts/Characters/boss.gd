@@ -164,7 +164,8 @@ func _cast_meteor(player_velocity, player_position, ground_level):
 		animated_sprite.play("cast meteor")
 		#instantiate meteor
 		var meteor = Meteor.instantiate()
-		var meteor_x = (player_velocity.x * 1) + player_position.x
+		var meteor_x = player_velocity.x + player_position.x
+		meteor_x = clamp(meteor_x, $"..".boss_room_left, $"..".boss_room_right)
 		var meteor_y = ground_level
 		meteor.position = Vector2(meteor_x, meteor_y)
 		meteor.scale.x = 1 if animated_sprite.flip_h == false else -1
@@ -174,7 +175,7 @@ func _cast_meteor(player_velocity, player_position, ground_level):
 
 func _cast_wall(player_velocity, player_position, ground_level):
 	if attack_cooldown <= 0 and wall_cooldown <= 0:
-		animated_sprite.play("cast meteor") #Replace with "cast wall" later
+		animated_sprite.play("cast wall") #Replace with "cast wall" later
 		#instantiate wall
 		var wall = Wall.instantiate()
 		#determine player position relative to boss
@@ -183,12 +184,13 @@ func _cast_wall(player_velocity, player_position, ground_level):
 		else: #Player is right of boss
 			wall_offset = 100
 		var wall_x = player_position.x + wall_offset
+		wall_x = clamp(wall_x, $"..".boss_room_left, $"..".boss_room_right)
 		var wall_y = ground_level
 		wall.position = Vector2(wall_x, wall_y)
 		wall.scale.x = 1 if animated_sprite.flip_h == false else -1
 		get_node("..").add_child(wall)
 		print("cast wall")
-		wall_cooldown = 48
+		wall_cooldown = 108
 
 func _goon():
 	gooning = true
