@@ -682,7 +682,7 @@ debug_color = Color(0.998424, 0, 0.145558, 0.419608)
 z_index = 6
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"idle"
+animation = &"death"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -754,5 +754,8 @@ zoom = Vector2(2.6, 2.6)
 limit_left = 0
 limit_top = 128
 position_smoothing_enabled = true
+
+[node name="FindGroundRayCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 500)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]

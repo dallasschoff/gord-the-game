@@ -16,4 +16,4 @@ func physics_update(delta: float):
 		boss.velocity.y += gravity * delta
 	
 func _hit_finished():
-	transitioned.emit(self, "follow")
+	transitioned.emit(self, "idle")

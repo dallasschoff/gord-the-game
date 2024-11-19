@@ -16,10 +16,10 @@ func randomize_behavior():
 		behavior = 5
 	else:
 		behavior = randi_range(0, 5)
-		print("behavior: ",behavior)
+		#print("behavior: ",behavior)
 	#Behavior values for meteor
 	if behavior == 0 or behavior == 1: 
-		can_wall = true
+		can_meteor = true
 	#Behavior values for wall
 	if behavior == 2:
 		can_wall = true
@@ -30,12 +30,10 @@ func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	player.connect("died", _start_gooning)
 
-
 func update(delta: float):
 	if wait_time > 0:
 		wait_time -= delta
 	else:
-		print("wait time expired")
 		follow = !follow
 		randomize_behavior()
 
@@ -51,7 +49,6 @@ func physics_update(delta: float):
 		if can_wall:
 			boss._cast_wall(player.velocity, player.position, player._get_ground_position())
 			can_wall = false
-	
 	else:
 		transitioned.emit(self, "attack")
 	

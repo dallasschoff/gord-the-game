@@ -15,6 +15,13 @@ func enter():
 	
 func physics_update(delta: float):
 	var direction = player.global_position - boss.global_position
+	
+	if not attacking:
+		if (direction.x > 0):
+			boss._look_right()
+		else:
+			boss._look_left()
+	
 	if direction.length() > 60 and not attacking:
 		transitioned.emit(self, "follow")
 	elif direction.length() < 60 and not player._is_dead() and not attacking:
@@ -25,6 +32,7 @@ func physics_update(delta: float):
 		boss._attack(lunge)
 	elif player._is_dead():
 		transitioned.emit(self, "goon")
+	
 	boss.velocity.y += gravity * delta
 
 func _attack_animation_finished():

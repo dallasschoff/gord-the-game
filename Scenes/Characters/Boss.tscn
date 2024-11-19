@@ -487,10 +487,10 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wykm0")
 }, {
-"duration": 100.0,
+"duration": 50.0,
 "texture": SubResource("AtlasTexture_jfup7")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 12.0
 }, {
@@ -678,7 +678,7 @@ z_index = 5
 position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
-animation = &"cast wall"
+animation = &"death"
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6
@@ -691,7 +691,7 @@ texture_under = ExtResource("4_tc4oc")
 texture_progress = ExtResource("5_erdil")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("6_w40hd")]
-MAX_HEALTH = 150.0
+MAX_HEALTH = 25.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 animated_sprite = NodePath("../BossSprite")

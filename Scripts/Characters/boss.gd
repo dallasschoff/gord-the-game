@@ -57,6 +57,9 @@ func _reset_stagger():
 	animated_sprite.modulate = Color.WHITE
 
 func _physics_process(delta):
+	if dead:
+		return
+	
 	if gooning:
 		animated_sprite.play("death")
 		return
@@ -87,10 +90,11 @@ func _physics_process(delta):
 	if hurting_cooldown > 0:
 		#animated_sprite.play("hurting")
 		hurting_cooldown -= 1
+		if hurting_cooldown == 0:
+			getting_hit = false
+			hit_finished.emit()
+			attack_finished.emit()
 		return
-	else:
-		getting_hit = false
-		hit_finished.emit()
 	
 	if abs(velocity.x) > 0 and abs(velocity.x) <= (boss_idle.move_speed):
 		animated_sprite.play("walking")
@@ -100,13 +104,9 @@ func _physics_process(delta):
 		animated_sprite.play("idle")
 		
 	if velocity.x < 0:
-			weapon.change_direction("left")
-			animated_sprite.flip_h = false
-			raycasts.scale.x = 1
+		_look_left()
 	if velocity.x > 0:
-		weapon.change_direction("right")
-		animated_sprite.flip_h = true
-		raycasts.scale.x = -1
+		_look_right()
 		
 	if wall_raycast.is_colliding() or (is_on_floor() and !floor_raycast.is_colliding()):
 		blocked.emit()
@@ -115,13 +115,15 @@ func _hit(attack: Attack):
 	is_walking = false
 	is_idle = false
 	getting_hit = true
+	weapon.attack_area.set_deferred("disabled", true)
+	attack_cooldown = 0
 
 	#If the Boss will stagger this hit, set the hurting_cooldown to a higher value
 	#and play the stagger animation. Also start the stagger_timer to emulate a
 	#period when the Boss will not stagger for.
 	if will_stagger:
 		#Amount of time staggered (frames)
-		hurting_cooldown = 120
+		hurting_cooldown = 160
 		animated_sprite.play("stagger")
 		stagger_timer.start()
 	
@@ -140,11 +142,21 @@ func _hit(attack: Attack):
 	will_stagger = false
 	hit_started.emit()
 	
+func _look_left():
+	weapon.change_direction("left")
+	animated_sprite.flip_h = false
+	raycasts.scale.x = 1
+
+func _look_right():
+	weapon.change_direction("right")
+	animated_sprite.flip_h = true
+	raycasts.scale.x = -1
+
 func _die():
 	if dead:
 		return
 	dead = true
-	await animated_sprite.play("death")
+	animated_sprite.play("death")
 	var heart = HeartPickup.instantiate()
 	heart.healValue = 50.0
 	heart.heartScale = Vector2(2,2)
