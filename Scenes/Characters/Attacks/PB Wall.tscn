@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://dmxw4gtoklq72"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Attacks/PB Wall.gd" id="1_308vm"]
-[ext_resource type="Texture2D" uid="uid://ckle8a764a1u5" path="res://Assets/My Assets/Sprites/PB Gord/PB Wall.png" id="1_unhdy"]
+[ext_resource type="Texture2D" uid="uid://cwfyykiiab316" path="res://Assets/My Assets/Sprites/PB Gord/PB Wall.png" id="1_unhdy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kugea"]
 size = Vector2(38, 106)
