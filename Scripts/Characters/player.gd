@@ -17,7 +17,7 @@ signal died
 @onready var animated_sprite_puff = $AnimatedSprite2D/AnimatedSpritePuff
 @onready var landing_ray1 = $LandingRay1
 @onready var landing_ray2 = $LandingRay2
-@onready var find_ground_ray = $FindGroundRayCast
+
 #Player Conditions
 var jumps_made := 0
 var double_jumps_made := 0
@@ -318,5 +318,4 @@ func _update_ground_position():
 		ground_level = position.y
 
 func _get_ground_position():
-	print(find_ground_ray.get_collision_point().y)
-	return find_ground_ray.get_collision_point().y - 90
+	return 1

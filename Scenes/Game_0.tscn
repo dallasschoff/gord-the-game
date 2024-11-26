@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cjvcbbgb6dviw" path="res://Scenes/Menus/Transitioner.tscn" id="4_3sb3v"]
 
 [node name="Game" type="Node2D"]
-position = Vector2(0, 81)
 script = ExtResource("1_pkftk")
 WorldScene = ExtResource("2_25qp0")
 

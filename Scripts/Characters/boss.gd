@@ -178,7 +178,17 @@ func _cast_meteor(player_velocity, player_position, ground_level):
 		var meteor = Meteor.instantiate()
 		var meteor_x = player_velocity.x + player_position.x
 		meteor_x = clamp(meteor_x, $"..".boss_room_left, $"..".boss_room_right)
-		var meteor_y = ground_level
+		#Raycast for y
+		var space_state = get_world_2d().direct_space_state
+		# use global coordinates, not local to node
+		var query = PhysicsRayQueryParameters2D.create(
+			Vector2(meteor_x, player_position.y), Vector2(meteor_x, player_position.y + 200), 1
+			)
+		var result = space_state.intersect_ray(query)
+		#
+		var meteor_y = result.position.y
+		
+		print("result.position.y ", result.position.y)
 		meteor.position = Vector2(meteor_x, meteor_y)
 		meteor.scale.x = 1 if animated_sprite.flip_h == false else -1
 		get_node("..").add_child(meteor)
@@ -197,12 +207,23 @@ func _cast_wall(player_velocity, player_position, ground_level):
 			wall_offset = 100
 		var wall_x = player_position.x + wall_offset
 		wall_x = clamp(wall_x, $"..".boss_room_left, $"..".boss_room_right)
-		var wall_y = ground_level
+		#Raycast for y
+		var space_state = get_world_2d().direct_space_state
+	# use global coordinates, not local to node
+		var query = PhysicsRayQueryParameters2D.create(
+			Vector2(wall_x, player_position.y), Vector2(wall_x, player_position.y + 200), 1
+			)
+		var result = space_state.intersect_ray(query)
+		#
+		var wall_y = result.position.y
 		wall.position = Vector2(wall_x, wall_y)
 		wall.scale.x = 1 if animated_sprite.flip_h == false else -1
 		get_node("..").add_child(wall)
 		print("cast wall")
 		wall_cooldown = 108
+#Raycast for y
+
+
 
 func _goon():
 	gooning = true

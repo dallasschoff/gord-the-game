@@ -10,20 +10,25 @@ var wait_time: float
 var follow = true
 var can_meteor = false
 var can_wall = false
+var last_behavior: int
 
 func randomize_behavior():
+	#Starts us on behavior 5 so that boss doesn't abruptly cast something
 	if follow:
 		behavior = 5
 	else:
 		behavior = randi_range(0, 5)
-		#print("behavior: ",behavior)
-	#Behavior values for meteor
+		#Prevents repeat behaviors so that you don't get double-cast walls / meteors
+		if behavior == last_behavior: behavior = 5
+	#Behavior values that will trigger a meteor cast
 	if behavior == 0 or behavior == 1: 
 		can_meteor = true
-	#Behavior values for wall
+	#Behavior values that will trigger a wall cast
 	if behavior == 2:
 		can_wall = true
 	wait_time = 1
+	#Set last_behavior so you can check it later
+	last_behavior = behavior
 
 func enter():
 	boss.connect("hit_started", _got_hurt)
@@ -44,6 +49,7 @@ func physics_update(delta: float):
 	if direction.length() > 60:
 		boss.velocity.x = direction.normalized().x * move_speed
 		if can_meteor:
+			print("player.global_position ",player.global_position)
 			boss._cast_meteor(player.velocity, player.position, player._get_ground_position())
 			can_meteor = false
 		if can_wall:

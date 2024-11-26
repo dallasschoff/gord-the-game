@@ -240,20 +240,21 @@ z_index = 10
 script = ExtResource("1_plw6f")
 
 [node name="Meteor" type="AnimatedSprite2D" parent="."]
-position = Vector2(46, -55)
+position = Vector2(46, -65)
 sprite_frames = SubResource("SpriteFrames_7owdn")
 animation = &"pb meteor"
 frame = 17
 frame_progress = 1.0
 
 [node name="Explosion" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -55)
+position = Vector2(1, -65)
 sprite_frames = SubResource("SpriteFrames_lb6hy")
 animation = &"explosion"
 frame = 6
 frame_progress = 1.0
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("attack_area")]
+position = Vector2(0, -10)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("3_6i28j")
