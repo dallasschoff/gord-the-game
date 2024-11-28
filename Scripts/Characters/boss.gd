@@ -61,7 +61,7 @@ func _physics_process(delta):
 		return
 	
 	if gooning:
-		animated_sprite.play("death")
+		animated_sprite.play("goon")
 		return
 	
 	if meteor_cooldown > 0:
@@ -221,9 +221,6 @@ func _cast_wall(player_velocity, player_position, ground_level):
 		get_node("..").add_child(wall)
 		print("cast wall")
 		wall_cooldown = 108
-#Raycast for y
-
-
 
 func _goon():
 	gooning = true

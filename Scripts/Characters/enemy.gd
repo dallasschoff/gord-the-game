@@ -33,7 +33,7 @@ func _physics_process(delta):
 		return
 	
 	if gooning:
-		animated_sprite.play("death")
+		animated_sprite.play("goon")
 		return
 		
 	#Lunge tween and hitbox disabled bool based on animation frames

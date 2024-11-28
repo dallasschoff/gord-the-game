@@ -20,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.120458, 0.200645, 1)
+color = Color(0.254902, 0.32549, 0.172549, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -41,6 +41,8 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_outline_color = Color(0.588235, 0.337255, 0.0705882, 1)
 theme_override_font_sizes/font_size = 60
 text = "Gord: The Game"
 horizontal_alignment = 1
@@ -59,6 +61,13 @@ focus_neighbor_top = NodePath("../QuitButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
 focus_next = NodePath("../QuitButton")
 focus_previous = NodePath("../QuitButton")
+theme_override_colors/font_disabled_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_hover_color = Color(0.337705, 0.716767, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_focus_color = Color(0.337255, 0.717647, 0, 1)
+theme_override_colors/font_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_outline_color = Color(0.898039, 0.490196, 0.054902, 1)
 theme_override_font_sizes/font_size = 30
 text = "Start Game"
 
@@ -70,6 +79,13 @@ focus_neighbor_top = NodePath("../StartGameButton")
 focus_neighbor_bottom = NodePath("../StartGameButton")
 focus_next = NodePath("../StartGameButton")
 focus_previous = NodePath("../StartGameButton")
+theme_override_colors/font_disabled_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_hover_color = Color(0.337255, 0.717647, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_focus_color = Color(0.337255, 0.717647, 0, 1)
+theme_override_colors/font_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_outline_color = Color(0.898039, 0.490196, 0.054902, 1)
 theme_override_font_sizes/font_size = 30
 text = "Quit"
 

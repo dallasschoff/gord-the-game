@@ -200,7 +200,7 @@ animations = [{
 script = ExtResource("1_308vm")
 
 [node name="RigidBody2D" type="StaticBody2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(1, -38)
@@ -208,7 +208,7 @@ shape = SubResource("RectangleShape2D_kugea")
 
 [node name="PBWallSprite" type="AnimatedSprite2D" parent="."]
 z_index = 5
-position = Vector2(35, -52)
+position = Vector2(35, -62)
 sprite_frames = SubResource("SpriteFrames_8abhy")
 frame = 25
 frame_progress = 1.0
