@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=31 format=4 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
@@ -13,10 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://d2rcoxhj5bkkn" path="res://Assets/My Assets/Sprites/Info/Arrow.png" id="10_d5g63"]
 [ext_resource type="PackedScene" uid="uid://8g3jtf213pi0" path="res://Scenes/Characters/Boss.tscn" id="11_544vx"]
 [ext_resource type="PackedScene" uid="uid://cr8vjckv3kn60" path="res://Scenes/Interactions/Door.tscn" id="12_gkqas"]
-[ext_resource type="Script" path="res://Scripts/Menus/text_popups.gd" id="16_1pvuw"]
+[ext_resource type="Script" path="res://Scripts/Menus/text_popups_area2ds.gd" id="16_1pvuw"]
 [ext_resource type="PackedScene" uid="uid://buyf1cy1lnapk" path="res://Scenes/Menus/TextPopups.tscn" id="16_mg6ai"]
-[ext_resource type="Texture2D" uid="uid://wtm68ekr50j4" path="res://Assets/My Assets/Sprites/Info/Gord Game Text.png" id="17_a5tcp"]
-[ext_resource type="Script" path="res://Scripts/Menus/text_popups1shot.gd" id="18_1wame"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vwdut"]
 texture = ExtResource("4_d1hln")
@@ -109,23 +107,11 @@ size = Vector2(243, 77)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivmv7"]
 size = Vector2(342, 130)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dmj78"]
-atlas = ExtResource("17_a5tcp")
-region = Rect2(0, 0, 128, 128)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qyatl"]
+size = Vector2(126, 46)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_rso3t"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dmj78")
-}],
-"loop": false,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gugk5"]
-size = Vector2(99, 105)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kqljs"]
+size = Vector2(368, 133)
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_xhx20")
@@ -179,7 +165,7 @@ tile_map_data = PackedByteArray("AAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAA
 tile_set = SubResource("TileSet_83k2e")
 
 [node name="Player" parent="." instance=ExtResource("7_6igws")]
-position = Vector2(3918, 172)
+position = Vector2(328, 102)
 double_jumps = 100
 log_movement = false
 
@@ -188,10 +174,6 @@ position = Vector2(5338, 588)
 scale = Vector2(0.714285, 0.714286)
 
 [node name="Arrow" type="AnimatedSprite2D" parent="."]
-position = Vector2(536, 30)
-sprite_frames = SubResource("SpriteFrames_l42dr")
-
-[node name="Arrow2" type="AnimatedSprite2D" parent="."]
 position = Vector2(5430, 588)
 sprite_frames = SubResource("SpriteFrames_l42dr")
 
@@ -221,48 +203,66 @@ position = Vector2(9159, 473)
 [node name="HeartPickup4" parent="." instance=ExtResource("9_15s8u")]
 position = Vector2(9123, 473)
 
-[node name="In-Game Text Popups" parent="." instance=ExtResource("16_mg6ai")]
-position = Vector2(5184, 611)
+[node name="HeartPickup5" parent="." instance=ExtResource("9_15s8u")]
+position = Vector2(6149.3, 460)
 
-[node name="Area2D2" type="Area2D" parent="In-Game Text Popups"]
+[node name="Text Popups" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(5184, 611)
+text = "jump higher"
+
+[node name="Area2D2" type="Area2D" parent="Text Popups"]
 collision_layer = 0
 collision_mask = 128
 script = ExtResource("16_1pvuw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="In-Game Text Popups/Area2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups/Area2D2"]
 position = Vector2(-10.5, 100.5)
 shape = SubResource("RectangleShape2D_kpvd4")
 
-[node name="In-Game Text Popups2" parent="." instance=ExtResource("16_mg6ai")]
+[node name="Text Popups2" parent="." instance=ExtResource("16_mg6ai")]
 position = Vector2(3016, 437)
+text = "jump higher"
 
-[node name="Area2D" type="Area2D" parent="In-Game Text Popups2"]
+[node name="Area2D" type="Area2D" parent="Text Popups2"]
 collision_layer = 0
 collision_mask = 128
 script = ExtResource("16_1pvuw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="In-Game Text Popups2/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups2/Area2D"]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_ivmv7")
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
-position = Vector2(2386, 322)
-sprite_frames = SubResource("SpriteFrames_rso3t")
+[node name="Text Popups3" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(2501, 340)
+text = "jump higher"
 
-[node name="In-Game Text Popups3" parent="AnimatedSprite2D2" instance=ExtResource("16_mg6ai")]
-position = Vector2(106, 10)
-
-[node name="Area2D" type="Area2D" parent="AnimatedSprite2D2/In-Game Text Popups3"]
+[node name="Area2D" type="Area2D" parent="Text Popups3"]
 collision_layer = 0
 collision_mask = 128
-script = ExtResource("18_1wame")
+script = ExtResource("16_1pvuw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D2/In-Game Text Popups3/Area2D"]
-position = Vector2(0.5, 42.5)
-shape = SubResource("RectangleShape2D_gugk5")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups3/Area2D"]
+position = Vector2(-2, 62)
+shape = SubResource("RectangleShape2D_qyatl")
 
-[connection signal="body_entered" from="In-Game Text Popups/Area2D2" to="In-Game Text Popups/Area2D2" method="_on_body_entered"]
-[connection signal="body_exited" from="In-Game Text Popups/Area2D2" to="In-Game Text Popups/Area2D2" method="_on_body_exited"]
-[connection signal="body_entered" from="In-Game Text Popups2/Area2D" to="In-Game Text Popups2/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="In-Game Text Popups2/Area2D" to="In-Game Text Popups2/Area2D" method="_on_body_exited"]
-[connection signal="body_entered" from="AnimatedSprite2D2/In-Game Text Popups3/Area2D" to="AnimatedSprite2D2/In-Game Text Popups3/Area2D" method="_on_body_entered"]
+[node name="Text Popups4" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(437, 55)
+text = "move controls"
+
+[node name="Area2D" type="Area2D" parent="Text Popups4"]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("16_1pvuw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups4/Area2D"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_kqljs")
+
+[connection signal="body_entered" from="Text Popups/Area2D2" to="Text Popups/Area2D2" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups/Area2D2" to="Text Popups/Area2D2" method="_on_body_exited"]
+[connection signal="body_entered" from="Text Popups2/Area2D" to="Text Popups2/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups2/Area2D" to="Text Popups2/Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="Text Popups3/Area2D" to="Text Popups3/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups3/Area2D" to="Text Popups3/Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="Text Popups4/Area2D" to="Text Popups4/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups4/Area2D" to="Text Popups4/Area2D" method="_on_body_exited"]
