@@ -15,6 +15,7 @@ func start_game():
 	world.get_node("Player").connect("died", death_screen)
 
 func death_screen():
+	await get_tree().create_timer(2).timeout
 	transitioner.play()
 	
 func restart_game():

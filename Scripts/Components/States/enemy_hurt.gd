@@ -8,7 +8,7 @@ var player: CharacterBody2D
 	
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
-	player.connect("died", _start_gooning)	
+	player.connect("died", _start_gooning)
 	enemy.connect("hit_finished", _hit_finished)
 	
 func physics_update(delta: float):
