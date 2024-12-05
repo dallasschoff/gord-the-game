@@ -289,6 +289,7 @@ func _hit(attack: Attack):
 func _die():
 	if dead:
 		return
+	died.emit()
 	get_node("HurtboxComponent").get_child(0).disabled = true
 	animated_sprite.play("death")
 	dead = true
@@ -296,10 +297,6 @@ func _die():
 
 func _is_dead():
 	return dead
-
-func _on_animation_finished():
-	if dead:
-		died.emit()
 
 func _on_coyote_timer_timeout():
 	coyote = false

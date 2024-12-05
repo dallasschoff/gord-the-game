@@ -182,10 +182,9 @@ func _cast_meteor(player_velocity, player_position, ground_level):
 		var space_state = get_world_2d().direct_space_state
 		# use global coordinates, not local to node
 		var query = PhysicsRayQueryParameters2D.create(
-			Vector2(meteor_x, player_position.y), Vector2(meteor_x, player_position.y + 200), 1
+			Vector2(meteor_x, player_position.y), Vector2(meteor_x, player_position.y + 300), 1
 			)
 		var result = space_state.intersect_ray(query)
-		#
 		var meteor_y = result.position.y
 		
 		print("result.position.y ", result.position.y)
@@ -211,10 +210,9 @@ func _cast_wall(player_velocity, player_position, ground_level):
 		var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
 		var query = PhysicsRayQueryParameters2D.create(
-			Vector2(wall_x, player_position.y), Vector2(wall_x, player_position.y + 200), 1
+			Vector2(wall_x, player_position.y), Vector2(wall_x, player_position.y + 300), 1
 			)
 		var result = space_state.intersect_ray(query)
-		#
 		var wall_y = result.position.y
 		wall.position = Vector2(wall_x, wall_y)
 		wall.scale.x = 1 if animated_sprite.flip_h == false else -1
