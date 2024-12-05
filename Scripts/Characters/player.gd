@@ -308,10 +308,9 @@ func _on_coyote_timer_timeout():
 func _on_running_attack_timer_timeout():
 	running_attack_boost = false
 	can_running_attack = true
-	
 
 	print("running attack boost over")
-	
+
 func _update_ground_position():
 	var test = position.y
 	if last_ground_position == position.y:

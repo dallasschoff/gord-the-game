@@ -64,7 +64,7 @@ func _physics_process(delta):
 		getting_hit = false
 		hit_finished.emit()
 	
-	if abs(velocity.x) > 0:
+	if abs(velocity.x) > 5:
 		animated_sprite.play("walking")
 	else:
 		animated_sprite.play("idle")

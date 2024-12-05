@@ -527,7 +527,7 @@ animations = [{
 size = Vector2(14, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exnf7"]
-size = Vector2(30, 32)
+size = Vector2(30, 30)
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
 collision_layer = 8
@@ -573,6 +573,7 @@ health_component = NodePath("../HealthComponent")
 entity = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_exnf7")
 debug_color = Color(0.683781, 0.501668, 0, 0.42)
 
@@ -584,7 +585,7 @@ attack_area = NodePath("FistHitboxPoly")
 
 [node name="FistHitboxPoly" type="CollisionPolygon2D" parent="Fists"]
 position = Vector2(0, 6)
-polygon = PackedVector2Array(19, -10, -19, -10, -19, 10, 19, 10)
+polygon = PackedVector2Array(0, -10, -19, -10, -19, 10, 0, 10)
 disabled = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

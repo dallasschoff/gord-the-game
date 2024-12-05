@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cjvcbbgb6dviw"]
 
-[ext_resource type="Script" path="res://Scripts/Menus/transitioner.gd" id="1_3sxl0"]
+[ext_resource type="Script" path="res://Scripts/Menus/transitioner.gd" id="1_76k44"]
 
 [sub_resource type="Gradient" id="Gradient_rcwwk"]
 interpolation_mode = 1
@@ -46,16 +46,17 @@ _data = {
 "fade_out": SubResource("Animation_8qhip")
 }
 
-[node name="Transitioner" type="Control"]
+[node name="DeathTransition" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_3sxl0")
+script = ExtResource("1_76k44")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -68,7 +69,7 @@ offset_right = 32.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(50, 50)
+scale = Vector2(0.1, 0.1)
 pivot_offset = Vector2(32, 32)
 texture = SubResource("GradientTexture2D_3x3us")
 

@@ -18,3 +18,12 @@ func play():
 func _on_animation_player_animation_finished(anim_name):
 	if scene_to_load:
 		transition_finished.emit()
+
+#For screen transition when going through doors
+#func _on_animation_player_animation_finished(anim_name):
+	#if anim_name == ("fade_out"):
+		#animation_player.play("fade_in")
+	#if anim_name == ("fade_in"):
+		#texturerect.visible = false
+	#else:
+		#pass
