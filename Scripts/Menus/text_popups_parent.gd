@@ -1,6 +1,6 @@
 extends Node2D
 
-@export_enum("jump controls", "jump higher", "move controls") var text : String
+@export_enum("jump controls", "jump higher", "move controls", "eArrow") var text : String
 @onready var animatedSprite2D = $AnimatedSprite2D
 
 func _ready():
@@ -12,3 +12,5 @@ func _ready():
 		animatedSprite2D.play("jump higher")
 	if text == "move controls":
 		animatedSprite2D.play("move controls")
+	if text == "eArrow":
+		animatedSprite2D.play("eArrow")

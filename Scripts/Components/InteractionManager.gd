@@ -20,10 +20,11 @@ func unregister_area(area: InteractionArea):
 
 func _process(delta):
 	if active_areas.size() > 0 and can_interact:
-		label.text = base_text + active_areas[0].action_name
-		label.global_position = active_areas[0].global_position
-		label.global_position.y -= label.size.y
-		label.global_position.x -= label.size.x / 2
+		# Commented out so it doesn't display the text
+		#label.text = base_text + active_areas[0].action_name
+		#label.global_position = active_areas[0].global_position
+		#label.global_position.y -= label.size.y
+		#label.global_position.x -= label.size.x / 2
 		label.show()
 	else:
 		label.hide()

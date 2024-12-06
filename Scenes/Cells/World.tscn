@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=33 format=4 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
@@ -113,6 +113,9 @@ size = Vector2(126, 46)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqljs"]
 size = Vector2(368, 133)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wy3v"]
+size = Vector2(102, 92)
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_xhx20")
@@ -274,6 +277,19 @@ script = ExtResource("16_1pvuw")
 position = Vector2(0, -16.5)
 shape = SubResource("RectangleShape2D_kqljs")
 
+[node name="Text Popups5 eArrow" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(3531, 122)
+text = "eArrow"
+
+[node name="Area2D" type="Area2D" parent="Text Popups5 eArrow"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("16_1pvuw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups5 eArrow/Area2D"]
+position = Vector2(1, 70)
+shape = SubResource("RectangleShape2D_0wy3v")
+
 [connection signal="body_entered" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_exited"]
 [connection signal="body_entered" from="Text Popup2 jump higher/Area2D" to="Text Popup2 jump higher/Area2D" method="_on_body_entered"]
@@ -282,3 +298,5 @@ shape = SubResource("RectangleShape2D_kqljs")
 [connection signal="body_exited" from="Text Popups3 jump higher/Area2D" to="Text Popups3 jump higher/Area2D" method="_on_body_exited"]
 [connection signal="body_entered" from="Text Popups4 move controls/Area2D" to="Text Popups4 move controls/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popups4 move controls/Area2D" to="Text Popups4 move controls/Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="Text Popups5 eArrow/Area2D" to="Text Popups5 eArrow/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups5 eArrow/Area2D" to="Text Popups5 eArrow/Area2D" method="_on_body_exited"]

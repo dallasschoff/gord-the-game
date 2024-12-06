@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://buyf1cy1lnapk"]
+[gd_scene load_steps=13 format=3 uid="uid://buyf1cy1lnapk"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/text_popups_parent.gd" id="1_jw4n0"]
-[ext_resource type="Texture2D" uid="uid://bjsfb40ae06qn" path="res://Assets/My Assets/Sprites/Info/Gord Game Text.png" id="1_pwplb"]
+[ext_resource type="Texture2D" uid="uid://djsga04sfpqyx" path="res://Assets/My Assets/Sprites/Info/Gord Game Text.png" id="1_pwplb"]
 
 [sub_resource type="Animation" id="Animation_wrkck"]
 length = 0.001
@@ -90,6 +90,10 @@ _data = {
 "fade_out": SubResource("Animation_fv14h")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_em6y3"]
+atlas = ExtResource("1_pwplb")
+region = Rect2(0, 128, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_8fgff"]
 atlas = ExtResource("1_pwplb")
 region = Rect2(256, 0, 128, 128)
@@ -104,6 +108,14 @@ region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5jtu6"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em6y3")
+}],
+"loop": true,
+"name": &"eArrow",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8fgff")
@@ -142,4 +154,4 @@ libraries = {
 show_behind_parent = true
 position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_5jtu6")
-animation = &"jump higher"
+animation = &"eArrow"

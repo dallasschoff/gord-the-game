@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Interactions/Door.gd" id="1_r4u55"]
 [ext_resource type="Texture2D" uid="uid://dhbfs1jigfjfy" path="res://Assets/My Assets/Sprites/Info/Door.png" id="2_3sde0"]
-[ext_resource type="PackedScene" uid="uid://88xmcerfjv07" path="res://Scenes/Components/InteractionArea.tscn" id="2_a0qs4"]
+[ext_resource type="PackedScene" uid="uid://88xmcerfjv07" path="res://Scenes/Interactions/InteractionArea.tscn" id="2_a0qs4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_revqn"]
 atlas = ExtResource("2_3sde0")

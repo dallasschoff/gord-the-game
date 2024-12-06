@@ -13,4 +13,3 @@ func _on_interact():
 	
 	#await get_tree().create_timer(0.1).timeout
 	player.position = teleport_position
-	#Transition_Screen.transition()
