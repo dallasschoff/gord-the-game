@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=32 format=4 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://d2rcoxhj5bkkn" path="res://Assets/My Assets/Sprites/Info/Arrow.png" id="10_d5g63"]
 [ext_resource type="PackedScene" uid="uid://8g3jtf213pi0" path="res://Scenes/Characters/Boss.tscn" id="11_544vx"]
 [ext_resource type="PackedScene" uid="uid://cr8vjckv3kn60" path="res://Scenes/Interactions/Door.tscn" id="12_gkqas"]
+[ext_resource type="PackedScene" uid="uid://cb622jyw6o18c" path="res://Scenes/Interactions/DoorBlip.tscn" id="14_rlk3v"]
 [ext_resource type="Script" path="res://Scripts/Menus/text_popups_area2ds.gd" id="16_1pvuw"]
 [ext_resource type="PackedScene" uid="uid://buyf1cy1lnapk" path="res://Scenes/Menus/TextPopups.tscn" id="16_mg6ai"]
 
@@ -190,7 +191,7 @@ position = Vector2(7609, 213)
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("8_bqgf6")]
-position = Vector2(9499, 462)
+position = Vector2(9721, 489)
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("8_bqgf6")]
 position = Vector2(7488, 859)
@@ -200,7 +201,10 @@ position = Vector2(5184, 735)
 
 [node name="Door" parent="." instance=ExtResource("12_gkqas")]
 position = Vector2(3531, 174)
-teleport_position = Vector2(9152, 478)
+teleport_position = Vector2(9280, 478)
+
+[node name="DoorBlip" parent="." instance=ExtResource("14_rlk3v")]
+position = Vector2(9280, 430)
 
 [node name="Door2" parent="." instance=ExtResource("12_gkqas")]
 position = Vector2(9792, 362)

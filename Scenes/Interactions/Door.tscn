@@ -1,22 +1,57 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr8vjckv3kn60"]
+[gd_scene load_steps=12 format=3 uid="uid://cr8vjckv3kn60"]
 
 [ext_resource type="Script" path="res://Scripts/Interactions/Door.gd" id="1_r4u55"]
-[ext_resource type="Texture2D" uid="uid://b2q5t24m0fqj3" path="res://Assets/My Assets/Sprites/Info/Door.png" id="2_3sde0"]
+[ext_resource type="Texture2D" uid="uid://dhbfs1jigfjfy" path="res://Assets/My Assets/Sprites/Info/Door.png" id="2_3sde0"]
 [ext_resource type="PackedScene" uid="uid://88xmcerfjv07" path="res://Scenes/Components/InteractionArea.tscn" id="2_a0qs4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mwl1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_revqn"]
 atlas = ExtResource("2_3sde0")
 region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3k0yi"]
+atlas = ExtResource("2_3sde0")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55axl"]
+atlas = ExtResource("2_3sde0")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsybb"]
+atlas = ExtResource("2_3sde0")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yd1hu"]
+atlas = ExtResource("2_3sde0")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kgjh"]
+atlas = ExtResource("2_3sde0")
+region = Rect2(256, 128, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l0mvd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7mwl1")
+"texture": SubResource("AtlasTexture_revqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3k0yi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55axl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsybb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yd1hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kgjh")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 12.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0rq5"]
@@ -27,11 +62,12 @@ script = ExtResource("1_r4u55")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l0mvd")
+autoplay = "default"
 frame_progress = 0.661512
 
 [node name="InteractionArea" parent="." instance=ExtResource("2_a0qs4")]
 collision_mask = 128
-action_name = "open door"
+action_name = "enter"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 position = Vector2(0, 18)
