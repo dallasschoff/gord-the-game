@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=34 format=4 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cb622jyw6o18c" path="res://Scenes/Interactions/DoorBlip.tscn" id="14_rlk3v"]
 [ext_resource type="Script" path="res://Scripts/Menus/text_popups_area2ds.gd" id="16_1pvuw"]
 [ext_resource type="PackedScene" uid="uid://buyf1cy1lnapk" path="res://Scenes/Menus/TextPopups.tscn" id="16_mg6ai"]
+[ext_resource type="PackedScene" uid="uid://ba3tisgoeuvna" path="res://Scenes/Interactions/Checkpoint.tscn" id="17_h5yfy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vwdut"]
 texture = ExtResource("4_d1hln")
@@ -213,6 +214,9 @@ position = Vector2(9280, 430)
 position = Vector2(9792, 362)
 teleport_position = Vector2(4222, 92)
 
+[node name="DoorBlip2" parent="." instance=ExtResource("14_rlk3v")]
+position = Vector2(4280, 46)
+
 [node name="HeartPickup2" parent="." instance=ExtResource("9_15s8u")]
 position = Vector2(9829, 473)
 
@@ -290,6 +294,14 @@ script = ExtResource("16_1pvuw")
 position = Vector2(1, 70)
 shape = SubResource("RectangleShape2D_0wy3v")
 
+[node name="Checkpoint" parent="." instance=ExtResource("17_h5yfy")]
+position = Vector2(9280, 460)
+checkpoint_location = Vector2(9280, 472)
+
+[node name="Checkpoint2" parent="." instance=ExtResource("17_h5yfy")]
+position = Vector2(4280, 66)
+checkpoint_location = Vector2(4280, 102)
+
 [connection signal="body_entered" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_exited"]
 [connection signal="body_entered" from="Text Popup2 jump higher/Area2D" to="Text Popup2 jump higher/Area2D" method="_on_body_entered"]
@@ -300,3 +312,4 @@ shape = SubResource("RectangleShape2D_0wy3v")
 [connection signal="body_exited" from="Text Popups4 move controls/Area2D" to="Text Popups4 move controls/Area2D" method="_on_body_exited"]
 [connection signal="body_entered" from="Text Popups5 eArrow/Area2D" to="Text Popups5 eArrow/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popups5 eArrow/Area2D" to="Text Popups5 eArrow/Area2D" method="_on_body_exited"]
+[connection signal="update_checkpoint" from="Checkpoint" to="." method="_on_checkpoint_update_checkpoint"]

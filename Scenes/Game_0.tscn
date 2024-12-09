@@ -15,7 +15,6 @@ layer = 2
 [node name="MainMenuComponent" parent="CanvasLayer" instance=ExtResource("2_j63dr")]
 
 [node name="Transitioner" parent="CanvasLayer" instance=ExtResource("4_3sb3v")]
-visible = false
 scene_to_load = ExtResource("2_j63dr")
 
 [connection signal="start_game" from="CanvasLayer/MainMenuComponent" to="." method="start_game"]
