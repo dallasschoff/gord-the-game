@@ -165,11 +165,10 @@ func _die():
 	get_node("..").add_child(heart)
 	
 	
-func _attack(lunge_movement):
+func _attack():
 	if not getting_hit and not gooning:
 		animated_sprite.play("attack")
 		attack_cooldown = 48
-		lunge = lunge_movement
 
 func _cast_meteor(player_velocity, player_position, ground_level):
 	if attack_cooldown <= 0 and meteor_cooldown <= 0:

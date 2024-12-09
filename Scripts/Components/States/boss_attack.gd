@@ -27,9 +27,7 @@ func physics_update(delta: float):
 	elif direction.length() < 60 and not player._is_dead() and not attacking:
 		attacking = true
 		#continue to attack player if in range
-		var lunge_direction = boss.global_position.direction_to(player.global_position)
-		var lunge = lunge_direction * move_speed
-		boss._attack(lunge)
+		boss._attack()
 	elif player._is_dead():
 		transitioned.emit(self, "goon")
 	

@@ -16,14 +16,20 @@ func enter():
 func physics_update(delta: float):
 	var direction = player.global_position - enemy.global_position
 	
+	if not attacking:
+		if (direction.x > 0):
+			enemy._look_right()
+		else:
+			enemy._look_left()
+	
 	if direction.length() > 40 and not attacking:
 		transitioned.emit(self, "follow")
 	elif direction.length() < 40 and not player._is_dead() and not attacking:
 		attacking = true
 		#continue to attack player if in range
-		var lunge_direction = enemy.global_position.direction_to(player.global_position)
-		var lunge = lunge_direction * move_speed
-		enemy._attack(lunge)
+		var lunge_direction = 1 if direction.x > 0 else -1
+		var lunge_vector = Vector2(lunge_direction * move_speed, enemy.global_position.y)
+		enemy._attack(lunge_vector)
 	elif player._is_dead():
 		transitioned.emit(self, "goon")
 		
