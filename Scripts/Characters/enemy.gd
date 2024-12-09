@@ -39,8 +39,9 @@ func _physics_process(delta):
 	#Lunge tween and hitbox disabled bool based on animation frames
 	if attack_cooldown > 0 and not getting_hit and not gooning:
 		if animated_sprite.animation == "attack" and animated_sprite.frame == 5:
+			print("lunge at tween start", lunge)
 			tween = get_tree().create_tween()
-			tween.parallel().tween_property(self, "lunge", Vector2(0,0), 2)
+			tween.tween_property(self, "lunge", Vector2(0,0), 0.0001)
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
 			move_and_slide()
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 7 and animated_sprite.frame <= 9):
@@ -80,6 +81,16 @@ func _physics_process(delta):
 		
 	if wall_raycast.is_colliding() or (is_on_floor() and !floor_raycast.is_colliding()):
 		blocked.emit()
+		
+func _look_left():
+	weapon.change_direction("left")
+	animated_sprite.flip_h = false
+	raycasts.scale.x = 1
+
+func _look_right():
+	weapon.change_direction("right")
+	animated_sprite.flip_h = true
+	raycasts.scale.x = -1
 
 func _hit(attack: Attack):
 	getting_hit = true
