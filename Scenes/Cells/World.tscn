@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=36 format=4 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
@@ -118,6 +118,12 @@ size = Vector2(368, 133)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wy3v"]
 size = Vector2(102, 92)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftgdi"]
+size = Vector2(864, 266)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxifh"]
+size = Vector2(102, 92)
+
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_xhx20")
 
@@ -177,7 +183,7 @@ tile_map_data = PackedByteArray("AAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAA
 tile_set = SubResource("TileSet_83k2e")
 
 [node name="Player" parent="." instance=ExtResource("7_6igws")]
-position = Vector2(3459, 214)
+position = Vector2(3436, 240)
 double_jumps = 1000
 log_movement = false
 
@@ -203,19 +209,30 @@ position = Vector2(7488, 859)
 [node name="Enemy3" parent="Enemies" instance=ExtResource("8_bqgf6")]
 position = Vector2(5184, 735)
 
+[node name="Enemy4" parent="Enemies" instance=ExtResource("8_bqgf6")]
+position = Vector2(5346, 486)
+
 [node name="Door" parent="." instance=ExtResource("12_gkqas")]
 position = Vector2(3531, 174)
-teleport_position = Vector2(9280, 478)
+teleport_position = Vector2(9282, 478)
 
 [node name="DoorBlip" parent="." instance=ExtResource("14_rlk3v")]
 position = Vector2(9280, 430)
 
 [node name="Door2" parent="." instance=ExtResource("12_gkqas")]
 position = Vector2(9792, 362)
-teleport_position = Vector2(4222, 92)
+teleport_position = Vector2(4282, 92)
 
 [node name="DoorBlip2" parent="." instance=ExtResource("14_rlk3v")]
 position = Vector2(4280, 46)
+
+[node name="Checkpoint" parent="." instance=ExtResource("17_h5yfy")]
+position = Vector2(9280, 460)
+checkpoint_location = Vector2(9280, 472)
+
+[node name="Checkpoint2" parent="." instance=ExtResource("17_h5yfy")]
+position = Vector2(4280, 66)
+checkpoint_location = Vector2(4280, 102)
 
 [node name="HeartPickup2" parent="." instance=ExtResource("9_15s8u")]
 position = Vector2(9829, 473)
@@ -294,14 +311,33 @@ script = ExtResource("16_1pvuw")
 position = Vector2(1, 70)
 shape = SubResource("RectangleShape2D_0wy3v")
 
-[node name="Checkpoint" parent="." instance=ExtResource("17_h5yfy")]
-position = Vector2(9280, 460)
-checkpoint_location = Vector2(9280, 472)
+[node name="Text Popups6 attack controls" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(9464, 385)
+text = "attack controls"
 
-[node name="Checkpoint2" parent="." instance=ExtResource("17_h5yfy")]
-position = Vector2(4280, 66)
-checkpoint_location = Vector2(4280, 102)
+[node name="Area2D" type="Area2D" parent="Text Popups6 attack controls"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("16_1pvuw")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups6 attack controls/Area2D"]
+position = Vector2(8, -10)
+shape = SubResource("RectangleShape2D_ftgdi")
+
+[node name="Text Popups7 eArrow" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(9792, 317)
+text = "eArrow"
+
+[node name="Area2D" type="Area2D" parent="Text Popups7 eArrow"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("16_1pvuw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups7 eArrow/Area2D"]
+position = Vector2(0, 63)
+shape = SubResource("RectangleShape2D_qxifh")
+
+[connection signal="update_checkpoint" from="Checkpoint" to="." method="_on_checkpoint_update_checkpoint"]
 [connection signal="body_entered" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_exited"]
 [connection signal="body_entered" from="Text Popup2 jump higher/Area2D" to="Text Popup2 jump higher/Area2D" method="_on_body_entered"]
@@ -312,4 +348,7 @@ checkpoint_location = Vector2(4280, 102)
 [connection signal="body_exited" from="Text Popups4 move controls/Area2D" to="Text Popups4 move controls/Area2D" method="_on_body_exited"]
 [connection signal="body_entered" from="Text Popups5 eArrow/Area2D" to="Text Popups5 eArrow/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popups5 eArrow/Area2D" to="Text Popups5 eArrow/Area2D" method="_on_body_exited"]
-[connection signal="update_checkpoint" from="Checkpoint" to="." method="_on_checkpoint_update_checkpoint"]
+[connection signal="body_entered" from="Text Popups6 attack controls/Area2D" to="Text Popups6 attack controls/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups6 attack controls/Area2D" to="Text Popups6 attack controls/Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="Text Popups7 eArrow/Area2D" to="Text Popups7 eArrow/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups7 eArrow/Area2D" to="Text Popups7 eArrow/Area2D" method="_on_body_exited"]

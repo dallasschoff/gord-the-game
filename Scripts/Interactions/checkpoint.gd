@@ -10,8 +10,8 @@ func _ready():
 	pass
 
 func _on_area_2d_body_entered(body):
-	print("checkpoint got!")
 	if checkpoint_got == false:
+		print("checkpoint got!")
 		checkpoint_got = true
 		update_checkpoint.emit(checkpoint_location)
 

@@ -84,7 +84,11 @@ func _physics_process(delta):
 		if attack_cooldown == 0:
 			attack_finished.emit()
 		return
-		
+	#This turns off the attack hitbox if the attack is ever interrupted
+	if animated_sprite.animation == "attack":
+		pass
+	else:
+		weapon.attack_area.set_deferred("disabled", true)
 	move_and_slide()
 	
 	if hurting_cooldown > 0:
@@ -92,7 +96,7 @@ func _physics_process(delta):
 		hurting_cooldown -= 1
 		if hurting_cooldown == 0:
 			getting_hit = false
-			hit_finished.emit()
+			hit_finished.emit() #This goes to boss_hurt.gd
 			attack_finished.emit()
 		return
 	

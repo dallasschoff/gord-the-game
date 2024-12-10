@@ -853,6 +853,8 @@ position = Vector2(0, -12)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_2xu4c")
 animation = &"goon"
+frame = 9
+frame_progress = 0.724015
 
 [node name="HealthBarComponent" parent="." instance=ExtResource("3_whs26")]
 z_index = 6
@@ -865,7 +867,7 @@ texture_under = ExtResource("4_tc4oc")
 texture_progress = ExtResource("5_erdil")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("6_w40hd")]
-MAX_HEALTH = 25.0
+MAX_HEALTH = 100.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 animated_sprite = NodePath("../BossSprite")

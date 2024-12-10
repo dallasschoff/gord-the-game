@@ -10,6 +10,9 @@ func enter():
 	enemy.connect("hit_started", _got_hurt)
 	player = get_tree().get_first_node_in_group("Player")
 	player.connect("died", _start_gooning)
+#	Trying to get the enemy not to chase the player off a cliff
+	#if enemy:
+		#enemy.connect("blocked", stop) 
 	
 func physics_update(delta: float):
 	var direction = player.global_position - enemy.global_position
@@ -19,14 +22,14 @@ func physics_update(delta: float):
 	else:
 		transitioned.emit(self, "attack")
 	
-	if direction.length() > 200:
+	if direction.length() > 300:
 		transitioned.emit(self, "idle")
 		
 	enemy.velocity.y += gravity * delta
 
 func stop():
-	print("enemy stop!")
-	enemy.velocity.x = 0
+	enemy.velocity.x = enemy.velocity.x * 0
+
 	
 func _got_hurt():
 	transitioned.emit(self, "hurt")
