@@ -39,9 +39,7 @@ func _physics_process(delta):
 	#Lunge tween and hitbox disabled bool based on animation frames
 	if attack_cooldown > 0 and not getting_hit and not gooning:
 		if animated_sprite.animation == "attack" and animated_sprite.frame == 5:
-			print("lunge at tween start", lunge)
-			tween = get_tree().create_tween()
-			tween.tween_property(self, "lunge", Vector2(0,0), 0.0001)
+			velocity = lunge
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
 			move_and_slide()
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 7 and animated_sprite.frame <= 9):
@@ -114,14 +112,11 @@ func _die():
 	get_node("..").add_child(heart)
 	
 func _attack(lunge_movement):
-	if not getting_hit and not gooning:
+	if not getting_hit and not gooning and not attack_cooldown > 0:
 		animated_sprite.play("attack")
-		attack_cooldown = 64
+		attack_cooldown = 70
 		lunge = lunge_movement
-		print("lunge_movement", lunge_movement)
-		print("position", position)
-
-
+		
 func _goon():
 	gooning = true
 
