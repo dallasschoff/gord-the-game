@@ -6,6 +6,7 @@ signal blocked
 signal hit_started
 signal hit_finished
 signal attack_finished
+signal increment_enemy_deaths
 
 #Enemy trait values
 var SPEED = 60
@@ -42,7 +43,7 @@ func _physics_process(delta):
 			velocity = lunge
 		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 5 and animated_sprite.frame <= 10):
 			move_and_slide()
-		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 7 and animated_sprite.frame <= 9):
+		if animated_sprite.animation == "attack" and (animated_sprite.frame >= 7 and animated_sprite.frame <= 8):
 			weapon.attack_area.set_deferred("disabled", false)
 		else:
 			weapon.attack_area.set_deferred("disabled", true)
@@ -122,4 +123,5 @@ func _goon():
 
 func _on_animation_finished():
 	if dead:
+		increment_enemy_deaths.emit()
 		queue_free()

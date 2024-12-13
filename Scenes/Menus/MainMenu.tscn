@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://lgnapwcoon1c"]
+[gd_scene load_steps=4 format=3 uid="uid://lgnapwcoon1c"]
 
 [ext_resource type="Theme" uid="uid://de5wx5e0jeuil" path="res://Assets/Themes/default_theme.tres" id="1_vwkjo"]
 [ext_resource type="Script" path="res://Scripts/Menus/main_menu.gd" id="2_mnftr"]
+[ext_resource type="Texture2D" uid="uid://51hnnfpcevs6" path="res://Assets/icon.svg" id="3_idd14"]
 
 [node name="MainMenuComponent" type="Control"]
 layout_mode = 3
@@ -41,7 +42,7 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.588235, 0.337255, 0.0705882, 1)
 theme_override_font_sizes/font_size = 60
 text = "Gord: The Game"
@@ -66,7 +67,7 @@ theme_override_colors/font_hover_pressed_color = Color(0.898039, 0.490196, 0.054
 theme_override_colors/font_hover_color = Color(0.337705, 0.716767, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)
 theme_override_colors/font_focus_color = Color(0.337255, 0.717647, 0, 1)
-theme_override_colors/font_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.898039, 0.490196, 0.054902, 1)
 theme_override_font_sizes/font_size = 30
 text = "Start Game"
@@ -84,11 +85,20 @@ theme_override_colors/font_hover_pressed_color = Color(0.898039, 0.490196, 0.054
 theme_override_colors/font_hover_color = Color(0.337255, 0.717647, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)
 theme_override_colors/font_focus_color = Color(0.337255, 0.717647, 0, 1)
-theme_override_colors/font_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.898039, 0.490196, 0.054902, 1)
 theme_override_font_sizes/font_size = 30
 text = "Quit"
 
+[node name="RestartButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1760.0
+offset_top = 32.0
+offset_right = 1888.0
+offset_bottom = 160.0
+texture_normal = ExtResource("3_idd14")
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsVBox/StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsVBox/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]

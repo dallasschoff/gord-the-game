@@ -1,6 +1,8 @@
 extends Control
+class_name MainMenu
 
 signal start_game
+signal restart_checkpoint
 
 @onready var buttonsVBox: VBoxContainer = %ButtonsVBox
 
@@ -23,3 +25,9 @@ func focus_button():
 		var button: Button = buttonsVBox.get_child(0)
 		if button is Button:
 			button.grab_focus()
+
+func _on_restart_button_pressed():
+	#This is supposed to force the respawn position, but isn't working as intended
+	restart_checkpoint.emit(Vector2(338,110)) #Connects to Game_0.gd
+	start_game.emit()
+	hide()

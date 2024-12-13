@@ -10,6 +10,6 @@ func _ready():
 
 func _on_interact():
 	print("door interacted")
-	
 	#await get_tree().create_timer(0.1).timeout
 	player.position = teleport_position
+	queue_free()

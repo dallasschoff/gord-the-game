@@ -542,7 +542,7 @@ HeartPickup = ExtResource("2_fyq8d")
 z_index = 5
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_7ycgr")
-animation = &"goon"
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_83saj")

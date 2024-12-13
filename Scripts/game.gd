@@ -10,6 +10,7 @@ var player_respawn : Vector2
 
 func _ready():
 	transitioner.connect("transition_finished", restart_game)
+	main_menu.connect("restart_checkpoint", _update_checkpoint)
 
 func start_game():
 	world = WorldScene.instantiate()
@@ -20,6 +21,7 @@ func start_game():
 		world.get_node("Player").global_position = player_respawn
 	world.get_node("Checkpoint").connect("update_checkpoint", _update_checkpoint)
 	world.get_node("Checkpoint2").connect("update_checkpoint", _update_checkpoint)
+	world.get_node("Checkpoint3").connect("update_checkpoint", _update_checkpoint)
 	#world.get_node("Player").position
 
 func _update_checkpoint(checkpoint_location):
@@ -31,4 +33,5 @@ func death_screen():
 	
 func restart_game():
 	world.queue_free()
+	transitioner._ready()
 	main_menu.show()

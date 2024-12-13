@@ -147,7 +147,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("move_left"): velocity.x = -250
 		if Input.is_action_pressed("move_right"): velocity.x = 250
 	#This is jank as fuck sorry
-	if abs(velocity.x) > 250: can_running_attack = false
+	#if abs(velocity.x) > 250: can_running_attack = false
 	
 	#Coyote Time
 	if !is_on_floor() and last_floor and jumps_made == 0:

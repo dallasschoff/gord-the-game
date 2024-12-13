@@ -39,11 +39,11 @@ animations = [{
 radius = 8.65061
 
 [node name="HeartPickup" type="AnimatedSprite2D" node_paths=PackedStringArray("heartArea")]
-position = Vector2(0.3, 0)
 sprite_frames = SubResource("SpriteFrames_ksc3m")
 animation = &"spinning"
 frame_progress = 0.908027
 speed_scale = 1.25
+offset = Vector2(1.5, 0)
 script = ExtResource("2_pb5iu")
 heartArea = NodePath("Area2D")
 
@@ -53,7 +53,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 8
-position = Vector2(-1.51437, 0)
 shape = SubResource("CircleShape2D_mw65b")
 disabled = true
 

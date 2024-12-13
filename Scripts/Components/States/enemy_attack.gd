@@ -30,7 +30,7 @@ func physics_update(delta: float):
 		var lunge_direction = 1 if direction.x > 0 else -1
 		var lunge_vector = Vector2(lunge_direction * move_speed, enemy.global_position.y)
 		enemy._attack(lunge_vector)
-	elif player._is_dead():
+	elif player._is_dead() and  not attacking:
 		transitioned.emit(self, "goon")
 		
 	enemy.velocity.y += gravity * delta
