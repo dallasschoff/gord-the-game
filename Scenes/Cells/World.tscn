@@ -184,7 +184,7 @@ tile_map_data = PackedByteArray("AAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAA
 tile_set = SubResource("TileSet_83k2e")
 
 [node name="Player" parent="." instance=ExtResource("7_6igws")]
-position = Vector2(8037, 89)
+position = Vector2(335, 111)
 double_jumps = 0
 log_movement = false
 
