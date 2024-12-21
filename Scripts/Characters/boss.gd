@@ -91,7 +91,6 @@ func _physics_process(delta):
 		weapon.attack_area.set_deferred("disabled", true)
 	move_and_slide()
 	
-	print(hurting_cooldown)
 	if hurting_cooldown > 0:
 		#animated_sprite.play("hurting")
 		hurting_cooldown -= 1

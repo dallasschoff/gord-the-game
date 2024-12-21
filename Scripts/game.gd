@@ -28,6 +28,7 @@ func _update_checkpoint(checkpoint_location):
 	player_respawn = checkpoint_location
 
 func death_screen():
+	transitioner.get_child(0).position.y = 440
 	await get_tree().create_timer(2).timeout
 	transitioner.play()
 	
