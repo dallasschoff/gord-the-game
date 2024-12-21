@@ -7,7 +7,6 @@ class_name BossHurt
 var player: CharacterBody2D
 
 func enter():
-	player = get_tree().get_first_node_in_group("Player")
 	boss.connect("hit_finished", _hit_finished)
 
 func physics_update(delta: float):

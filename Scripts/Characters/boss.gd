@@ -91,6 +91,7 @@ func _physics_process(delta):
 		weapon.attack_area.set_deferred("disabled", true)
 	move_and_slide()
 	
+	print(hurting_cooldown)
 	if hurting_cooldown > 0:
 		#animated_sprite.play("hurting")
 		hurting_cooldown -= 1
@@ -116,26 +117,25 @@ func _physics_process(delta):
 		blocked.emit()
 
 func _hit(attack: Attack):
-	is_walking = false
-	is_idle = false
-	getting_hit = true
-	weapon.attack_area.set_deferred("disabled", true)
-	attack_cooldown = 0
-
 	#If the Boss will stagger this hit, set the hurting_cooldown to a higher value
 	#and play the stagger animation. Also start the stagger_timer to emulate a
 	#period when the Boss will not stagger for.
 	if will_stagger:
+		getting_hit = true
 		#Amount of time staggered (frames)
 		hurting_cooldown = 160
+		attack_cooldown = 0
+		weapon.attack_area.set_deferred("disabled", true)
 		animated_sprite.play("stagger")
 		stagger_timer.start()
-	
+		hit_started.emit()
+		
 	#Else, the Boss will not stagger, so use normal hurting_cooldown value
 	#and play the hurting animation
 	#else:
 		#hurting_cooldown = 36
 		#animated_sprite.play("hurting")
+		
 	#Color red flash, then Orange while staggered
 	animated_sprite.modulate = Color.RED
 	await get_tree().create_timer(0.12).timeout
@@ -144,7 +144,6 @@ func _hit(attack: Attack):
 	#Set will_stagger to false, regardless, as it will only be true when stagger_timer
 	#has hit timeout
 	will_stagger = false
-	hit_started.emit()
 	
 func _look_left():
 	weapon.change_direction("left")
