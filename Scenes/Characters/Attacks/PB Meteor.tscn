@@ -255,8 +255,8 @@ frame_progress = 1.0
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("attack_area")]
 position = Vector2(0, -10)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 6
 script = ExtResource("3_6i28j")
 attack_damage = 50.0
 attack_area = NodePath("Hitbox")

@@ -73,6 +73,7 @@ theme_override_font_sizes/font_size = 30
 text = "Start Game"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsVBox"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -80,7 +81,7 @@ focus_neighbor_top = NodePath("../StartGameButton")
 focus_neighbor_bottom = NodePath("../StartGameButton")
 focus_next = NodePath("../StartGameButton")
 focus_previous = NodePath("../StartGameButton")
-theme_override_colors/font_disabled_color = Color(0.898039, 0.490196, 0.054902, 1)
+theme_override_colors/font_disabled_color = Color(0.898039, 0.490196, 0.054902, 0)
 theme_override_colors/font_hover_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)
 theme_override_colors/font_hover_color = Color(0.337255, 0.717647, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.898039, 0.490196, 0.054902, 1)

@@ -11,6 +11,7 @@ signal hit_finished
 var SPEED = 60
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $BossSprite
+@onready var collision_box = $CollisionPlayer
 @export var next_stagger_time: float = 10.0
 @export var raycasts: Node2D
 @export var wall_raycast: RayCast2D
@@ -98,6 +99,8 @@ func _physics_process(delta):
 			getting_hit = false
 			hit_finished.emit() #This goes to boss_hurt.gd
 			attack_finished.emit()
+			#Turns boss collision on again
+			collision_box.set_collision_layer_value(4, true)
 		return
 	
 	if abs(velocity.x) > 0 and abs(velocity.x) <= (boss_idle.move_speed):
@@ -124,6 +127,8 @@ func _hit(attack: Attack):
 		#Amount of time staggered (frames)
 		hurting_cooldown = 160
 		attack_cooldown = 0
+		#Remove boss collision while staggered
+		collision_box.collision_layer = 4
 		weapon.attack_area.set_deferred("disabled", true)
 		animated_sprite.play("stagger")
 		stagger_timer.start()

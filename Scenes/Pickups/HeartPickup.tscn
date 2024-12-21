@@ -46,6 +46,7 @@ speed_scale = 1.25
 offset = Vector2(1.5, 0)
 script = ExtResource("2_pb5iu")
 heartArea = NodePath("Area2D")
+healValue = 50.0
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

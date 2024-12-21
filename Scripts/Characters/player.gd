@@ -38,6 +38,8 @@ var running_attack_timer: Timer
 #Player knockback
 var knockback = Vector2(0,0)
 var knockbackTween
+var landing_ray1_hit
+var landing_ray2_hit
 var dead = false
 
 var last_ground_position
@@ -53,7 +55,7 @@ func _ready():
 	coyote_timer = Timer.new()
 	add_child(coyote_timer)
 	coyote_timer.one_shot = true
-	coyote_timer.wait_time = 0.1
+	coyote_timer.wait_time = 0.12
 	coyote_timer.connect("timeout", _on_coyote_timer_timeout)
 	
 	#Running attack
@@ -67,21 +69,25 @@ func _ready():
 	last_ground_position = position.y
 
 func _physics_process(delta):
-	if dead:
-		return
+	if landing_ray1.is_colliding():
+		landing_ray1_hit = true
+	if landing_ray2.is_colliding():
+		landing_ray2_hit = true
+	#if dead:
+		#return
 	#Player States
 	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0 or hurting_cooldown > 0
 	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
 	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
 	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
-	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and (is_on_floor() or coyote)
+	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and not dead and (coyote or is_on_floor())#(landing_ray1_hit or landing_ray2_hit))
 	var is_double_jumping := Input.is_action_just_pressed("jump") and !is_on_floor() and double_jumps_made != double_jumps #and velocity.y >= 0
 	var is_running = is_on_floor() and !is_zero_approx(velocity.x) and !Input.is_action_pressed("walk") and !is_free_falling and abs(velocity.x) > 50
 	var is_walking := is_on_floor() and !is_zero_approx(velocity.x) and Input.is_action_pressed("walk")
 	var is_moving = is_walking or is_running
 	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
 	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor() and attacking_cooldown == 0
-	var is_running_attack = Input.is_action_pressed("attack") and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")) #is_moving and abs(velocity.x) > 100 #and is_on_floor() 
+	var is_running_attack = Input.is_action_pressed("attack") and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")) and not dead #is_moving and abs(velocity.x) > 100 #and is_on_floor() 
 	var is_combo_attacking = Input.is_action_pressed("attack") and (animated_sprite.animation == "attack" and (animated_sprite.frame == 5))
 	var is_aerial_attacking = Input.is_action_pressed("attack") \
 		and ((animated_sprite.animation == "jumping" 
@@ -93,25 +99,23 @@ func _physics_process(delta):
 	var move = 0
 	var _horizontal_direction
 	#Meteor Attack demo
-	if Input.is_action_just_pressed("test_button1"):
-		print("test 1 meteor")
-		var world = get_tree().get_first_node_in_group("World")
-		var pb_meteor_instance = PBMeteorScene.instantiate()
-		pb_meteor_instance.position = position
-		world.add_child(pb_meteor_instance)
+	#if Input.is_action_just_pressed("test_button1"):
+		#print("test 1 meteor")
+		#var world = get_tree().get_first_node_in_group("World")
+		#var pb_meteor_instance = PBMeteorScene.instantiate()
+		#pb_meteor_instance.position = position
+		#pb_meteor_instance.position.y = position.y+10
+		#world.add_child(pb_meteor_instance)
+		#
+		#var meteor_sprite = pb_meteor_instance.get_child(0)
+		#var explosion_sprite = pb_meteor_instance.get_child(1)
+		#explosion_sprite.visible = false
+		#
+		#world.add_child(pb_meteor_instance)
+		#meteor_sprite.play("pb meteor")
 		
-		var meteor_sprite = pb_meteor_instance.get_child(0)
-		var explosion_sprite = pb_meteor_instance.get_child(1)
-		#var pb_meteor_root = pb_meteor_attack.get_tree().get_child(-1)
-		#pb_meteor_attack.visible = true
-		#meteor_sprite.visible = true
-		explosion_sprite.visible = false
-
-		world.add_child(pb_meteor_instance)
-		meteor_sprite.play("pb meteor")
-		
-	#Can only move if not hurting or attacking
-	if hurting_cooldown == 0 and attacking_cooldown == 0 and crouching_cooldown == 0:
+	#Can only move if not hurting or attacking and not dead
+	if hurting_cooldown == 0 and attacking_cooldown == 0 and crouching_cooldown == 0 and not dead:
 		_horizontal_direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 
 		if Input.is_action_pressed("walk"):
@@ -204,16 +208,17 @@ func _physics_process(delta):
 		return
 	
 	#Handle sprites and hitbox direction changes
-	if Input.is_action_pressed("move_left") and attacking_cooldown == 0 and hurting_cooldown == 0:
-		animated_sprite.flip_h = true
-		weapon.change_direction("left")
-		if animated_sprite_puff.position.x < 0:
-			animated_sprite_puff.position.x = animated_sprite_puff.position.x + 4.3
-	if Input.is_action_pressed("move_right") and attacking_cooldown == 0 and hurting_cooldown == 0:
-		animated_sprite.flip_h = false
-		animated_sprite_puff.position.x = -2.33
-		weapon.change_direction("right")
-	
+	if not dead:
+		if Input.is_action_pressed("move_left") and attacking_cooldown == 0 and hurting_cooldown == 0:
+			animated_sprite.flip_h = true
+			weapon.change_direction("left")
+			if animated_sprite_puff.position.x < 0:
+				animated_sprite_puff.position.x = animated_sprite_puff.position.x + 4.3
+		if Input.is_action_pressed("move_right") and attacking_cooldown == 0 and hurting_cooldown == 0:
+			animated_sprite.flip_h = false
+			animated_sprite_puff.position.x = -2.33
+			weapon.change_direction("right")
+		
 	#Handle sprite puff flip/position when standing still
 	if velocity.x == 0 and animated_sprite.flip_h == false:
 		animated_sprite_puff.position.x = -2.33
@@ -221,37 +226,38 @@ func _physics_process(delta):
 		animated_sprite_puff.position.x = 2
 	
 	#Player animations
-	if is_running_attack and attacking_cooldown == 0:
-		animated_sprite.play("running_attack")
-		attacking_cooldown = 40
-	elif is_attacking_idle and attacking_cooldown == 0:
-		animated_sprite.play("attack")
-		attacking_cooldown = 48
-	elif is_combo_attacking:
-		animated_sprite.play("combo_attack")
-		attacking_cooldown = 30
-	elif is_aerial_attacking:
-		animated_sprite.play("aerial_attack")
-	elif is_jumping and !is_landing:
-		animated_sprite.play("jumping")
-	elif is_double_jumping:
-		animated_sprite.play("double_jumping")
-		animated_sprite_puff.play("puff")
-	elif is_running and !is_jumping and !is_in_cooldown:
-		animated_sprite.play("running")
-	elif is_landing:
-		animated_sprite.play("landing")
-	elif is_falling:
-		animated_sprite.play("running")
-	elif is_free_falling:
-		animated_sprite.play("free_falling")
-	elif is_walking and !is_jumping:
-		animated_sprite.play("walking")
-	elif is_crouching:
-		animated_sprite.play("crouching")
-	elif is_idling:
-		animated_sprite.play("idle")
-	
+	if not dead:
+		if is_running_attack and attacking_cooldown == 0:
+			animated_sprite.play("running_attack")
+			attacking_cooldown = 40
+		elif is_attacking_idle and attacking_cooldown == 0:
+			animated_sprite.play("attack")
+			attacking_cooldown = 48
+		elif is_combo_attacking:
+			animated_sprite.play("combo_attack")
+			attacking_cooldown = 30
+		elif is_aerial_attacking:
+			animated_sprite.play("aerial_attack")
+		elif is_jumping and !is_landing:
+			animated_sprite.play("jumping")
+		elif is_double_jumping:
+			animated_sprite.play("double_jumping")
+			animated_sprite_puff.play("puff")
+		elif is_running and !is_jumping and !is_in_cooldown:
+			animated_sprite.play("running")
+		elif is_landing:
+			animated_sprite.play("landing")
+		elif is_falling:
+			animated_sprite.play("running")
+		elif is_free_falling:
+			animated_sprite.play("free_falling")
+		elif is_walking and !is_jumping:
+			animated_sprite.play("walking")
+		elif is_crouching:
+			animated_sprite.play("crouching")
+		elif is_idling:
+			animated_sprite.play("idle")
+
 	#Movement log
 	if log_movement:
 		print(animated_sprite.animation)

@@ -818,7 +818,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_te2pr"]
-size = Vector2(30, 32)
+size = Vector2(14.0909, 32)
 
 [node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
 scale = Vector2(2.2, 2.2)
@@ -867,7 +867,7 @@ texture_under = ExtResource("4_tc4oc")
 texture_progress = ExtResource("5_erdil")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("6_w40hd")]
-MAX_HEALTH = 100.0
+MAX_HEALTH = 280.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 animated_sprite = NodePath("../BossSprite")
@@ -879,14 +879,15 @@ health_component = NodePath("../HealthComponent")
 entity = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0.227273, 0)
 shape = SubResource("RectangleShape2D_te2pr")
 debug_color = Color(0.683781, 0.501668, 0, 0.42)
 
 [node name="Sword" parent="." node_paths=PackedStringArray("attack_area") instance=ExtResource("8_knldt")]
 collision_layer = 2
 collision_mask = 2
-attack_damage = 5.0
-knockback_force = 70.0
+attack_damage = 12.0
+knockback_force = 60.0
 attack_area = NodePath("SwordHitboxPoly")
 
 [node name="SwordHitboxPoly" type="CollisionPolygon2D" parent="Sword"]
