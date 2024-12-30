@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Scripts/Components/healthBarComponent.gd" id="1_bulf5"]
 
-
 [node name="HealthBarComponent" type="TextureProgressBar"]
 offset_right = 40.0
 offset_bottom = 40.0

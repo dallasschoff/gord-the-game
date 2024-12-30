@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=49 format=4 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
@@ -14,11 +14,18 @@
 [ext_resource type="PackedScene" uid="uid://dshbbs43do4ta" path="res://Scenes/Pickups/Power.tscn" id="10_etbr6"]
 [ext_resource type="PackedScene" uid="uid://8g3jtf213pi0" path="res://Scenes/Characters/Boss.tscn" id="11_544vx"]
 [ext_resource type="PackedScene" uid="uid://cr8vjckv3kn60" path="res://Scenes/Interactions/Door.tscn" id="12_gkqas"]
+[ext_resource type="Script" path="res://Scripts/Characters/plant wall.gd" id="14_hk7w1"]
 [ext_resource type="PackedScene" uid="uid://cb622jyw6o18c" path="res://Scenes/Interactions/DoorBlip.tscn" id="14_rlk3v"]
+[ext_resource type="Texture2D" uid="uid://cqqb2ywkcr2ty" path="res://Assets/My Assets/Sprites/Other/Peanut Plant Wall.png" id="14_sixig"]
 [ext_resource type="PackedScene" uid="uid://dhnm8lx1j2kko" path="res://Scenes/Interactions/DoorAppear.tscn" id="15_fhmyu"]
 [ext_resource type="Script" path="res://Scripts/Menus/text_popups_area2ds.gd" id="16_1pvuw"]
+[ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/Components/HurtboxComponent.tscn" id="16_5gc33"]
 [ext_resource type="PackedScene" uid="uid://buyf1cy1lnapk" path="res://Scenes/Menus/TextPopups.tscn" id="16_mg6ai"]
+[ext_resource type="PackedScene" uid="uid://b8ke3oq2fo62o" path="res://Scenes/Components/HealthComponent.tscn" id="17_agcn6"]
 [ext_resource type="PackedScene" uid="uid://ba3tisgoeuvna" path="res://Scenes/Interactions/Checkpoint.tscn" id="17_h5yfy"]
+[ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/Components/HealthBarComponent.tscn" id="18_k0v5g"]
+[ext_resource type="Texture2D" uid="uid://ducaw1t6w2tjf" path="res://Assets/My Assets/Sprites/Health Bar/healthbarFrame.png" id="19_hmyb2"]
+[ext_resource type="Texture2D" uid="uid://fjqktjiml4ly" path="res://Assets/My Assets/Sprites/Health Bar/EnemyhealthbarProgressOver.png" id="20_vsuj5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vwdut"]
 texture = ExtResource("4_d1hln")
@@ -105,6 +112,27 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54hxx"]
+size = Vector2(38, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dvre"]
+atlas = ExtResource("14_sixig")
+region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vnpib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dvre")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wqtc"]
+size = Vector2(38, 64)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpvd4"]
 size = Vector2(210, 77)
 
@@ -152,12 +180,14 @@ tile_map_data = PackedByteArray("AAASAAMAAAAEAAAAAAATAAMAAAAEAAAAAAAUAAMAAAAEAAA
 tile_set = ExtResource("3_rqiqu")
 
 [node name="BehindPlayer" type="TileMapLayer" parent="."]
+visible = false
 modulate = Color(0.921569, 0.627451, 0.627451, 1)
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAOAAMAAQACAAAAAAACAAAAAQAAAAEAAAADAAAAAQABAAEAAAAEAAAAAQACAAAAAAARAAMAAQACAAEAAAAQAAMAAQABAAEAAAAPAAMAAQAAAAEAAAAVAAMAAQACAAAAAAAWAAMAAQAAAAEAAAAXAAMAAQABAAEAAAAYAAMAAQACAAEAAAAbAAEAAQACAAEAAABHAAMAAQACAAAAAABIAAMAAQAAAAEAAABMAAMAAQAAAAEAAABJAAMAAQACAAAAAABKAAMAAQAAAAEAAAAUAAIAAQAAAAEAAAASAAIAAQABAAEAAAATAAIAAQACAAAAAAAWAAEAAQACAAAAAAAkAAEAAQABAAAAAAAoAAIAAQAAAAEAAAApAAMAAQABAAEAAAAoAAQAAAACAAAAAAAlAAUAAQAAAAEAAAAmAAUAAQABAAAAAAAnAAUAAQACAAAAAAAoAAUAAQAAAAEAAAApAAUAAQACAAAAAAAqAAUAAQABAAEAAAArAAUAAQAAAAEAAAAsAAUAAQAAAAEAAAAtAAUAAQACAAAAAAAnAAAAAQACAAAAAAA0AAYAAQACAAAAAAA1AAYAAQABAAAAAAA2AAYAAQACAAAAAAA3AAYAAQAAAAEAAAA4AAYAAQABAAEAAAA5AAYAAQACAAEAAAA6AAYAAQACAAAAAAA7AAYAAQABAAAAAAA8AAYAAQACAAAAAAA9AAYAAQABAAAAAAA+AAYAAQACAAEAAAA/AAYAAQABAAAAAAA8AAUAAQAAAAEAAAA9AAUAAQABAAEAAABAAAEAAQACAAAAAAA5AAEAAQAAAAEAAAA/AAEAAQABAAAAAAA6AAEAAQABAAEAAAA=")
 tile_set = SubResource("TileSet_ouyn4")
 
 [node name="InfrontPlayer" type="TileMapLayer" parent="."]
+visible = false
 modulate = Color(0.893517, 0.666637, 0.668259, 1)
 z_index = 8
 use_parent_material = true
@@ -186,7 +216,7 @@ tile_map_data = PackedByteArray("AAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAA
 tile_set = SubResource("TileSet_83k2e")
 
 [node name="Player" parent="." instance=ExtResource("7_6igws")]
-position = Vector2(5352, 1749)
+position = Vector2(6810, 834)
 double_jumps = 0
 log_movement = false
 
@@ -237,6 +267,43 @@ position = Vector2(5346, 486)
 
 [node name="TestEnemy5" parent="Enemies" instance=ExtResource("8_bqgf6")]
 position = Vector2(5554, 1742)
+
+[node name="Plant Wall" type="CharacterBody2D" parent="."]
+position = Vector2(6977, 834)
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("14_hk7w1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant Wall"]
+position = Vector2(6, 12)
+shape = SubResource("RectangleShape2D_54hxx")
+
+[node name="Plant Wall" type="AnimatedSprite2D" parent="Plant Wall"]
+sprite_frames = SubResource("SpriteFrames_vnpib")
+
+[node name="HurtboxComponent" parent="Plant Wall" node_paths=PackedStringArray("health_component") instance=ExtResource("16_5gc33")]
+collision_layer = 4
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant Wall/HurtboxComponent"]
+position = Vector2(6, 12)
+shape = SubResource("RectangleShape2D_7wqtc")
+
+[node name="HealthComponent" parent="Plant Wall" node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("17_agcn6")]
+MAX_HEALTH = 50.0
+healthbar_component = NodePath("../HealthBarComponent")
+entity = NodePath("..")
+animated_sprite = NodePath("../Plant Wall")
+
+[node name="HealthBarComponent" parent="Plant Wall" instance=ExtResource("18_k0v5g")]
+offset_left = -33.0
+offset_top = -36.0
+offset_right = 31.0
+offset_bottom = 4.0
+texture_under = ExtResource("19_hmyb2")
+texture_progress = ExtResource("20_vsuj5")
+texture_progress_offset = Vector2(3, 3)
 
 [node name="Door" parent="." instance=ExtResource("12_gkqas")]
 position = Vector2(3531, 174)
