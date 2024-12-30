@@ -818,7 +818,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_te2pr"]
-size = Vector2(14.0909, 32)
+size = Vector2(14.0909, 30.5455)
 
 [node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
 scale = Vector2(2.2, 2.2)
@@ -879,7 +879,7 @@ health_component = NodePath("../HealthComponent")
 entity = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0.227273, 0)
+position = Vector2(0.227273, 0.727273)
 shape = SubResource("RectangleShape2D_te2pr")
 debug_color = Color(0.683781, 0.501668, 0, 0.42)
 

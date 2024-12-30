@@ -28,7 +28,7 @@ func physics_update(delta: float):
 		attacking = true
 		#continue to attack player if in range
 		boss._attack()
-	elif player._is_dead():
+	elif player._is_dead() and not attacking:
 		transitioned.emit(self, "goon")
 	
 	boss.velocity.y += gravity * delta

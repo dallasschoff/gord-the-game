@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://dshbbs43do4ta"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kh6ta"]
+size = Vector2(50, 50)
+
+[sub_resource type="Curve" id="Curve_i1fps"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.266272, -316.655), 0.0, 0.0, 0, 0, Vector2(0.754438, 334.065), 0.0, 0.0, 0, 0, Vector2(1, -360), -2379.79, 0.0, 0, 0]
+point_count = 4
+
+[node name="Power" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_kh6ta")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+lifetime = 0.5
+explosiveness = 0.5
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+angular_velocity_curve = SubResource("Curve_i1fps")
+orbit_velocity_min = -4.0
+orbit_velocity_max = -2.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color = Color(0, 0.758642, 0.20215, 1)
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+amount = 10
+lifetime = 0.5
+explosiveness = 0.5
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+angular_velocity_curve = SubResource("Curve_i1fps")
+orbit_velocity_min = 2.0
+orbit_velocity_max = 4.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color = Color(0.643699, 0.273438, 1, 1)
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+amount = 10
+explosiveness = 0.5
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+angular_velocity_curve = SubResource("Curve_i1fps")
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color = Color(0, 0.27451, 1, 1)

@@ -17,6 +17,7 @@ signal died
 @onready var animated_sprite_puff = $AnimatedSprite2D/AnimatedSpritePuff
 @onready var landing_ray1 = $LandingRay1
 @onready var landing_ray2 = $LandingRay2
+@onready var hitspark = $Hitspark
 
 #Player Conditions
 var jumps_made := 0
@@ -27,6 +28,8 @@ var attacking_cooldown = 0
 var crouching_cooldown = 0
 var landing_window = 0
 var hurting_cooldown = 0
+var looking_right = true
+var looking_left = false
 #Coyote Time
 var coyote = false
 var last_floor = false
@@ -77,7 +80,7 @@ func _physics_process(delta):
 		#return
 	#Player States
 	var is_in_cooldown := attacking_cooldown > 0 or landing_window > 0 or crouching_cooldown > 0 or hurting_cooldown > 0
-	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor()
+	var is_landing = (landing_ray1.is_colliding() or landing_ray2.is_colliding()) and jumps_made >= 1 and velocity.y > 0.0 and !is_on_floor() and (attacking_cooldown <= 0)
 	var is_free_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0
 	var is_falling = velocity.y > 200.0 and !is_on_floor() and jumps_made == 0 and !is_free_falling
 	var is_jumping := attacking_cooldown == 0 and hurting_cooldown == 0 and Input.is_action_just_pressed("jump") and not dead and (coyote or is_on_floor())#(landing_ray1_hit or landing_ray2_hit))
@@ -87,7 +90,7 @@ func _physics_process(delta):
 	var is_moving = is_walking or is_running
 	var is_crouching = is_on_floor() and Input.is_action_pressed("crouch") and !is_moving
 	var is_attacking_idle = Input.is_action_pressed("attack") and !is_moving and is_on_floor() and attacking_cooldown == 0
-	var is_running_attack = Input.is_action_pressed("attack") and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")) and not dead #is_moving and abs(velocity.x) > 100 #and is_on_floor() 
+	var is_running_attack = Input.is_action_pressed("attack") and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")) and not dead #and attacking_cooldown <= 0  #is_moving and abs(velocity.x) > 100 #and is_on_floor() 
 	var is_combo_attacking = Input.is_action_pressed("attack") and (animated_sprite.animation == "attack" and (animated_sprite.frame == 5))
 	var is_aerial_attacking = Input.is_action_pressed("attack") \
 		and ((animated_sprite.animation == "jumping" 
@@ -143,16 +146,14 @@ func _physics_process(delta):
 	#All of the "is_" variables used to be here
 	
 	#Small speed boost / slide to running attack (May want to relocate this)
-	if is_running_attack and attacking_cooldown == 0:
+	if is_running_attack and attacking_cooldown == 0: #and can_running_attack:
 		print("running attack boost")
 		running_attack_boost = true
 		running_attack_timer.start()
-	if running_attack_boost and can_running_attack:
+	if running_attack_boost and can_running_attack: #and attacking_cooldown <= 0:
 		if Input.is_action_pressed("move_left"): velocity.x = -250
 		if Input.is_action_pressed("move_right"): velocity.x = 250
-	#This is jank as fuck sorry
-	#if abs(velocity.x) > 250: can_running_attack = false
-	
+		#can_running_attack = false
 	#Coyote Time
 	if !is_on_floor() and last_floor and jumps_made == 0:
 		#print("coyote time")
@@ -208,16 +209,25 @@ func _physics_process(delta):
 		return
 	
 	#Handle sprites and hitbox direction changes
-	if not dead:
-		if Input.is_action_pressed("move_left") and attacking_cooldown == 0 and hurting_cooldown == 0:
-			animated_sprite.flip_h = true
-			weapon.change_direction("left")
-			if animated_sprite_puff.position.x < 0:
-				animated_sprite_puff.position.x = animated_sprite_puff.position.x + 4.3
-		if Input.is_action_pressed("move_right") and attacking_cooldown == 0 and hurting_cooldown == 0:
-			animated_sprite.flip_h = false
-			animated_sprite_puff.position.x = -2.33
-			weapon.change_direction("right")
+	if Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right")\
+	and attacking_cooldown == 0 and hurting_cooldown == 0 and not dead:
+		if looking_right == true:
+			looking_right = false
+			looking_left = true
+			$".".scale.x = -1
+		#animated_sprite.flip_h = true
+		#weapon.change_direction("left")
+		if animated_sprite_puff.position.x < 0:
+			animated_sprite_puff.position.x = animated_sprite_puff.position.x + 4.3
+	if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left")\
+	and attacking_cooldown == 0 and hurting_cooldown == 0 and not dead:
+		if looking_left == true:
+			looking_left = false
+			looking_right = true
+			$".".scale.x = -1
+		#animated_sprite.flip_h = false
+		#animated_sprite_puff.position.x = -2.33
+		#weapon.change_direction("right")
 		
 	#Handle sprite puff flip/position when standing still
 	if velocity.x == 0 and animated_sprite.flip_h == false:
@@ -311,7 +321,6 @@ func _on_coyote_timer_timeout():
 func _on_running_attack_timer_timeout():
 	running_attack_boost = false
 	can_running_attack = true
-
 	print("running attack boost over")
 
 func _update_ground_position():

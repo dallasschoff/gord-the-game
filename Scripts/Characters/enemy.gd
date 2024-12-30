@@ -108,6 +108,7 @@ func _die():
 		return
 	animated_sprite.play("death")
 	dead = true
+	$HurtboxComponent/CollisionShape2D2.disabled = true #Should* Prevents hitsparks during the death animation
 	var heart = HeartPickup.instantiate()
 	heart.position = Vector2(position.x, position.y-8)
 	get_node("..").add_child(heart)

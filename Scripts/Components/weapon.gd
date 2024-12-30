@@ -5,6 +5,7 @@ class_name Weapon
 @export var knockback_force := 30.0
 var current_direction = "right"
 @export var attack_area: CollisionPolygon2D
+signal hitspark_signal
 
 func _on_weapon_hitbox_entered(area):
 	if area is HurtboxComponent:
@@ -20,6 +21,7 @@ func _on_weapon_hitbox_entered(area):
 		var attack = Attack.new()
 		attack.attack_damage = attack_damage
 		attack.knockback = knockback
+		hitspark_signal.emit() #connects to hitspark.gd
 		
 		hurtbox.damage(attack)
 
