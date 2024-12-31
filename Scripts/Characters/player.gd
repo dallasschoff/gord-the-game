@@ -58,7 +58,7 @@ func _ready():
 	coyote_timer = Timer.new()
 	add_child(coyote_timer)
 	coyote_timer.one_shot = true
-	coyote_timer.wait_time = 0.12
+	coyote_timer.wait_time = 0.16
 	coyote_timer.connect("timeout", _on_coyote_timer_timeout)
 	
 	#Running attack

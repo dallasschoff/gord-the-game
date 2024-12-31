@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://buyf1cy1lnapk"]
+[gd_scene load_steps=19 format=3 uid="uid://buyf1cy1lnapk"]
 
 [ext_resource type="Script" path="res://Scripts/Menus/text_popups_parent.gd" id="1_jw4n0"]
-[ext_resource type="Texture2D" uid="uid://cs02l7ylhipld" path="res://Assets/My Assets/Sprites/Info/Gord Game Text.png" id="1_pwplb"]
+[ext_resource type="Texture2D" uid="uid://dn84xjrjumduy" path="res://Assets/My Assets/Sprites/Info/Gord Game Text.png" id="1_pwplb"]
 
 [sub_resource type="Animation" id="Animation_wrkck"]
 length = 0.001
@@ -94,6 +94,22 @@ _data = {
 atlas = ExtResource("1_pwplb")
 region = Rect2(128, 128, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u6gf"]
+atlas = ExtResource("1_pwplb")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0l00"]
+atlas = ExtResource("1_pwplb")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q4mo"]
+atlas = ExtResource("1_pwplb")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydvyn"]
+atlas = ExtResource("1_pwplb")
+region = Rect2(256, 256, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_em6y3"]
 atlas = ExtResource("1_pwplb")
 region = Rect2(0, 128, 128, 128)
@@ -110,6 +126,10 @@ region = Rect2(0, 0, 128, 128)
 atlas = ExtResource("1_pwplb")
 region = Rect2(128, 0, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_iktwe"]
+atlas = ExtResource("1_pwplb")
+region = Rect2(0, 256, 128, 128)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_5jtu6"]
 animations = [{
 "frames": [{
@@ -119,6 +139,33 @@ animations = [{
 "loop": true,
 "name": &"attack controls",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7u6gf")
+}],
+"loop": false,
+"name": &"combo attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0l00")
+}],
+"loop": false,
+"name": &"combo attack controls1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8q4mo")
+}, {
+"duration": 6.0,
+"texture": SubResource("AtlasTexture_ydvyn")
+}],
+"loop": true,
+"name": &"combo attack controls2",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -151,6 +198,14 @@ animations = [{
 "loop": true,
 "name": &"move controls",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iktwe")
+}],
+"loop": false,
+"name": &"plus",
+"speed": 5.0
 }]
 
 [node name="Text Popups" type="Node2D"]
@@ -166,4 +221,4 @@ libraries = {
 show_behind_parent = true
 position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_5jtu6")
-animation = &"eArrow"
+animation = &"combo attack"
