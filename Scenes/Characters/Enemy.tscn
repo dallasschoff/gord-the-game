@@ -531,6 +531,7 @@ size = Vector2(30, 30)
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("raycasts", "wall_raycast", "floor_raycast", "weapon")]
 collision_layer = 8
+collision_mask = 9
 script = ExtResource("1_qdflj")
 raycasts = NodePath("RayCasts")
 wall_raycast = NodePath("RayCasts/WallRayCast")

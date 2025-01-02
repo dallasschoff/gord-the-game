@@ -667,7 +667,7 @@ size = Vector2(26, 32)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon") groups=["Player"]]
 collision_layer = 136
-collision_mask = 139
+collision_mask = 137
 script = ExtResource("1_45wk2")
 jump_strength = 375
 weapon = NodePath("Sword")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crf565h0dsyqv"
-path="res://.godot/imported/Peanut Plant Wall.png-366017f62e55f03cba02c37dd0a4dfe2.ctex"
+uid="uid://brw6hn6se4u54"
+path="res://.godot/imported/Spikes.png-b27aed96ed42c45bcd3ae42dd322d8cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/My Assets/Sprites/Other/Peanut Plant Wall.png"
-dest_files=["res://.godot/imported/Peanut Plant Wall.png-366017f62e55f03cba02c37dd0a4dfe2.ctex"]
+source_file="res://Assets/My Assets/Sprites/Other/Spikes.png"
+dest_files=["res://.godot/imported/Spikes.png-b27aed96ed42c45bcd3ae42dd322d8cd.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://c0t7kx5cm5w8v"]
+[gd_scene load_steps=68 format=4 uid="uid://c0t7kx5cm5w8v"]
 
 [ext_resource type="Script" path="res://Scripts/Cells/world.gd" id="1_xhx20"]
 [ext_resource type="TileSet" uid="uid://vx5np40b65se" path="res://Assets/My Assets/Tileset/Ground.tres" id="2_k0m14"]
@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://byfpfmtrdixsv" path="res://Assets/My Assets/Tileset/Grass Background Spritesheet.png" id="4_0asnj"]
 [ext_resource type="Texture2D" uid="uid://dxrf1wcsmkgv0" path="res://Assets/My Assets/Tileset/Grass Foreground Spritesheet.png" id="4_d1hln"]
 [ext_resource type="Texture2D" uid="uid://cpcyr3t3x3bb5" path="res://Assets/My Assets/Tileset/BackgroundMountains.png" id="5_h4k0o"]
+[ext_resource type="Texture2D" uid="uid://brw6hn6se4u54" path="res://Assets/My Assets/Sprites/Other/Spikes.png" id="6_2bg4q"]
 [ext_resource type="Texture2D" uid="uid://dbi7ebibq4w18" path="res://Assets/My Assets/Tileset/BackgroundTrees.png" id="6_if51q"]
 [ext_resource type="PackedScene" uid="uid://d3hdve1decu6n" path="res://Scenes/Characters/Player.tscn" id="7_6igws"]
+[ext_resource type="Script" path="res://Scripts/Interactions/spikes.gd" id="7_51hv7"]
 [ext_resource type="PackedScene" uid="uid://c1beqtkqyu8x1" path="res://Scenes/Characters/Enemy.tscn" id="8_bqgf6"]
 [ext_resource type="PackedScene" uid="uid://kx84jcamypoo" path="res://Scenes/Pickups/HeartPickup.tscn" id="9_15s8u"]
 [ext_resource type="Texture2D" uid="uid://d2rcoxhj5bkkn" path="res://Assets/My Assets/Sprites/Info/Arrow.png" id="10_d5g63"]
@@ -16,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cr8vjckv3kn60" path="res://Scenes/Interactions/Door.tscn" id="12_gkqas"]
 [ext_resource type="Script" path="res://Scripts/Characters/plant wall.gd" id="14_hk7w1"]
 [ext_resource type="PackedScene" uid="uid://cb622jyw6o18c" path="res://Scenes/Interactions/DoorBlip.tscn" id="14_rlk3v"]
-[ext_resource type="Texture2D" uid="uid://cqqb2ywkcr2ty" path="res://Assets/My Assets/Sprites/Other/Peanut Plant Wall.png" id="14_sixig"]
+[ext_resource type="Texture2D" uid="uid://crf565h0dsyqv" path="res://Assets/My Assets/Sprites/Other/Peanut Plant Wall.png" id="14_sixig"]
 [ext_resource type="PackedScene" uid="uid://dhnm8lx1j2kko" path="res://Scenes/Interactions/DoorAppear.tscn" id="15_fhmyu"]
 [ext_resource type="Script" path="res://Scripts/Menus/text_popups_area2ds.gd" id="16_1pvuw"]
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/Components/HurtboxComponent.tscn" id="16_5gc33"]
@@ -77,6 +79,24 @@ tile_size = Vector2i(128, 128)
 sources/1 = SubResource("TileSetAtlasSource_3b8ni")
 sources/0 = SubResource("TileSetAtlasSource_p54g6")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_me8lr"]
+texture = ExtResource("6_2bg4q")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -7, -8, -7, -5, -1, -1, 13, 0, 13, 4, -1, 7, -7, 8, -7, 11, -1, 15, 13, 16, 16, -16, 16, -15, 12, -12, -1)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -7, -8, -7, -5, -1, -1, 13, 0, 13, 4, -1, 7, -7, 8, -7, 11, -1, 15, 13, 16, 16, -16, 16, -15, 12, -12, -1)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -6, 1, -6, 4, -1, 7, 12, 7, 15, -6, 15, -6, 12, -3, -1)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1, -5, 1, -5, 3, -1, 6, 12, 7, 12, 11, 1, 12, 1, 15, 9, 16, 15, -6, 15, -16, 15, -15, 9, -12, 1, -11, 1, -7, 12, -6, 12, -3, -1)
+
+[sub_resource type="TileSet" id="TileSet_exoaw"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 0
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_me8lr")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hq6uv"]
 texture = ExtResource("5_h4k0o")
 texture_region_size = Vector2i(64, 64)
@@ -115,18 +135,124 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_54hxx"]
 size = Vector2(38, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8dvre"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8xk0"]
+atlas = ExtResource("14_sixig")
+region = Rect2(192, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ut8lr"]
+atlas = ExtResource("14_sixig")
+region = Rect2(256, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6y08l"]
+atlas = ExtResource("14_sixig")
+region = Rect2(320, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4qxe"]
+atlas = ExtResource("14_sixig")
+region = Rect2(384, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0m4e"]
+atlas = ExtResource("14_sixig")
+region = Rect2(0, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnpsk"]
+atlas = ExtResource("14_sixig")
+region = Rect2(64, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w62s0"]
+atlas = ExtResource("14_sixig")
+region = Rect2(128, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owh8i"]
+atlas = ExtResource("14_sixig")
+region = Rect2(192, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miuxe"]
+atlas = ExtResource("14_sixig")
+region = Rect2(256, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq3yn"]
+atlas = ExtResource("14_sixig")
+region = Rect2(320, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7pfi"]
+atlas = ExtResource("14_sixig")
+region = Rect2(384, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg7na"]
 atlas = ExtResource("14_sixig")
 region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7h8ms"]
+atlas = ExtResource("14_sixig")
+region = Rect2(64, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1ggu"]
+atlas = ExtResource("14_sixig")
+region = Rect2(128, 0, 64, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vnpib"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8dvre")
+"texture": SubResource("AtlasTexture_w8xk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ut8lr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6y08l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4qxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0m4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnpsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w62s0")
+}, {
+"duration": 18.0,
+"texture": SubResource("AtlasTexture_owh8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miuxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq3yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7pfi")
+}],
+"loop": false,
+"name": &"death",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pg7na")
 }],
 "loop": false,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7h8ms")
+}],
+"loop": false,
+"name": &"default2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1ggu")
+}],
+"loop": false,
+"name": &"default3",
 "speed": 5.0
 }]
 
@@ -154,17 +280,11 @@ size = Vector2(864, 266)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxifh"]
 size = Vector2(102, 92)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7p3s"]
-size = Vector2(351, 125)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0w6l"]
+size = Vector2(96, 16.6667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1nxtw"]
 size = Vector2(351, 125)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwcc3"]
-size = Vector2(427, 126)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0w6l"]
-size = Vector2(20, 147)
 
 [node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_xhx20")
@@ -206,6 +326,12 @@ position = Vector2(0, 4)
 tile_map_data = PackedByteArray("AAANAAMAAAABAAAAAAAOAAMAAAACAAAAAAAPAAMAAAAAAAEAAAAQAAMAAAABAAEAAAARAAMAAAACAAEAAAACAAAAAAABAAAAAAADAAAAAAAAAAEAAAAEAAAAAAABAAEAAAAVAAMAAAABAAAAAAAWAAMAAAACAAAAAAAXAAMAAAAAAAEAAAAYAAMAAAABAAEAAAAZAAMAAAACAAEAAAAbAAEAAAABAAEAAABHAAMAAAABAAAAAABLAAMAAAACAAEAAABIAAMAAAACAAAAAABMAAMAAAACAAAAAAASAAIAAAACAAAAAAAUAAIAAAACAAAAAAAlAAUAAAACAAAAAAAmAAUAAAABAAAAAAApAAUAAAAAAAEAAAArAAUAAAACAAAAAAAvAAQAAAACAAAAAAA0AAYAAAACAAAAAAA1AAYAAAAAAAEAAAA3AAYAAAACAAAAAAA4AAYAAAABAAEAAAA5AAYAAAACAAEAAAA6AAYAAAAAAAEAAAA7AAYAAAABAAAAAAA8AAYAAAACAAAAAAA9AAYAAAACAAEAAAA+AAYAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_vsa82")
 
+[node name="SpikesTileMap" type="TileMapLayer" parent="."]
+position = Vector2(24, -7)
+tile_map_data = PackedByteArray("AACpADcAAAAAAAAAAACiADYAAAABAAEAAFCmADcAAAAAAAAAAACiADUAAAABAAEAAFA=")
+tile_set = SubResource("TileSet_exoaw")
+script = ExtResource("7_51hv7")
+
 [node name="GroundPiece" type="StaticBody2D" parent="."]
 position = Vector2(7292, 730)
 collision_mask = 0
@@ -227,7 +353,7 @@ tile_map_data = PackedByteArray("AAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAA
 tile_set = SubResource("TileSet_83k2e")
 
 [node name="Player" parent="." instance=ExtResource("7_6igws")]
-position = Vector2(6810, 834)
+position = Vector2(5314, 1775)
 double_jumps = 0
 log_movement = false
 
@@ -438,51 +564,30 @@ script = ExtResource("16_1pvuw")
 position = Vector2(0, 63)
 shape = SubResource("RectangleShape2D_qxifh")
 
-[node name="Text Popups8 combo attack1" parent="." instance=ExtResource("16_mg6ai")]
-position = Vector2(6900, 730)
-text = "combo attack controls1"
-
-[node name="Area2D" type="Area2D" parent="Text Popups8 combo attack1"]
-script = ExtResource("16_1pvuw")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups8 combo attack1/Area2D"]
-position = Vector2(73.5, 46.5)
-shape = SubResource("RectangleShape2D_j7p3s")
-
-[node name="Text Popups9 plus" parent="." instance=ExtResource("16_mg6ai")]
-position = Vector2(6978, 730)
-text = "plus"
-
-[node name="Area2D" type="Area2D" parent="Text Popups9 plus"]
-script = ExtResource("16_1pvuw")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups9 plus/Area2D"]
-position = Vector2(2.5, 46.5)
-shape = SubResource("RectangleShape2D_1nxtw")
-
-[node name="Text Popups10 combo attack2" parent="." instance=ExtResource("16_mg6ai")]
-position = Vector2(7052, 730)
-text = "combo attack controls2"
-
-[node name="Area2D" type="Area2D" parent="Text Popups10 combo attack2"]
-script = ExtResource("16_1pvuw")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups10 combo attack2/Area2D"]
-position = Vector2(-114.5, 47)
-shape = SubResource("RectangleShape2D_jwcc3")
-
-[node name="Text Popups11 combo attack" parent="." instance=ExtResource("16_mg6ai")]
-position = Vector2(6978, 958)
+[node name="Text Popups8 combo attack" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(6978, 940)
 scale = Vector2(1.5, 1.5)
 text = "combo attack"
 
-[node name="Area2D" type="Area2D" parent="Text Popups11 combo attack"]
+[node name="Area2D" type="Area2D" parent="Text Popups8 combo attack"]
 script = ExtResource("16_1pvuw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups11 combo attack/Area2D"]
-position = Vector2(0, -63.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups8 combo attack/Area2D"]
+position = Vector2(0, -63)
 shape = SubResource("RectangleShape2D_k0w6l")
 
+[node name="Text Popups unused" parent="." instance=ExtResource("16_mg6ai")]
+position = Vector2(9032, 1009)
+text = "plus"
+
+[node name="Area2D" type="Area2D" parent="Text Popups unused"]
+script = ExtResource("16_1pvuw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Text Popups unused/Area2D"]
+position = Vector2(2.5, 46.5)
+shape = SubResource("RectangleShape2D_1nxtw")
+
+[connection signal="animation_finished" from="Plant Wall/Plant Wall" to="Plant Wall" method="_on_plant_wall_animation_finished"]
 [connection signal="update_checkpoint" from="Checkpoint" to="." method="_on_checkpoint_update_checkpoint"]
 [connection signal="body_entered" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popup jump higher/Area2D2" to="Text Popup jump higher/Area2D2" method="_on_body_exited"]
@@ -498,11 +603,7 @@ shape = SubResource("RectangleShape2D_k0w6l")
 [connection signal="body_exited" from="Text Popups6 attack controls/Area2D" to="Text Popups6 attack controls/Area2D" method="_on_body_exited"]
 [connection signal="body_entered" from="Text Popups7 eArrow/Area2D" to="Text Popups7 eArrow/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Text Popups7 eArrow/Area2D" to="Text Popups7 eArrow/Area2D" method="_on_body_exited"]
-[connection signal="body_entered" from="Text Popups8 combo attack1/Area2D" to="Text Popups8 combo attack1/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Text Popups8 combo attack1/Area2D" to="Text Popups8 combo attack1/Area2D" method="_on_body_exited"]
-[connection signal="body_entered" from="Text Popups9 plus/Area2D" to="Text Popups9 plus/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Text Popups9 plus/Area2D" to="Text Popups9 plus/Area2D" method="_on_body_exited"]
-[connection signal="body_entered" from="Text Popups10 combo attack2/Area2D" to="Text Popups10 combo attack2/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Text Popups10 combo attack2/Area2D" to="Text Popups10 combo attack2/Area2D" method="_on_body_exited"]
-[connection signal="body_entered" from="Text Popups11 combo attack/Area2D" to="Text Popups11 combo attack/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Text Popups11 combo attack/Area2D" to="Text Popups11 combo attack/Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="Text Popups8 combo attack/Area2D" to="Text Popups8 combo attack/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups8 combo attack/Area2D" to="Text Popups8 combo attack/Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="Text Popups unused/Area2D" to="Text Popups unused/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Text Popups unused/Area2D" to="Text Popups unused/Area2D" method="_on_body_exited"]

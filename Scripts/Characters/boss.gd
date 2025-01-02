@@ -53,9 +53,10 @@ func _ready():
 func _reset_stagger():
 	will_stagger = true
 	#Color flash, then "white" back to normal
-	animated_sprite.modulate = Color.AQUA
-	await get_tree().create_timer(0.1).timeout
-	animated_sprite.modulate = Color.WHITE
+	if not dead:
+		animated_sprite.modulate = Color.AQUA
+		await get_tree().create_timer(0.1).timeout
+		animated_sprite.modulate = Color.WHITE
 
 func _physics_process(delta):
 	if dead:
@@ -122,7 +123,7 @@ func _hit(attack: Attack):
 	#If the Boss will stagger this hit, set the hurting_cooldown to a higher value
 	#and play the stagger animation. Also start the stagger_timer to emulate a
 	#period when the Boss will not stagger for.
-	if will_stagger:
+	if will_stagger and not dead:
 		getting_hit = true
 		#Amount of time staggered (frames)
 		hurting_cooldown = 160
@@ -141,13 +142,14 @@ func _hit(attack: Attack):
 		#animated_sprite.play("hurting")
 		
 	#Color red flash, then Orange while staggered
-	animated_sprite.modulate = Color.RED
-	await get_tree().create_timer(0.12).timeout
-	animated_sprite.modulate = Color(1, 0.67, 0.25, 1)
-	print("Boss hit")
-	#Set will_stagger to false, regardless, as it will only be true when stagger_timer
-	#has hit timeout
-	will_stagger = false
+	if not dead:
+		animated_sprite.modulate = Color.RED
+		await get_tree().create_timer(0.12).timeout
+		animated_sprite.modulate = Color(1, 0.67, 0.25, 1)
+		print("Boss hit")
+		#Set will_stagger to false, regardless, as it will only be true when stagger_timer
+		#has hit timeout
+		will_stagger = false
 	
 func _look_left():
 	weapon.change_direction("left")
