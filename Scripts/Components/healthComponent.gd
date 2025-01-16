@@ -36,3 +36,6 @@ func heal(healValue):
 
 func update_healthbar():
 	healthbar_component.update(HEALTH)
+	
+func check_health():
+	return HEALTH;

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 boss_idle="*res://Scripts/Components/States/boss_idle.gd"
 InteractionManager="*res://Scenes/Interactions/InteractionManager.tscn"
+SignalBus="*res://Scripts/Components/signal_bus.gd"
 
 [debug]
 

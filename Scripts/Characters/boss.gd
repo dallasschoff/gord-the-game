@@ -12,12 +12,14 @@ var SPEED = 60
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $BossSprite
 @onready var collision_box = $CollisionPlayer
+@onready var healthComponent = $HealthComponent
 @export var next_stagger_time: float = 10.0
 @export var raycasts: Node2D
 @export var wall_raycast: RayCast2D
 @export var floor_raycast: RayCast2D
 @export var weapon: Weapon
-@export var HeartPickup: PackedScene
+@export var BossPickup: PackedScene
+@export var Minion: PackedScene
 @export var Meteor: PackedScene
 @export var Wall: PackedScene
 
@@ -38,6 +40,7 @@ var stagger_timer: Timer
 var will_stagger = true
 var gooning = false
 var dead = false
+var minions_spawned = 0
 
 var wall_offset
 
@@ -151,6 +154,21 @@ func _hit(attack: Attack):
 		#has hit timeout
 		will_stagger = false
 	
+	if minions_spawned < 1 and healthComponent.check_health() <= healthComponent.MAX_HEALTH * 0.75:
+		var minion = Minion.instantiate()
+		minion.position = Vector2(8280, 0)
+		get_node("..").add_child(minion)
+		minions_spawned += 1
+		
+	if minions_spawned < 2 and healthComponent.check_health() <= healthComponent.MAX_HEALTH * 0.5:
+		var minion1 = Minion.instantiate()
+		var minion2 = Minion.instantiate()
+		minion1.position = Vector2(8280, 0)
+		minion2.position = Vector2(7280, 0)
+		get_node("..").add_child(minion1)
+		get_node("..").add_child(minion2)
+		minions_spawned += 1
+	
 func _look_left():
 	weapon.change_direction("left")
 	animated_sprite.flip_h = false
@@ -166,13 +184,11 @@ func _die():
 		return
 	dead = true
 	animated_sprite.play("death")
-	var heart = HeartPickup.instantiate()
-	heart.healValue = 50.0
-	heart.heartScale = Vector2(2,2)
-	heart.scaleTime = 1.5
-	heart.position = Vector2(position.x, position.y-8)
-	get_node("..").add_child(heart)
-	
+	collision_box.get_child(0).set_deferred("disabled", true)
+	weapon.get_child(0).set_deferred("disabled", true)
+	var bossPickup = BossPickup.instantiate()
+	bossPickup.position = Vector2(position.x, position.y-8)
+	get_node("..").add_child(bossPickup)
 	
 func _attack():
 	if not getting_hit and not gooning:

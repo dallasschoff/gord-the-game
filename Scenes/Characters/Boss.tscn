@@ -1,8 +1,9 @@
-[gd_scene load_steps=132 format=3 uid="uid://8g3jtf213pi0"]
+[gd_scene load_steps=133 format=3 uid="uid://8g3jtf213pi0"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/boss.gd" id="1_jjnmy"]
 [ext_resource type="Texture2D" uid="uid://m4ofpyjg5tc5" path="res://Assets/My Assets/Sprites/PB Gord/PB_gord_char_1.png" id="2_lr6p8"]
-[ext_resource type="PackedScene" uid="uid://kx84jcamypoo" path="res://Scenes/Pickups/HeartPickup.tscn" id="2_yg40c"]
+[ext_resource type="PackedScene" uid="uid://cccx457sebyr6" path="res://Scenes/Pickups/BossPickup.tscn" id="2_x2ux0"]
+[ext_resource type="PackedScene" uid="uid://c1beqtkqyu8x1" path="res://Scenes/Characters/Enemy.tscn" id="3_8msu3"]
 [ext_resource type="PackedScene" uid="uid://dl2xhvrh1ay6f" path="res://Scenes/Characters/Attacks/PB Meteor.tscn" id="3_detdo"]
 [ext_resource type="Texture2D" uid="uid://bye5lsmj5beyv" path="res://Assets/My Assets/Sprites/PB Gord/PB Gord Swing Attack.png" id="3_ieg1d"]
 [ext_resource type="PackedScene" uid="uid://bi17htw7utwlx" path="res://Scenes/Components/HealthBarComponent.tscn" id="3_whs26"]
@@ -829,7 +830,8 @@ raycasts = NodePath("RayCasts")
 wall_raycast = NodePath("RayCasts/WallRayCast")
 floor_raycast = NodePath("RayCasts/FloorRayCast")
 weapon = NodePath("Sword")
-HeartPickup = ExtResource("2_yg40c")
+BossPickup = ExtResource("2_x2ux0")
+Minion = ExtResource("3_8msu3")
 Meteor = ExtResource("3_detdo")
 Wall = ExtResource("4_47st7")
 
@@ -867,7 +869,7 @@ texture_under = ExtResource("4_tc4oc")
 texture_progress = ExtResource("5_erdil")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("6_w40hd")]
-MAX_HEALTH = 280.0
+MAX_HEALTH = 150.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 animated_sprite = NodePath("../BossSprite")

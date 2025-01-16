@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://cccx457sebyr6"]
+
+[ext_resource type="Texture2D" uid="uid://b61ioyr0c0gxf" path="res://Assets/My Assets/Sprites/Items/pickups.png" id="1_8gm12"]
+[ext_resource type="Script" path="res://Scripts/Pickups/boss_pickup.gd" id="2_ho6w8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yag51"]
+atlas = ExtResource("1_8gm12")
+region = Rect2(0, 29, 56, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nwlp"]
+atlas = ExtResource("1_8gm12")
+region = Rect2(56, 29, 56, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u83c"]
+atlas = ExtResource("1_8gm12")
+region = Rect2(112, 29, 56, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ksc3m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yag51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nwlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6u83c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nwlp")
+}],
+"loop": true,
+"name": &"spinning",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mw65b"]
+radius = 8.65061
+
+[node name="BossPickup" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ksc3m")
+animation = &"spinning"
+frame_progress = 0.908027
+speed_scale = 1.25
+offset = Vector2(1.5, 0)
+script = ExtResource("2_ho6w8")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = 8
+shape = SubResource("CircleShape2D_mw65b")
+disabled = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]

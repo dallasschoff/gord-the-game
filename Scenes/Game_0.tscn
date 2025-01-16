@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://7dqbt8amwd7m"]
+[gd_scene load_steps=6 format=3 uid="uid://7dqbt8amwd7m"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_pkftk"]
 [ext_resource type="PackedScene" uid="uid://c0t7kx5cm5w8v" path="res://Scenes/Cells/World.tscn" id="2_25qp0"]
 [ext_resource type="PackedScene" uid="uid://lgnapwcoon1c" path="res://Scenes/Menus/MainMenu.tscn" id="2_j63dr"]
 [ext_resource type="PackedScene" uid="uid://cjvcbbgb6dviw" path="res://Scenes/Menus/DeathTransition.tscn" id="4_3sb3v"]
+[ext_resource type="Texture2D" uid="uid://omiie1g75cti" path="res://Assets/My Assets/Sprites/Info/Win Screen.png" id="5_dr2uf"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_pkftk")
@@ -16,5 +17,11 @@ layer = 2
 
 [node name="Transitioner" parent="CanvasLayer" instance=ExtResource("4_3sb3v")]
 scene_to_load = ExtResource("2_j63dr")
+
+[node name="EndScreen" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(576, 324)
+scale = Vector2(1.55676, 1.55769)
+texture = ExtResource("5_dr2uf")
 
 [connection signal="start_game" from="CanvasLayer/MainMenuComponent" to="." method="start_game"]
