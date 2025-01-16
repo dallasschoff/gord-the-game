@@ -10,5 +10,5 @@ func update(health):
 	var slow = difference * 0.25
 	value += chunk
 	tween = get_tree().create_tween()
-	tween.parallel().tween_property(self, "value", value + slow, 0.5)
+	tween.parallel().tween_property(self, "value", value + slow, 0.25)
 	print("Updating health for %s" % get_owner().name)

@@ -869,7 +869,7 @@ texture_under = ExtResource("4_tc4oc")
 texture_progress = ExtResource("5_erdil")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("6_w40hd")]
-MAX_HEALTH = 150.0
+MAX_HEALTH = 280.0
 healthbar_component = NodePath("../HealthBarComponent")
 entity = NodePath("..")
 animated_sprite = NodePath("../BossSprite")

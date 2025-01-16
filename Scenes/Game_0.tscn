@@ -20,8 +20,8 @@ scene_to_load = ExtResource("2_j63dr")
 
 [node name="EndScreen" type="Sprite2D" parent="CanvasLayer"]
 visible = false
-position = Vector2(576, 324)
-scale = Vector2(1.55676, 1.55769)
+position = Vector2(959.999, 540)
+scale = Vector2(2.5946, 2.59615)
 texture = ExtResource("5_dr2uf")
 
 [connection signal="start_game" from="CanvasLayer/MainMenuComponent" to="." method="start_game"]

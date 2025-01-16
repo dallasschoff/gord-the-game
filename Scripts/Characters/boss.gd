@@ -156,15 +156,15 @@ func _hit(attack: Attack):
 	
 	if minions_spawned < 1 and healthComponent.check_health() <= healthComponent.MAX_HEALTH * 0.75:
 		var minion = Minion.instantiate()
-		minion.position = Vector2(8280, 0)
+		minion.position = Vector2(7800, -50)
 		get_node("..").add_child(minion)
 		minions_spawned += 1
 		
 	if minions_spawned < 2 and healthComponent.check_health() <= healthComponent.MAX_HEALTH * 0.5:
 		var minion1 = Minion.instantiate()
 		var minion2 = Minion.instantiate()
-		minion1.position = Vector2(8280, 0)
-		minion2.position = Vector2(7280, 0)
+		minion1.position = Vector2(8100, -50)
+		minion2.position = Vector2(7530, -50)
 		get_node("..").add_child(minion1)
 		get_node("..").add_child(minion2)
 		minions_spawned += 1
