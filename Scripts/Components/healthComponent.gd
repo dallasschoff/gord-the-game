@@ -17,7 +17,7 @@ func _ready():
 func damage(attack: Attack):
 	HEALTH -= attack.attack_damage
 	update_healthbar()
-	print("%s's Health: %s" % [get_owner().name, HEALTH])
+	print("%s's Health: %s" % [get_parent().name, HEALTH])
 	if HEALTH <= 0:
 		entity._die()
 	
@@ -32,7 +32,7 @@ func heal(healValue):
 	animated_sprite.modulate = Color.GREEN
 	await get_tree().create_timer(0.4).timeout
 	animated_sprite.modulate = Color.WHITE
-	print("%s's Health: %s" % [get_owner().name, HEALTH])
+	#print("%s's Health: %s" % [get_parent().name, HEALTH])
 
 func update_healthbar():
 	healthbar_component.update(HEALTH)

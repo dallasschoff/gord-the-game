@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://d3hdve1decu6n"]
+[gd_scene load_steps=98 format=3 uid="uid://d3hdve1decu6n"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_45wk2"]
 [ext_resource type="Texture2D" uid="uid://c3jrvx67cc48f" path="res://Assets/My Assets/Sprites/Gord/gord_char_2.png" id="3_p2441"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cp67ewug8827e" path="res://Scenes/Components/HurtboxComponent.tscn" id="8_hyne7"]
 [ext_resource type="PackedScene" uid="uid://dl2xhvrh1ay6f" path="res://Scenes/Characters/Attacks/PB Meteor.tscn" id="11_wg183"]
 [ext_resource type="PackedScene" uid="uid://vqd0krlia0ti" path="res://Scenes/Components/Hitspark.tscn" id="12_b3g34"]
+[ext_resource type="Script" path="res://Scripts/Interactions/hazard_box.gd" id="12_oykgn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6qfi5"]
 height = 32.0
@@ -665,6 +666,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ufp0"]
 size = Vector2(26, 32)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y7x43"]
+radius = 14.0
+height = 34.0
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon") groups=["Player"]]
 collision_layer = 136
 collision_mask = 137
@@ -683,7 +688,7 @@ debug_color = Color(0.998424, 0, 0.145558, 0.419608)
 z_index = 6
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_4yqe8")
-animation = &"running_attack"
+animation = &"running"
 
 [node name="AnimatedSpritePuff" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 position = Vector2(-2.333, 35)
@@ -732,7 +737,7 @@ animated_sprite = NodePath("../AnimatedSprite2D")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("8_hyne7")]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 health_component = NodePath("../HealthComponent")
 entity = NodePath("..")
 
@@ -741,7 +746,7 @@ position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_3ufp0")
 
 [node name="Sword" parent="." node_paths=PackedStringArray("attack_area") instance=ExtResource("7_w7s6t")]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 attack_damage = 12.0
 attack_area = NodePath("SwordHitboxPoly")
@@ -750,6 +755,16 @@ attack_area = NodePath("SwordHitboxPoly")
 position = Vector2(15, 0)
 polygon = PackedVector2Array(13, -4, -24, 0, -25, -18, 5, -17)
 
+[node name="HazardBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("12_oykgn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardBox"]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_y7x43")
+debug_color = Color(0.756128, 0.448881, 0.211136, 0.42)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -64)
 zoom = Vector2(2.6, 2.6)
@@ -757,8 +772,11 @@ limit_left = 0
 limit_top = 32
 position_smoothing_enabled = true
 
-[node name="Hitspark" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("12_b3g34")]
+[node name="Hitspark" parent="." node_paths=PackedStringArray("entity", "entityHazard") instance=ExtResource("12_b3g34")]
 position = Vector2(22, -7)
 entity = NodePath("../Sword")
+entityHazard = NodePath("../HazardBox")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]
+[connection signal="area_entered" from="HurtboxComponent" to="HurtboxComponent" method="_on_area_entered"]
+[connection signal="body_entered" from="HazardBox" to="HazardBox" method="_on_body_entered"]

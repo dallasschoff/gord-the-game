@@ -99,6 +99,7 @@ test_button1={
 2d_physics/layer_2="Player Hurtbox"
 2d_physics/layer_3="Enemy Hurtbox"
 2d_physics/layer_4="Character Collision"
+2d_physics/layer_5="Hazard"
 2d_physics/layer_8="Interactions"
 
 [rendering]

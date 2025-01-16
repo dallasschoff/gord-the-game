@@ -4,10 +4,12 @@ extends Node2D
 var angle : int
 var amount : int
 @export var entity: Area2D
+@export var entityHazard: Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	entity.connect("hitspark_signal", _emit_hitspark) #From weapon
+	entityHazard.connect("hitspark_signal", _emit_hitspark) #From hazard
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

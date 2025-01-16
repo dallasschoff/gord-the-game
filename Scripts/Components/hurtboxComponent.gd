@@ -1,6 +1,7 @@
 extends Area2D
 class_name HurtboxComponent
 
+signal hitspark_signal 
 @export var health_component : HealthComponent
 @export var entity: CharacterBody2D
 
